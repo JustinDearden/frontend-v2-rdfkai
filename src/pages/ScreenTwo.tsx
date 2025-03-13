@@ -1,10 +1,27 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, useParams } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import Card from '../components/Card';
 import { Applicant } from '../types';
-import { useApplication } from '../context/ApplicationContext';
+import { useApplicationById } from '../hooks/useApplicationById';
 import { useUpdateApplicants } from '../hooks/useUpdateApplicants';
+import { useSelectedProduct } from '../context/SelectedProductContext';
+import { CardProduct } from '../pages/ScreenOne';
+
+// Conversion helper for MortgageProduct from context
+const toCardProduct = (product: {
+  id: number;
+  name: string;
+  type: 'FIXED' | 'VARIABLE';
+  bestRate: number;
+  lenderName: string;
+}): CardProduct => ({
+  id: product.id,
+  type: product.type === 'FIXED' ? 'Fixed' : 'Variable',
+  productName: product.name,
+  bestRate: product.bestRate,
+  bestLender: product.lenderName,
+});
 
 type FormData = {
   firstName: string;
@@ -15,22 +32,55 @@ type FormData = {
 
 const ScreenTwo = () => {
   const navigate = useNavigate();
-  const { application } = useApplication();
+  const { appId } = useParams({ from: '/edit/$appId' });
+  const { selectedProduct } = useSelectedProduct();
+
+  const { data: application, isLoading, error } = useApplicationById(appId);
   const updateApplicants = useUpdateApplicants();
-  const { register, handleSubmit } = useForm<FormData>();
+
+  // Initialize the form with react-hook-form
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm<FormData>({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+    },
+  });
 
   useEffect(() => {
-    console.log('Component mounted on page load');
+    if (application && application.applicants.length > 0 && !isDirty) {
+      const applicant = application.applicants[0];
+      reset({
+        firstName: applicant.firstName || '',
+        lastName: applicant.lastName || '',
+        email: applicant.email || '',
+        phone: applicant.phone || '',
+      });
+    }
+  }, [application, reset, isDirty]);
 
-    // Optional cleanup function
-    return () => {
-      console.log('Component will unmount');
-    };
-  }, []);
-
-  if (!application) {
+  if (isLoading) return <div>Loading application...</div>;
+  if (error || !application) {
     return (
-      <div>No application found. Please go back and select a product.</div>
+      <div>
+        No application found. Please go back and select a product.
+        <button onClick={() => navigate({ to: '/' })}>Go Back</button>
+      </div>
+    );
+  }
+
+  if (!selectedProduct) {
+    return (
+      <div>
+        No product selected. Please go back and select a product.
+        <button onClick={() => navigate({ to: '/' })}>Go Back</button>
+      </div>
     );
   }
 
@@ -41,28 +91,15 @@ const ScreenTwo = () => {
     });
   };
 
-  const handleReturn = () => {
-    navigate({ to: '/' });
-  };
-
   return (
     <div>
-      <h1>Screen Two</h1>
+      <h1>Edit Application</h1>
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-        {/* Left side: Displaying product information */}
+        {/* Left side: Display product information from the context */}
         <div>
-          {/* You can enhance this component to show additional product details */}
-          <Card
-            product={{
-              id: application.productId?.toString() || '',
-              type: 'Fixed', // If you need to store type, include it in the application or another context
-              productName: 'Product Name Placeholder',
-              bestRate: 0,
-              bestLender: 'Lender Placeholder',
-            }}
-          />
+          <Card product={toCardProduct(selectedProduct)} onSelect={() => {}} />
         </div>
-        {/* Right side: Form to capture applicant data */}
+        {/* Right side: Form to update applicant information */}
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
@@ -95,7 +132,7 @@ const ScreenTwo = () => {
           </form>
         </div>
       </div>
-      <button onClick={handleReturn}>Return</button>
+      <button onClick={() => navigate({ to: '/' })}>Return</button>
     </div>
   );
 };
