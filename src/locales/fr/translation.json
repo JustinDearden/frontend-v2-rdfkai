@@ -1,0 +1,9 @@
+{
+  "welcome": "Bienvenue dans notre application hypothécaire",
+  "selectProduct": "Sélectionnez un produit hypothécaire",
+  "updateContact": "Mettre à jour les informations de contact",
+  "firstName": "Prénom",
+  "lastName": "Nom",
+  "email": "E-mail",
+  "phone": "Téléphone"
+}
