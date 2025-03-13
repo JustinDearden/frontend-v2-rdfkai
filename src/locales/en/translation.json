@@ -1,0 +1,9 @@
+{
+  "welcome": "Welcome to our Mortgage App",
+  "selectProduct": "Select a Mortgage Product",
+  "updateContact": "Update Contact Information",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email",
+  "phone": "Phone"
+}

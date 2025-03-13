@@ -14,8 +14,12 @@
   "dependencies": {
     "@tanstack/react-query": "^5.67.3",
     "@tanstack/react-router": "^1.114.17",
+    "axios": "^1.8.3",
+    "i18next": "^24.2.2",
+    "i18next-http-backend": "^3.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-i18next": "^15.4.1",
     "sass": "^1.85.1",
     "styled-components": "^6.1.15"
   },
