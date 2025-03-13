@@ -5,8 +5,8 @@ import Card from '../components/Card';
 import { Applicant } from '../types';
 import { useApplicationById } from '../hooks/useApplicationById';
 import { useUpdateApplicants } from '../hooks/useUpdateApplicants';
-import { useSelectedProduct } from '../context/SelectedProductContext';
 import { toCardProduct } from '../helper/productHelpers';
+import { useSelectedProduct } from '../hooks/useSelectedProduct';
 
 interface FormData {
   firstName: string;
@@ -88,7 +88,11 @@ const ScreenTwo: React.FC = () => {
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
         {/* Left side: Display product information from context */}
         <div>
-          <Card product={toCardProduct(selectedProduct)} onSelect={() => {}} />
+          <Card
+            product={toCardProduct(selectedProduct)}
+            onSelect={() => navigate({ to: '/' })}
+            buttonLabel="Return"
+          />
         </div>
         {/* Right side: Form to update applicant information */}
         <div>
@@ -123,7 +127,9 @@ const ScreenTwo: React.FC = () => {
           </form>
         </div>
       </div>
-      <button onClick={() => navigate({ to: '/' })}>Return</button>
+      <button onClick={() => navigate({ to: '/applications' })}>
+        Select another application
+      </button>
     </div>
   );
 };

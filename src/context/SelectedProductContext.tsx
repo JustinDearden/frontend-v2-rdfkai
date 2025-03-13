@@ -1,61 +1,28 @@
-import { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useMemo } from 'react';
+import { Product } from '../types';
 
-export interface MortgageProduct {
-  id: number;
-  name: string;
-  family: string;
-  type: 'VARIABLE' | 'FIXED';
-  term: string;
-  insurable: boolean;
-  insurance: string; // e.g., "CONVENTIONAL"
-  prepaymentOption: string; // e.g., "STANDARD" or "ENHANCED"
-  restrictionsOption: string; // e.g., "SOME_RESTRICTIONS" or "NO_RESTRICTIONS"
-  restrictions: string;
-  fixedPenaltySpread: string; // e.g., "SMALL_PENALTY" or "BANK_PENALTY"
-  helocOption: string; // e.g., "HELOC_WITHOUT"
-  helocDelta: number;
-  lenderName: string;
-  lenderType: string; // e.g., "MONOLINE" or "BIG_BANK"
-  rateHold: string; // e.g., "120_DAYS", "90_DAYS", etc.
-  rate: number;
-  ratePrimeVariance: number;
-  bestRate: number;
-  created: string; // ISO date string
-  updated: string; // ISO date string
+export interface SelectedProductContextValue {
+  selectedProduct: Product | null;
+  setSelectedProduct: (product: Product | null) => void;
 }
 
-interface SelectedProductContextValue {
-  selectedProduct: MortgageProduct | null;
-  setSelectedProduct: (product: MortgageProduct | null) => void;
-}
-
-const SelectedProductContext = createContext<
+export const SelectedProductContext = createContext<
   SelectedProductContextValue | undefined
 >(undefined);
 
-export const SelectedProductProvider = ({
+export const SelectedProductProvider: React.FC<{ children: ReactNode }> = ({
   children,
-}: {
-  children: ReactNode;
 }) => {
-  const [selectedProduct, setSelectedProduct] =
-    useState<MortgageProduct | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const value = useMemo(
+    () => ({ selectedProduct, setSelectedProduct }),
+    [selectedProduct],
+  );
 
   return (
-    <SelectedProductContext.Provider
-      value={{ selectedProduct, setSelectedProduct }}
-    >
+    <SelectedProductContext.Provider value={value}>
       {children}
     </SelectedProductContext.Provider>
   );
-};
-
-export const useSelectedProduct = () => {
-  const context = useContext(SelectedProductContext);
-  if (!context) {
-    throw new Error(
-      'useSelectedProduct must be used within a SelectedProductProvider',
-    );
-  }
-  return context;
 };

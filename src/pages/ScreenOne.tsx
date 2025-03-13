@@ -4,9 +4,9 @@ import { useNavigate } from '@tanstack/react-router';
 import Card from '../components/Card';
 import { useProducts } from '../hooks/useProduct';
 import { useCreateApplication } from '../hooks/useCreateApplication';
-import { useSelectedProduct } from '../context/SelectedProductContext';
 import { Product } from '../types';
 import { organizeProducts, toCardProduct } from '../helper/productHelpers';
+import { useSelectedProduct } from '../hooks/useSelectedProduct';
 
 const ScreenOne: React.FC = () => {
   const { t } = useTranslation();

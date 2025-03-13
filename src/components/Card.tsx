@@ -3,10 +3,15 @@ import { CardProduct } from '../types';
 
 export interface CardProps {
   product: CardProduct;
-  onSelect: () => void;
+  onSelect?: () => void;
+  buttonLabel?: string;
 }
 
-const Card = ({ product, onSelect }: CardProps): JSX.Element => (
+const Card = ({
+  product,
+  onSelect,
+  buttonLabel = 'Select',
+}: CardProps): JSX.Element => (
   <div className="card">
     <p>
       <strong>Type:</strong> {product.type}
@@ -20,7 +25,7 @@ const Card = ({ product, onSelect }: CardProps): JSX.Element => (
     <p>
       <strong>Best Lender:</strong> {product.lenderName}
     </p>
-    <button onClick={onSelect}>Select</button>
+    {onSelect && <button onClick={onSelect}>{buttonLabel}</button>}
   </div>
 );
 
