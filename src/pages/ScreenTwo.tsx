@@ -8,6 +8,7 @@ import { useUpdateApplicants } from '../hooks/useUpdateApplicants';
 import { toCardProduct } from '../helper/productHelpers';
 import { useProducts } from '../hooks/useProduct';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
+import { useRateLimit } from '../hooks/useThrottle';
 
 interface FormData {
   firstName: string;
@@ -30,15 +31,13 @@ const ScreenTwo: React.FC = () => {
     reset,
     formState: { isDirty },
   } = useForm<FormData>({
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-    },
+    defaultValues: { firstName: '', lastName: '', email: '', phone: '' },
   });
 
-  // Pre-populate form with applicant data if available.
+  // Use rate limiting: allow up to 3 clicks in 5 seconds.
+  const { isRateLimited, registerClick } = useRateLimit(3, 5000);
+
+  // Pre-populate form if applicant data is available.
   useEffect(() => {
     if (application && application.applicants.length > 0 && !isDirty) {
       const { firstName, lastName, email, phone } = application.applicants[0];
@@ -51,21 +50,22 @@ const ScreenTwo: React.FC = () => {
     }
   }, [application, isDirty, reset]);
 
-  // If no product is in context, try to match using application.productId and cached products.
+  // Update selected product based on application.productId.
   useEffect(() => {
     if (application?.productId && products?.length) {
       const matchedProduct = products.find(
         (p) => p.id === application.productId,
       );
-      // Update the selected product if it doesn't match the new application's productId.
       if (matchedProduct && selectedProduct?.id !== matchedProduct.id) {
         setSelectedProduct(matchedProduct);
       }
     }
-  }, [application, products, setSelectedProduct, selectedProduct]);
+  }, [application, products, selectedProduct, setSelectedProduct]);
 
   const onSubmit: SubmitHandler<FormData> = useCallback(
     (data: FormData) => {
+      registerClick();
+      if (isRateLimited) return;
       if (application) {
         updateApplicants({
           applicationId: application.id,
@@ -73,7 +73,7 @@ const ScreenTwo: React.FC = () => {
         });
       }
     },
-    [application, updateApplicants],
+    [application, isRateLimited, registerClick, updateApplicants],
   );
 
   if (isLoading) return <div>Loading application...</div>;
@@ -86,7 +86,6 @@ const ScreenTwo: React.FC = () => {
     );
   }
 
-  // Determine the product to display: either from context or from cached products.
   const productToDisplay =
     selectedProduct ??
     products?.find((p) => p.id === application.productId) ??
@@ -108,7 +107,7 @@ const ScreenTwo: React.FC = () => {
     <div>
       <h1>Edit Application</h1>
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-        {/* Left side: Display associated product */}
+        {/* Display associated product */}
         <div>
           <Card
             product={toCardProduct(productToDisplay)}
@@ -116,7 +115,7 @@ const ScreenTwo: React.FC = () => {
             buttonLabel="Return"
           />
         </div>
-        {/* Right side: Form for applicant information */}
+        {/* Form for applicant information */}
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
@@ -145,7 +144,9 @@ const ScreenTwo: React.FC = () => {
               <label htmlFor="phone">Phone</label>
               <input id="phone" {...register('phone', { required: true })} />
             </div>
-            <button type="submit">Save</button>
+            <button type="submit" disabled={isRateLimited}>
+              {isRateLimited ? 'Rate limited, wait...' : 'Save'}
+            </button>
           </form>
         </div>
       </div>
