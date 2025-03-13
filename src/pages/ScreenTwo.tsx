@@ -6,6 +6,7 @@ import { Applicant } from '../types';
 import { useApplicationById } from '../hooks/useApplicationById';
 import { useUpdateApplicants } from '../hooks/useUpdateApplicants';
 import { toCardProduct } from '../helper/productHelpers';
+import { useProducts } from '../hooks/useProduct';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
 
 interface FormData {
@@ -18,9 +19,9 @@ interface FormData {
 const ScreenTwo: React.FC = () => {
   const navigate = useNavigate();
   const { appId } = useParams({ from: '/edit/$appId' });
-  const { selectedProduct } = useSelectedProduct();
-
+  const { selectedProduct, setSelectedProduct } = useSelectedProduct();
   const { data: application, isLoading, error } = useApplicationById(appId);
+  const { data: products } = useProducts();
   const { mutate: updateApplicants } = useUpdateApplicants();
 
   const {
@@ -37,7 +38,7 @@ const ScreenTwo: React.FC = () => {
     },
   });
 
-  // Pre-populate form fields if an applicant exists and the user hasn't modified the form.
+  // Pre-populate form with applicant data if available.
   useEffect(() => {
     if (application && application.applicants.length > 0 && !isDirty) {
       const { firstName, lastName, email, phone } = application.applicants[0];
@@ -50,7 +51,19 @@ const ScreenTwo: React.FC = () => {
     }
   }, [application, isDirty, reset]);
 
-  // Memoize the onSubmit handler for performance.
+  // If no product is in context, try to match using application.productId and cached products.
+  useEffect(() => {
+    if (application?.productId && products?.length) {
+      const matchedProduct = products.find(
+        (p) => p.id === application.productId,
+      );
+      // Update the selected product if it doesn't match the new application's productId.
+      if (matchedProduct && selectedProduct?.id !== matchedProduct.id) {
+        setSelectedProduct(matchedProduct);
+      }
+    }
+  }, [application, products, setSelectedProduct, selectedProduct]);
+
   const onSubmit: SubmitHandler<FormData> = useCallback(
     (data: FormData) => {
       if (application) {
@@ -63,7 +76,6 @@ const ScreenTwo: React.FC = () => {
     [application, updateApplicants],
   );
 
-  // Handle different loading or error states.
   if (isLoading) return <div>Loading application...</div>;
   if (error || !application) {
     return (
@@ -73,10 +85,20 @@ const ScreenTwo: React.FC = () => {
       </div>
     );
   }
-  if (!selectedProduct) {
+
+  // Determine the product to display: either from context or from cached products.
+  const productToDisplay =
+    selectedProduct ??
+    products?.find((p) => p.id === application.productId) ??
+    null;
+
+  if (!productToDisplay) {
     return (
       <div>
-        <p>No product selected. Please go back and select a product.</p>
+        <p>
+          No product found for this application. Please go back and select a
+          product.
+        </p>
         <button onClick={() => navigate({ to: '/' })}>Go Back</button>
       </div>
     );
@@ -86,15 +108,15 @@ const ScreenTwo: React.FC = () => {
     <div>
       <h1>Edit Application</h1>
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-        {/* Left side: Display product information from context */}
+        {/* Left side: Display associated product */}
         <div>
           <Card
-            product={toCardProduct(selectedProduct)}
+            product={toCardProduct(productToDisplay)}
             onSelect={() => navigate({ to: '/' })}
             buttonLabel="Return"
           />
         </div>
-        {/* Right side: Form to update applicant information */}
+        {/* Right side: Form for applicant information */}
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
