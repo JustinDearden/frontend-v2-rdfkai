@@ -42,13 +42,21 @@ export type Applicant = {
 
 export type Application = {
   readonly id: string;
-  token: string;
   type: 'NEW' | 'RENEWAL' | 'REFINANCE';
-  applicants: Applicant[];
-  productId?: number;
   readonly createdAt: string;
+  token: string;
+  productId: number;
+  applicants: Applicant[];
 };
 
 export type CreateApplication = {
   productId: number;
 };
+
+export interface CardProduct {
+  id: number;
+  type: 'Fixed' | 'Variable';
+  name: string;
+  bestRate: number;
+  lenderName: string;
+}

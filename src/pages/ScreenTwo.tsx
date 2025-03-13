@@ -1,44 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Card from '../components/Card';
 import { Applicant } from '../types';
 import { useApplicationById } from '../hooks/useApplicationById';
 import { useUpdateApplicants } from '../hooks/useUpdateApplicants';
 import { useSelectedProduct } from '../context/SelectedProductContext';
-import { CardProduct } from '../pages/ScreenOne';
+import { toCardProduct } from '../helper/productHelpers';
 
-// Conversion helper for MortgageProduct from context
-const toCardProduct = (product: {
-  id: number;
-  name: string;
-  type: 'FIXED' | 'VARIABLE';
-  bestRate: number;
-  lenderName: string;
-}): CardProduct => ({
-  id: product.id,
-  type: product.type === 'FIXED' ? 'Fixed' : 'Variable',
-  productName: product.name,
-  bestRate: product.bestRate,
-  bestLender: product.lenderName,
-});
-
-type FormData = {
+interface FormData {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-};
+}
 
-const ScreenTwo = () => {
+const ScreenTwo: React.FC = () => {
   const navigate = useNavigate();
   const { appId } = useParams({ from: '/edit/$appId' });
   const { selectedProduct } = useSelectedProduct();
 
   const { data: application, isLoading, error } = useApplicationById(appId);
-  const updateApplicants = useUpdateApplicants();
+  const { mutate: updateApplicants } = useUpdateApplicants();
 
-  // Initialize the form with react-hook-form
   const {
     register,
     handleSubmit,
@@ -53,49 +37,56 @@ const ScreenTwo = () => {
     },
   });
 
+  // Pre-populate form fields if an applicant exists and the user hasn't modified the form.
   useEffect(() => {
     if (application && application.applicants.length > 0 && !isDirty) {
-      const applicant = application.applicants[0];
+      const { firstName, lastName, email, phone } = application.applicants[0];
       reset({
-        firstName: applicant.firstName || '',
-        lastName: applicant.lastName || '',
-        email: applicant.email || '',
-        phone: applicant.phone || '',
+        firstName: firstName || '',
+        lastName: lastName || '',
+        email: email || '',
+        phone: phone || '',
       });
     }
-  }, [application, reset, isDirty]);
+  }, [application, isDirty, reset]);
 
+  // Memoize the onSubmit handler for performance.
+  const onSubmit: SubmitHandler<FormData> = useCallback(
+    (data: FormData) => {
+      if (application) {
+        updateApplicants({
+          applicationId: application.id,
+          applicants: [data as Applicant],
+        });
+      }
+    },
+    [application, updateApplicants],
+  );
+
+  // Handle different loading or error states.
   if (isLoading) return <div>Loading application...</div>;
   if (error || !application) {
     return (
       <div>
-        No application found. Please go back and select a product.
+        <p>No application found. Please go back and select a product.</p>
         <button onClick={() => navigate({ to: '/' })}>Go Back</button>
       </div>
     );
   }
-
   if (!selectedProduct) {
     return (
       <div>
-        No product selected. Please go back and select a product.
+        <p>No product selected. Please go back and select a product.</p>
         <button onClick={() => navigate({ to: '/' })}>Go Back</button>
       </div>
     );
   }
-
-  const onSubmit = (data: FormData) => {
-    updateApplicants.mutate({
-      applicationId: application.id,
-      applicants: [data as Applicant],
-    });
-  };
 
   return (
     <div>
       <h1>Edit Application</h1>
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-        {/* Left side: Display product information from the context */}
+        {/* Left side: Display product information from context */}
         <div>
           <Card product={toCardProduct(selectedProduct)} onSelect={() => {}} />
         </div>
