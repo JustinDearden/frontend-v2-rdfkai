@@ -51,6 +51,7 @@ const ScreenOne: React.FC = () => {
         <Card
           product={toCardProduct(best)}
           onSelect={() => handleSelectProduct(best)}
+          buttonLabel="Select this product"
         />
       )}
       {remaining.length > 0 && (
@@ -60,6 +61,7 @@ const ScreenOne: React.FC = () => {
               <Card
                 product={toCardProduct(product)}
                 onSelect={() => handleSelectProduct(product)}
+                buttonLabel="Select this product"
               />
             </li>
           ))}
