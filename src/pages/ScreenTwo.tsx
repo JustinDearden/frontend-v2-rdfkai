@@ -9,6 +9,7 @@ import { toCardProduct } from '../helper/productHelpers';
 import { useProducts } from '../hooks/useProduct';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
 import { useRateLimit } from '../hooks/useThrottle';
+import './ScreenTwo.scss';
 
 interface FormData {
   firstName: string;
@@ -37,7 +38,6 @@ const ScreenTwo: React.FC = () => {
   // Use rate limiting: allow up to 3 clicks in 5 seconds.
   const { isRateLimited, registerClick } = useRateLimit(3, 5000);
 
-  // Pre-populate form if applicant data is available.
   useEffect(() => {
     if (application && application.applicants.length > 0 && !isDirty) {
       const { firstName, lastName, email, phone } = application.applicants[0];
@@ -104,35 +104,44 @@ const ScreenTwo: React.FC = () => {
   }
 
   return (
-    <div>
-      <h1>Edit Application</h1>
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-        {/* Display associated product */}
-        <div>
+    <div className="screen-two">
+      <h1 className="screen-two__title">Edit Application</h1>
+
+      <div className="screen-two__content">
+        {/* Left Column: Card + "Select another application" */}
+        <div className="screen-two__left">
           <Card
             product={toCardProduct(productToDisplay)}
             onSelect={() => navigate({ to: '/' })}
             buttonLabel="Return"
           />
+          <button
+            className="screen-two__select-another"
+            onClick={() => navigate({ to: '/applications' })}
+          >
+            Select another application
+          </button>
         </div>
-        {/* Form for applicant information */}
-        <div>
+
+        {/* Right Column: Form Box */}
+        <div className="screen-two__right">
+          <h2>Main Applicant Information</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+            <div className="form-group">
               <label htmlFor="firstName">First Name</label>
               <input
                 id="firstName"
                 {...register('firstName', { required: true })}
               />
             </div>
-            <div>
+            <div className="form-group">
               <label htmlFor="lastName">Last Name</label>
               <input
                 id="lastName"
                 {...register('lastName', { required: true })}
               />
             </div>
-            <div>
+            <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
                 id="email"
@@ -140,19 +149,16 @@ const ScreenTwo: React.FC = () => {
                 {...register('email', { required: true })}
               />
             </div>
-            <div>
+            <div className="form-group">
               <label htmlFor="phone">Phone</label>
               <input id="phone" {...register('phone', { required: true })} />
             </div>
             <button type="submit" disabled={isRateLimited}>
-              {isRateLimited ? 'Rate limited, wait...' : 'Save'}
+              {isRateLimited ? 'Rate limited, wait...' : 'Save Applicant Info'}
             </button>
           </form>
         </div>
       </div>
-      <button onClick={() => navigate({ to: '/applications' })}>
-        Select another application
-      </button>
     </div>
   );
 };

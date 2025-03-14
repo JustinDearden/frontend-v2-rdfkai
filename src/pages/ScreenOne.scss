@@ -1,0 +1,90 @@
+@use '../styles/_variables.scss' as *;
+
+.screen-one {
+  /* Constrain the overall page width and center it */
+  max-width: 1200px; // Adjust to your preferred max width
+  margin: 0 auto; // Center the container
+  padding: 2rem;
+  box-sizing: border-box; // Ensures padding is included in total width
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  /* Reduce padding on mobile */
+  @media (max-width: $breakpoint-mobile) {
+    padding: 1rem;
+  }
+
+  /* Best Cards Section */
+  .best-cards-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+
+    @media (max-width: $breakpoint-mobile) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .best-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      /* Define a custom width for best-card if desired */
+      width: 100%;
+      max-width: 300px; // Limit how wide the container can get
+
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        text-align: center;
+
+        span {
+          font-size: 1rem;
+          color: #777; // subtle color for the "type" label
+        }
+      }
+    }
+  }
+
+  /* Row Cards Section */
+  .row-cards-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3rem; // Increase spacing between columns
+
+    @media (max-width: $breakpoint-mobile) {
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .row-cards-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px; // Adjust to your preference
+
+      h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        text-align: center;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  }
+}

@@ -2,11 +2,13 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from '@tanstack/react-router';
 import Card from '../components/Card';
+import RowCard from '../components/RowCard';
 import { useProducts } from '../hooks/useProduct';
 import { useCreateApplication } from '../hooks/useCreateApplication';
 import { Product } from '../types';
 import { organizeProducts, toCardProduct } from '../helper/productHelpers';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
+import './ScreenOne.scss';
 
 const ScreenOne: React.FC = () => {
   const { t } = useTranslation();
@@ -35,46 +37,71 @@ const ScreenOne: React.FC = () => {
   if (!products || products.length === 0)
     return <div>{t('noProductsAvailable')}</div>;
 
-  // Organize the products using helper functions
+  // Organize the products
   const { bestFixed, remainingFixed, bestVariable, remainingVariable } =
     organizeProducts(products);
 
-  // Local helper for rendering a product list section
-  const renderProductList = (
-    heading: string,
-    best: Product | null,
-    remaining: Product[],
-  ) => (
-    <div className="product-section">
-      <h2>{heading}</h2>
-      {best && (
-        <Card
-          product={toCardProduct(best)}
-          onSelect={() => handleSelectProduct(best)}
-          buttonLabel="Select this product"
-        />
-      )}
-      {remaining.length > 0 && (
-        <ul>
-          {remaining.map((product) => (
-            <li key={product.id}>
-              <Card
-                product={toCardProduct(product)}
-                onSelect={() => handleSelectProduct(product)}
-                buttonLabel="Select this product"
-              />
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-
   return (
-    <div>
-      <h1>{t('selectProduct')}</h1>
-      {renderProductList(t('fixedRate'), bestFixed, remainingFixed)}
-      {renderProductList(t('variableRate'), bestVariable, remainingVariable)}
+    <div className="screen-one">
+      {/* 1. Best Cards Section */}
+      <section className="best-cards-section">
+        <div className="best-card">
+          <h2>
+            {t('bestFix')} <span>({t('type')})</span>
+          </h2>
+          {bestFixed && (
+            <Card
+              product={toCardProduct(bestFixed)}
+              onSelect={() => handleSelectProduct(bestFixed)}
+              buttonLabel={t('Select This Product')}
+            />
+          )}
+        </div>
+        <div className="best-card">
+          <h2>
+            {t('bestVariable')} <span>({t('type')})</span>
+          </h2>
+          {bestVariable && (
+            <Card
+              product={toCardProduct(bestVariable)}
+              onSelect={() => handleSelectProduct(bestVariable)}
+              buttonLabel={t('Select This Product')}
+            />
+          )}
+        </div>
+      </section>
+
+      {/* 2. Row Cards Section */}
+      <section className="row-cards-section">
+        <div className="row-cards-column">
+          <h3>{t('otherFixedRates')}</h3>
+          <ul>
+            {remainingFixed.map((product) => (
+              <li key={product.id}>
+                <RowCard
+                  product={toCardProduct(product)}
+                  onSelect={() => handleSelectProduct(product)}
+                  buttonLabel={t('Select This Product')}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="row-cards-column">
+          <h3>{t('otherVariableRates')}</h3>
+          <ul>
+            {remainingVariable.map((product) => (
+              <li key={product.id}>
+                <RowCard
+                  product={toCardProduct(product)}
+                  onSelect={() => handleSelectProduct(product)}
+                  buttonLabel={t('Select This Product')}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 };

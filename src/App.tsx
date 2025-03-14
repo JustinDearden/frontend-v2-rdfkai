@@ -1,5 +1,4 @@
 import './App.scss';
-import Navbar from './components/Navbar';
 import { SelectedProductProvider } from './context/SelectedProductContext';
 import {
   createRouter,
@@ -8,12 +7,18 @@ import {
   createRootRoute,
   Outlet,
 } from '@tanstack/react-router';
+import Navbar from './components/Navbar';
 import ScreenOne from './pages/ScreenOne';
 import ScreenTwo from './pages/ScreenTwo';
 import ScreenApplications from './pages/ScreenApplications';
 
 const rootRoute = createRootRoute({
-  component: () => <Outlet />,
+  component: () => (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  ),
 });
 
 const homeRoute = createRoute({
@@ -47,7 +52,6 @@ const router = createRouter({ routeTree });
 const App = () => {
   return (
     <SelectedProductProvider>
-      <Navbar />
       <RouterProvider router={router} />
     </SelectedProductProvider>
   );
