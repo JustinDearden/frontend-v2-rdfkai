@@ -1,91 +1,80 @@
-// src/pages/ScreenOne.tsx
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from '@tanstack/react-router';
 import Card from '../components/Card';
 import { useProducts } from '../hooks/useProduct';
+import { useCreateApplication } from '../hooks/useCreateApplication';
+import { Product } from '../types';
+import { organizeProducts, toCardProduct } from '../helper/productHelpers';
+import { useSelectedProduct } from '../hooks/useSelectedProduct';
 
-const ScreenOne = () => {
+const ScreenOne: React.FC = () => {
   const { t } = useTranslation();
-  const { data, isLoading, error } = useProducts();
+  const navigate = useNavigate();
+  const { data: products, isLoading, error } = useProducts();
+  const createApplicationMutation = useCreateApplication();
+  const { setSelectedProduct } = useSelectedProduct();
 
-  if (isLoading) {
-    return <div>{t('loading')}...</div>;
-  }
+  const handleSelectProduct = useCallback(
+    async (product: Product) => {
+      try {
+        setSelectedProduct(product);
+        const newApplication = await createApplicationMutation.mutateAsync({
+          productId: product.id,
+        });
+        navigate({ to: `/edit/${newApplication.id}` });
+      } catch (err) {
+        console.error('Error creating application:', err);
+      }
+    },
+    [setSelectedProduct, createApplicationMutation, navigate],
+  );
 
-  if (error) {
-    return <div>{t('errorLoadingData')}</div>;
-  }
+  if (isLoading) return <div>{t('loading')}...</div>;
+  if (error) return <div>{t('errorLoadingData')}</div>;
+  if (!products || products.length === 0)
+    return <div>{t('noProductsAvailable')}</div>;
 
-  // Transform API products into the MortgageProduct format expected by Card
-  const mappedProducts = data!.map((product) => {
-    const mappedType: 'Fixed' | 'Variable' =
-      product.type === 'FIXED' ? 'Fixed' : 'Variable';
-    return {
-      id: product.id.toString(),
-      type: mappedType,
-      productName: product.name,
-      bestRate: product.bestRate,
-      bestLender: product.lenderName,
-    };
-  });
+  // Organize the products using helper functions
+  const { bestFixed, remainingFixed, bestVariable, remainingVariable } =
+    organizeProducts(products);
 
-  // Split products by type
-  const fixedProducts = mappedProducts.filter((p) => p.type === 'Fixed');
-  const variableProducts = mappedProducts.filter((p) => p.type === 'Variable');
-
-  // Find the best (lowest bestRate) for each type if available
-  const bestFixed =
-    fixedProducts.length > 0 &&
-    fixedProducts.reduce((prev, curr) =>
-      prev.bestRate < curr.bestRate ? prev : curr,
-    );
-  const bestVariable =
-    variableProducts.length > 0 &&
-    variableProducts.reduce((prev, curr) =>
-      prev.bestRate < curr.bestRate ? prev : curr,
-    );
-
-  // Filter out the best product from the remaining list for each type
-  const remainingFixed = bestFixed
-    ? fixedProducts.filter((p) => p.id !== bestFixed.id)
-    : [];
-  const remainingVariable = bestVariable
-    ? variableProducts.filter((p) => p.id !== bestVariable.id)
-    : [];
+  // Local helper for rendering a product list section
+  const renderProductList = (
+    heading: string,
+    best: Product | null,
+    remaining: Product[],
+  ) => (
+    <div className="product-section">
+      <h2>{heading}</h2>
+      {best && (
+        <Card
+          product={toCardProduct(best)}
+          onSelect={() => handleSelectProduct(best)}
+          buttonLabel="Select this product"
+        />
+      )}
+      {remaining.length > 0 && (
+        <ul>
+          {remaining.map((product) => (
+            <li key={product.id}>
+              <Card
+                product={toCardProduct(product)}
+                onSelect={() => handleSelectProduct(product)}
+                buttonLabel="Select this product"
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 
   return (
     <div>
-      <h1>Screen One</h1>
       <h1>{t('selectProduct')}</h1>
-
-      {/* Fixed Products Section */}
-      <div className="product-section">
-        <h2>Fixed</h2>
-        {bestFixed && <Card product={bestFixed} />}
-        {remainingFixed.length > 0 && (
-          <ul>
-            {remainingFixed.map((product) => (
-              <li key={product.id}>
-                <Card product={product} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      {/* Variable Products Section */}
-      <div className="product-section">
-        <h2>Variable</h2>
-        {bestVariable && <Card product={bestVariable} />}
-        {remainingVariable.length > 0 && (
-          <ul>
-            {remainingVariable.map((product) => (
-              <li key={product.id}>
-                <Card product={product} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      {renderProductList(t('fixedRate'), bestFixed, remainingFixed)}
+      {renderProductList(t('variableRate'), bestVariable, remainingVariable)}
     </div>
   );
 };

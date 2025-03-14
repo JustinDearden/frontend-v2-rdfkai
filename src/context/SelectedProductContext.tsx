@@ -1,38 +1,28 @@
-import { createContext, useState, useContext, ReactNode } from 'react';
-import { MortgageProduct } from '../components/Card';
+import React, { createContext, useState, ReactNode, useMemo } from 'react';
+import { Product } from '../types';
 
-interface SelectedProductContextValue {
-  selectedProduct: MortgageProduct | null;
-  setSelectedProduct: (product: MortgageProduct | null) => void;
+export interface SelectedProductContextValue {
+  selectedProduct: Product | null;
+  setSelectedProduct: (product: Product | null) => void;
 }
 
-const SelectedProductContext = createContext<
+export const SelectedProductContext = createContext<
   SelectedProductContextValue | undefined
 >(undefined);
 
-export const SelectedProductProvider = ({
+export const SelectedProductProvider: React.FC<{ children: ReactNode }> = ({
   children,
-}: {
-  children: ReactNode;
 }) => {
-  const [selectedProduct, setSelectedProduct] =
-    useState<MortgageProduct | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const value = useMemo(
+    () => ({ selectedProduct, setSelectedProduct }),
+    [selectedProduct],
+  );
 
   return (
-    <SelectedProductContext.Provider
-      value={{ selectedProduct, setSelectedProduct }}
-    >
+    <SelectedProductContext.Provider value={value}>
       {children}
     </SelectedProductContext.Provider>
   );
-};
-
-export const useSelectedProduct = () => {
-  const context = useContext(SelectedProductContext);
-  if (!context) {
-    throw new Error(
-      'useSelectedProduct must be used within a SelectedProductProvider',
-    );
-  }
-  return context;
 };

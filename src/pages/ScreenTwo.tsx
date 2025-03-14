@@ -1,68 +1,121 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useCallback } from 'react';
+import { useNavigate, useParams } from '@tanstack/react-router';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Card from '../components/Card';
 import { Applicant } from '../types';
-import { useApplication } from '../context/ApplicationContext';
+import { useApplicationById } from '../hooks/useApplicationById';
 import { useUpdateApplicants } from '../hooks/useUpdateApplicants';
+import { toCardProduct } from '../helper/productHelpers';
+import { useProducts } from '../hooks/useProduct';
+import { useSelectedProduct } from '../hooks/useSelectedProduct';
+import { useRateLimit } from '../hooks/useThrottle';
 
-type FormData = {
+interface FormData {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-};
+}
 
-const ScreenTwo = () => {
+const ScreenTwo: React.FC = () => {
   const navigate = useNavigate();
-  const { application } = useApplication();
-  const updateApplicants = useUpdateApplicants();
-  const { register, handleSubmit } = useForm<FormData>();
+  const { appId } = useParams({ from: '/edit/$appId' });
+  const { selectedProduct, setSelectedProduct } = useSelectedProduct();
+  const { data: application, isLoading, error } = useApplicationById(appId);
+  const { data: products } = useProducts();
+  const { mutate: updateApplicants } = useUpdateApplicants();
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm<FormData>({
+    defaultValues: { firstName: '', lastName: '', email: '', phone: '' },
+  });
+
+  // Use rate limiting: allow up to 3 clicks in 5 seconds.
+  const { isRateLimited, registerClick } = useRateLimit(3, 5000);
+
+  // Pre-populate form if applicant data is available.
   useEffect(() => {
-    console.log('Component mounted on page load');
+    if (application && application.applicants.length > 0 && !isDirty) {
+      const { firstName, lastName, email, phone } = application.applicants[0];
+      reset({
+        firstName: firstName || '',
+        lastName: lastName || '',
+        email: email || '',
+        phone: phone || '',
+      });
+    }
+  }, [application, isDirty, reset]);
 
-    // Optional cleanup function
-    return () => {
-      console.log('Component will unmount');
-    };
-  }, []);
+  // Update selected product based on application.productId.
+  useEffect(() => {
+    if (application?.productId && products?.length) {
+      const matchedProduct = products.find(
+        (p) => p.id === application.productId,
+      );
+      if (matchedProduct && selectedProduct?.id !== matchedProduct.id) {
+        setSelectedProduct(matchedProduct);
+      }
+    }
+  }, [application, products, selectedProduct, setSelectedProduct]);
 
-  if (!application) {
+  const onSubmit: SubmitHandler<FormData> = useCallback(
+    (data: FormData) => {
+      registerClick();
+      if (isRateLimited) return;
+      if (application) {
+        updateApplicants({
+          applicationId: application.id,
+          applicants: [data as Applicant],
+        });
+      }
+    },
+    [application, isRateLimited, registerClick, updateApplicants],
+  );
+
+  if (isLoading) return <div>Loading application...</div>;
+  if (error || !application) {
     return (
-      <div>No application found. Please go back and select a product.</div>
+      <div>
+        <p>No application found. Please go back and select a product.</p>
+        <button onClick={() => navigate({ to: '/' })}>Go Back</button>
+      </div>
     );
   }
 
-  const onSubmit = (data: FormData) => {
-    updateApplicants.mutate({
-      applicationId: application.id,
-      applicants: [data as Applicant],
-    });
-  };
+  const productToDisplay =
+    selectedProduct ??
+    products?.find((p) => p.id === application.productId) ??
+    null;
 
-  const handleReturn = () => {
-    navigate({ to: '/' });
-  };
+  if (!productToDisplay) {
+    return (
+      <div>
+        <p>
+          No product found for this application. Please go back and select a
+          product.
+        </p>
+        <button onClick={() => navigate({ to: '/' })}>Go Back</button>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <h1>Screen Two</h1>
+      <h1>Edit Application</h1>
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-        {/* Left side: Displaying product information */}
+        {/* Display associated product */}
         <div>
-          {/* You can enhance this component to show additional product details */}
           <Card
-            product={{
-              id: application.productId?.toString() || '',
-              type: 'Fixed', // If you need to store type, include it in the application or another context
-              productName: 'Product Name Placeholder',
-              bestRate: 0,
-              bestLender: 'Lender Placeholder',
-            }}
+            product={toCardProduct(productToDisplay)}
+            onSelect={() => navigate({ to: '/' })}
+            buttonLabel="Return"
           />
         </div>
-        {/* Right side: Form to capture applicant data */}
+        {/* Form for applicant information */}
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
@@ -91,11 +144,15 @@ const ScreenTwo = () => {
               <label htmlFor="phone">Phone</label>
               <input id="phone" {...register('phone', { required: true })} />
             </div>
-            <button type="submit">Save</button>
+            <button type="submit" disabled={isRateLimited}>
+              {isRateLimited ? 'Rate limited, wait...' : 'Save'}
+            </button>
           </form>
         </div>
       </div>
-      <button onClick={handleReturn}>Return</button>
+      <button onClick={() => navigate({ to: '/applications' })}>
+        Select another application
+      </button>
     </div>
   );
 };
