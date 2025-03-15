@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useNavigate, useParams } from '@tanstack/react-router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Card from '../components/Card';
@@ -10,6 +10,7 @@ import { useProducts } from '../hooks/useProduct';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
 import { useRateLimit } from '../hooks/useThrottle';
 import './ScreenTwo.scss';
+import Toast from '../components/Toast';
 
 interface FormData {
   firstName: string;
@@ -37,6 +38,9 @@ const ScreenTwo: React.FC = () => {
 
   // Use rate limiting: allow up to 3 clicks in 5 seconds.
   const { isRateLimited, registerClick } = useRateLimit(3, 5000);
+
+  // State for toast message
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     if (application && application.applicants.length > 0 && !isDirty) {
@@ -71,6 +75,8 @@ const ScreenTwo: React.FC = () => {
           applicationId: application.id,
           applicants: [data as Applicant],
         });
+        // Set toast message on successful submission
+        setToastMessage('Applicant info updated successfully!');
       }
     },
     [application, isRateLimited, registerClick, updateApplicants],
@@ -173,7 +179,6 @@ const ScreenTwo: React.FC = () => {
                 id="phone"
                 {...register('phone', {
                   required: 'Phone number is required',
-                  // Optionally add a pattern or custom validation here
                 })}
               />
               {errors.phone && (
@@ -186,6 +191,10 @@ const ScreenTwo: React.FC = () => {
           </form>
         </div>
       </div>
+      {/* Toast Component */}
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
+      )}
     </div>
   );
 };
