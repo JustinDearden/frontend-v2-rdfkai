@@ -5,5 +5,27 @@
   "firstName": "Prénom",
   "lastName": "Nom",
   "email": "E-mail",
-  "phone": "Téléphone"
+  "phone": "Téléphone",
+  "form": {
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Courriel",
+    "phone": "Téléphone",
+    "errors": {
+      "firstNameError": "Le prénom est obligatoire",
+      "lastNameError": "Le nom de famille est obligatoire",
+      "emailError": "L'adresse courriel est requise",
+      "phoneError": "Le numéro de téléphone est requis"
+    },
+    "submitButton": "soumettre"
+  },
+  "editPage": {
+    "mainApplicantTitle": "Informations sur le demandeur principal",
+    "selectApplicationButton": "Sélectionnez une autre application",
+    "successAPIMessage": "Les renseignements du candidat ont été mis à jour avec succès!",
+    "loadingMessage": "Chargement...",
+    "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et choisir un produit.",
+    "noProductFound": "Aucun produit trouvé pour cette application. Veuillez revenir en arrière et choisir un produit.",
+    "backButton": "Retour"
+  }
 }

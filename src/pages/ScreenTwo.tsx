@@ -11,6 +11,7 @@ import { useSelectedProduct } from '../hooks/useSelectedProduct';
 import { useRateLimit } from '../hooks/useThrottle';
 import './ScreenTwo.scss';
 import Toast from '../components/Toast';
+import { useTranslation } from 'react-i18next';
 
 interface FormData {
   firstName: string;
@@ -20,6 +21,7 @@ interface FormData {
 }
 
 const ScreenTwo: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { appId } = useParams({ from: '/edit/$appId' });
   const { selectedProduct, setSelectedProduct } = useSelectedProduct();
@@ -76,19 +78,24 @@ const ScreenTwo: React.FC = () => {
           applicants: [data as Applicant],
         });
         // Set toast message on successful submission
-        setToastMessage('Applicant info updated successfully!');
+        setToastMessage(t('editPage.successAPIMessage'));
       }
     },
     [application, isRateLimited, registerClick, updateApplicants],
   );
 
-  if (isLoading) return <div className="screen-two__message">loading...</div>;
+  if (isLoading)
+    return (
+      <div className="screen-two__message">{t('editPage.loadingMessage')}</div>
+    );
 
   if (error || !application) {
     return (
       <div className="screen-two__message">
-        <p>No application found. Please go back and select a product.</p>
-        <button onClick={() => navigate({ to: '/' })}>Go Back</button>
+        <p>{t('editPage.noApplicationMessage')}</p>
+        <button onClick={() => navigate({ to: '/' })}>
+          {t('editPage.backButton')}
+        </button>
       </div>
     );
   }
@@ -101,11 +108,10 @@ const ScreenTwo: React.FC = () => {
   if (!productToDisplay) {
     return (
       <div className="screen-two__message">
-        <p>
-          No product found for this application. Please go back and select a
-          product.
-        </p>
-        <button onClick={() => navigate({ to: '/' })}>Go Back</button>
+        <p>{t('editPage.noProductFound')}</p>
+        <button onClick={() => navigate({ to: '/' })}>
+          {t('editPage.backButton')}
+        </button>
       </div>
     );
   }
@@ -124,16 +130,16 @@ const ScreenTwo: React.FC = () => {
             className="screen-two__select-another"
             onClick={() => navigate({ to: '/applications' })}
           >
-            Select another application
+            {t('editPage.selectApplicationButton')}
           </button>
         </div>
 
         {/* Right Column: Form Box */}
         <div className="screen-two__right">
-          <h2>Main Applicant Information</h2>
+          <h2>{t('editPage.mainApplicantTitle')}</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="firstName">{t('form.firstName')}</label>
               <input
                 id="firstName"
                 {...register('firstName', {
@@ -141,11 +147,11 @@ const ScreenTwo: React.FC = () => {
                 })}
               />
               {errors.firstName && (
-                <span className="error">{errors.firstName.message}</span>
+                <span className="error">{t('form.errors.firstNameError')}</span>
               )}
             </div>
             <div className="form-group">
-              <label htmlFor="lastName">Last Name</label>
+              <label htmlFor="lastName">{t('form.lastName')}</label>
               <input
                 id="lastName"
                 {...register('lastName', {
@@ -153,11 +159,11 @@ const ScreenTwo: React.FC = () => {
                 })}
               />
               {errors.lastName && (
-                <span className="error">{errors.lastName.message}</span>
+                <span className="error">{t('form.errors.lastNameError')}</span>
               )}
             </div>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">{t('form.email')}</label>
               <input
                 id="email"
                 type="email"
@@ -170,11 +176,11 @@ const ScreenTwo: React.FC = () => {
                 })}
               />
               {errors.email && (
-                <span className="error">{errors.email.message}</span>
+                <span className="error">{t('form.errors.emailError')}</span>
               )}
             </div>
             <div className="form-group">
-              <label htmlFor="phone">Phone</label>
+              <label htmlFor="phone">{t('form.phone')}</label>
               <input
                 id="phone"
                 {...register('phone', {
@@ -182,11 +188,11 @@ const ScreenTwo: React.FC = () => {
                 })}
               />
               {errors.phone && (
-                <span className="error">{errors.phone.message}</span>
+                <span className="error">{t('form.errors.phoneError')}</span>
               )}
             </div>
             <button type="submit" disabled={isRateLimited}>
-              {isRateLimited ? 'Rate limited, wait...' : 'Save Applicant Info'}
+              {isRateLimited ? t('form.rateLimited') : t('form.submitButton')}
             </button>
           </form>
         </div>

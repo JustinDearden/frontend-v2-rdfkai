@@ -69,6 +69,13 @@
     align-items: center;
     gap: 1rem;
     flex: 0 0 300px; // Fixed column width; adjust as needed
+    width: 100%;
+  }
+
+  @include grid.respond-to('breakpoint-04') {
+    &__left {
+      width: auto;
+    }
   }
 
   &__select-another {

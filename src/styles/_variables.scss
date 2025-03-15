@@ -18,3 +18,12 @@ $primary-text: #333;
 $button-background: #007bff;
 $button-text: #ffffff;
 $button-hover: color.adjust($button-background, $lightness: -10%);
+
+// Toast
+$toast-success-bg: #d4edda;
+$toast-success-text: #155724;
+$toast-success-outline: #b1dfbb;
+
+$toast-failure-bg: #f8d7da;
+$toast-failure-text: #721c24;
+$toast-failure-outline: #e0a4a9;
