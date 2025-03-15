@@ -46,9 +46,6 @@ const ScreenOne: React.FC = () => {
       {/* 1. Best Cards Section */}
       <section className="best-cards-section">
         <div className="best-card">
-          <h2>
-            {t('bestFix')} <span>({t('type')})</span>
-          </h2>
           {bestFixed && (
             <Card
               product={toCardProduct(bestFixed)}
@@ -58,9 +55,6 @@ const ScreenOne: React.FC = () => {
           )}
         </div>
         <div className="best-card">
-          <h2>
-            {t('bestVariable')} <span>({t('type')})</span>
-          </h2>
           {bestVariable && (
             <Card
               product={toCardProduct(bestVariable)}
@@ -71,35 +65,30 @@ const ScreenOne: React.FC = () => {
         </div>
       </section>
 
+      {/* Divider */}
+      <hr className="screen-one__divider" />
+
       {/* 2. Row Cards Section */}
       <section className="row-cards-section">
         <div className="row-cards-column">
-          <h3>{t('otherFixedRates')}</h3>
-          <ul>
-            {remainingFixed.map((product) => (
-              <li key={product.id}>
-                <RowCard
-                  product={toCardProduct(product)}
-                  onSelect={() => handleSelectProduct(product)}
-                  buttonLabel={t('Select This Product')}
-                />
-              </li>
-            ))}
-          </ul>
+          {remainingFixed.map((product) => (
+            <RowCard
+              key={product.id}
+              product={toCardProduct(product)}
+              onSelect={() => handleSelectProduct(product)}
+              buttonLabel={t('Select This Product')}
+            />
+          ))}
         </div>
         <div className="row-cards-column">
-          <h3>{t('otherVariableRates')}</h3>
-          <ul>
-            {remainingVariable.map((product) => (
-              <li key={product.id}>
-                <RowCard
-                  product={toCardProduct(product)}
-                  onSelect={() => handleSelectProduct(product)}
-                  buttonLabel={t('Select This Product')}
-                />
-              </li>
-            ))}
-          </ul>
+          {remainingVariable.map((product) => (
+            <RowCard
+              key={product.id}
+              product={toCardProduct(product)}
+              onSelect={() => handleSelectProduct(product)}
+              buttonLabel={t('Select This Product')}
+            />
+          ))}
         </div>
       </section>
     </div>

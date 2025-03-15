@@ -14,19 +14,26 @@ const RowCard = ({
   buttonLabel = 'Select',
 }: RowCardProps): JSX.Element => (
   <div className="row-card">
-    <div className="row-card__left">
+    {/* Header Row */}
+    <div className="row-card__row row-card__header">
       <p className="row-card__type">{product.type}</p>
       <p className="row-card__name">{product.name}</p>
     </div>
-    <div className="row-card__center">
+
+    {/* Body Row */}
+    <div className="row-card__row row-card__body">
       <p className="row-card__rate">{product.bestRate.toFixed(2)}%</p>
       <p className="row-card__lender">{product.lenderName}</p>
     </div>
-    {onSelect && (
-      <button className="row-card__button" onClick={onSelect}>
-        {buttonLabel}
-      </button>
-    )}
+
+    {/* Footer Row */}
+    <div className="row-card__row row-card__footer">
+      {onSelect && (
+        <button className="row-card__button" onClick={onSelect}>
+          {buttonLabel}
+        </button>
+      )}
+    </div>
   </div>
 );
 

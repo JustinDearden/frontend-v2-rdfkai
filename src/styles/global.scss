@@ -1,4 +1,4 @@
-@import './_variables.scss';
+@use '../styles/_variables.scss' as *;
 
 :root {
   font-family: $font-family;

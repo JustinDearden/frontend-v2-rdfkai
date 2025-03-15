@@ -1,31 +1,42 @@
+@use 'sass:map' as map;
+@use '../styles/_grid.scss' as grid;
 @use '../styles/_variables.scss' as *;
 
 .screen-one {
-  /* Constrain the overall page width and center it */
-  max-width: 1200px; // Adjust to your preferred max width
-  margin: 0 auto; // Center the container
-  padding: 2rem;
-  box-sizing: border-box; // Ensures padding is included in total width
+  max-width: 1200px;
+  margin: 2rem auto 1rem;
+  padding: map.get(map.get(grid.$layout-settings, 'small'), 'padding');
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: map.get(map.get(grid.$layout-settings, 'small'), 'gutter');
 
-  /* Reduce padding on mobile */
-  @media (max-width: $breakpoint-mobile) {
-    padding: 1rem;
+  // Tablet breakpoint (680px)
+  @include grid.respond-to('breakpoint-04') {
+    margin: 3rem auto 1.5rem;
+    padding: map.get(map.get(grid.$layout-settings, 'medium'), 'padding');
+    gap: map.get(map.get(grid.$layout-settings, 'medium'), 'gutter');
   }
 
-  /* Best Cards Section */
+  // Desktop breakpoint (1080px)
+  @include grid.respond-to('breakpoint-07') {
+    margin: 4rem auto 2rem;
+    padding: map.get(map.get(grid.$layout-settings, 'large'), 'padding');
+    gap: map.get(map.get(grid.$layout-settings, 'large'), 'gutter');
+  }
+
+  /* Best Cards Section (unchanged) */
   .best-cards-section {
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column; // Mobile-first: stack cards
+    align-items: center;
     gap: 2rem;
 
-    @media (max-width: $breakpoint-mobile) {
-      flex-direction: column;
-      align-items: center;
+    // At 480px and up, switch to a row layout
+    @include grid.respond-to('breakpoint-03') {
+      flex-direction: row;
+      justify-content: center;
     }
 
     .best-card {
@@ -33,58 +44,40 @@
       flex-direction: column;
       align-items: center;
       gap: 1rem;
-      /* Define a custom width for best-card if desired */
       width: 100%;
-      max-width: 300px; // Limit how wide the container can get
-
-      h2 {
-        margin: 0;
-        font-size: 1.5rem;
-        text-align: center;
-
-        span {
-          font-size: 1rem;
-          color: #777; // subtle color for the "type" label
-        }
-      }
+      max-width: 300px;
     }
   }
 
-  /* Row Cards Section */
+  /* Divider */
+  &__divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+  }
+
+  /* Row Cards Section using CSS Grid */
   .row-cards-section {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 3rem; // Increase spacing between columns
+    display: grid;
+    /* Two columns on tablet and up, one column on mobile */
+    grid-template-columns: 1fr;
+    gap: 1rem; // spacing between columns (on tablet/desktop) and between rows (on mobile)
 
-    @media (max-width: $breakpoint-mobile) {
-      flex-direction: column;
-      align-items: center;
+    // At tablet breakpoint (680px), use two columns
+    @include grid.respond-to('breakpoint-04') {
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
     }
 
+    /* Each column is now a grid item */
     .row-cards-column {
       display: flex;
       flex-direction: column;
       gap: 1rem;
       width: 100%;
-      max-width: 400px; // Adjust to your preference
-
-      h3 {
-        margin: 0;
-        font-size: 1.25rem;
-        text-align: center;
-      }
-
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
+      margin: 0 auto; // centers the columns if there's extra space
     }
   }
 }
