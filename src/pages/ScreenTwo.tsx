@@ -30,7 +30,7 @@ const ScreenTwo: React.FC = () => {
     register,
     handleSubmit,
     reset,
-    formState: { isDirty },
+    formState: { errors, isDirty },
   } = useForm<FormData>({
     defaultValues: { firstName: '', lastName: '', email: '', phone: '' },
   });
@@ -130,27 +130,55 @@ const ScreenTwo: React.FC = () => {
               <label htmlFor="firstName">First Name</label>
               <input
                 id="firstName"
-                {...register('firstName', { required: true })}
+                {...register('firstName', {
+                  required: 'First name is required',
+                })}
               />
+              {errors.firstName && (
+                <span className="error">{errors.firstName.message}</span>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Last Name</label>
               <input
                 id="lastName"
-                {...register('lastName', { required: true })}
+                {...register('lastName', {
+                  required: 'Last name is required',
+                })}
               />
+              {errors.lastName && (
+                <span className="error">{errors.lastName.message}</span>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
                 id="email"
                 type="email"
-                {...register('email', { required: true })}
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: 'Invalid email address',
+                  },
+                })}
               />
+              {errors.email && (
+                <span className="error">{errors.email.message}</span>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="phone">Phone</label>
-              <input id="phone" {...register('phone', { required: true })} />
+              <input
+                id="phone"
+                {...register('phone', {
+                  required: 'Phone number is required',
+                  // Optionally add a pattern or custom validation here
+                })}
+              />
+              {errors.phone && (
+                <span className="error">{errors.phone.message}</span>
+              )}
             </div>
             <button type="submit" disabled={isRateLimited}>
               {isRateLimited ? 'Rate limited, wait...' : 'Save Applicant Info'}
