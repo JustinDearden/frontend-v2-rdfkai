@@ -76,10 +76,11 @@ const ScreenTwo: React.FC = () => {
     [application, isRateLimited, registerClick, updateApplicants],
   );
 
-  if (isLoading) return <div>Loading application...</div>;
+  if (isLoading) return <div className="screen-two__message">loading...</div>;
+
   if (error || !application) {
     return (
-      <div>
+      <div className="screen-two__message">
         <p>No application found. Please go back and select a product.</p>
         <button onClick={() => navigate({ to: '/' })}>Go Back</button>
       </div>
@@ -93,7 +94,7 @@ const ScreenTwo: React.FC = () => {
 
   if (!productToDisplay) {
     return (
-      <div>
+      <div className="screen-two__message">
         <p>
           No product found for this application. Please go back and select a
           product.
@@ -105,8 +106,6 @@ const ScreenTwo: React.FC = () => {
 
   return (
     <div className="screen-two">
-      <h1 className="screen-two__title">Edit Application</h1>
-
       <div className="screen-two__content">
         {/* Left Column: Card + "Select another application" */}
         <div className="screen-two__left">

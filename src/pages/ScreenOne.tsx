@@ -32,7 +32,8 @@ const ScreenOne: React.FC = () => {
     [setSelectedProduct, createApplicationMutation, navigate],
   );
 
-  if (isLoading) return <div>{t('loading')}...</div>;
+  if (isLoading)
+    return <div className="screen-one__loading">{t('loading')}...</div>;
   if (error) return <div>{t('errorLoadingData')}</div>;
   if (!products || products.length === 0)
     return <div>{t('noProductsAvailable')}</div>;

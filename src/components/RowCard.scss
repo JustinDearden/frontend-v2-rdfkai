@@ -54,6 +54,7 @@
   }
 
   &__button {
+    width: 100%;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     border: 1px solid $button-background;
@@ -73,7 +74,7 @@
 
   /* ABOVE 480px: use the "current" side-by-side layout */
   @include grid.respond-to('breakpoint-03') {
-    flex-direction: column; // the .row-card itself can remain column overall
+    flex-direction: column; // the .row-card itself remains column overall
 
     &__row {
       flex-direction: row; // each row is side-by-side
@@ -84,6 +85,11 @@
 
     &__footer {
       justify-content: flex-end; // keep button right-aligned
+    }
+
+    // Remove full width on the button at 480px and up
+    &__button {
+      width: auto;
     }
   }
 }

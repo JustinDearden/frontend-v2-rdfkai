@@ -25,7 +25,7 @@
     gap: map.get(map.get(grid.$layout-settings, 'large'), 'gutter');
   }
 
-  /* Best Cards Section (unchanged) */
+  /* Best Cards Section */
   .best-cards-section {
     width: 100%;
     display: flex;
@@ -44,8 +44,12 @@
       flex-direction: column;
       align-items: center;
       gap: 1rem;
-      width: 100%;
-      max-width: 300px;
+      width: 100%; // On mobile: full width (within parent's padding)
+      max-width: 100%; // Default mobile: no constraint
+
+      @include grid.respond-to('breakpoint-03') {
+        max-width: 300px; // Above 480px: constrain to 300px
+      }
     }
   }
 
@@ -57,6 +61,7 @@
     margin: 2rem 0;
   }
 
+  /* Row Cards Section – Unchanged */
   /* Row Cards Section using CSS Grid */
   .row-cards-section {
     width: 100%;
@@ -80,4 +85,14 @@
       margin: 0 auto; // centers the columns if there's extra space
     }
   }
+}
+
+.screen-one__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem; // Increase font size
+  font-weight: bold; // Make text bold
+  height: 100vh; // Center vertically in the viewport (or adjust as needed)
 }
