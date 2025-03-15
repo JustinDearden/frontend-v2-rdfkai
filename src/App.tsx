@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import ScreenOne from './pages/ScreenOne';
 import ScreenTwo from './pages/ScreenTwo';
 import ScreenApplications from './pages/ScreenApplications';
+import EditError from './pages/error/EditError';
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -27,10 +28,16 @@ const homeRoute = createRoute({
   component: () => <ScreenOne />,
 });
 
-const editRoute = createRoute({
+const editWithIdRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: 'edit/$appId',
   component: () => <ScreenTwo />,
+});
+
+const editRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: 'edit',
+  component: () => <EditError />,
 });
 
 const applicationsRoute = createRoute({
@@ -39,14 +46,13 @@ const applicationsRoute = createRoute({
   component: () => <ScreenApplications />,
 });
 
-// Create the route tree
 const routeTree = rootRoute.addChildren([
   homeRoute,
   editRoute,
+  editWithIdRoute,
   applicationsRoute,
 ]);
 
-// Create the router
 const router = createRouter({ routeTree });
 
 const App = () => {
