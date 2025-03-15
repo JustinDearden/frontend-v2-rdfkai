@@ -2,6 +2,7 @@ import React from 'react';
 import { useApplications } from '../hooks/useApplications';
 import { useNavigate } from '@tanstack/react-router';
 import { Application } from '../types';
+import './ScreenApplications.scss'; // Import your new SCSS
 
 const ScreenApplications: React.FC = () => {
   const { data: applications, isLoading, error } = useApplications();
@@ -14,27 +15,14 @@ const ScreenApplications: React.FC = () => {
   }
 
   return (
-    <div>
-      <h1>All Applications</h1>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+    <div className="screen-applications">
+      <h1 className="screen-applications__title">All Applications</h1>
+      <ul className="screen-applications__list">
         {applications.map((app: Application) => (
-          <li
-            key={app.id}
-            style={{
-              marginBottom: '1rem',
-              border: '1px solid #ccc',
-              padding: '1rem',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-              }}
-            >
+          <li className="screen-applications__item" key={app.id}>
+            <div className="screen-applications__item-content">
               {/* Left side: Application details */}
-              <div>
+              <div className="screen-applications__item-left">
                 <p>
                   <strong>ID:</strong> {app.id}
                 </p>
@@ -53,7 +41,7 @@ const ScreenApplications: React.FC = () => {
                 </button>
               </div>
               {/* Right side: Applicant data */}
-              <div style={{ marginLeft: '2rem' }}>
+              <div className="screen-applications__item-right">
                 {app.applicants && app.applicants.length > 0 ? (
                   <div>
                     <p>
@@ -77,7 +65,12 @@ const ScreenApplications: React.FC = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => navigate({ to: '/' })}>Return to Home</button>
+      <button
+        className="screen-applications__return"
+        onClick={() => navigate({ to: '/' })}
+      >
+        Return to Home
+      </button>
     </div>
   );
 };

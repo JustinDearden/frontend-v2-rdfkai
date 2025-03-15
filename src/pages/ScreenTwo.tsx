@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useNavigate, useParams } from '@tanstack/react-router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Card from '../components/Card';
@@ -9,6 +9,9 @@ import { toCardProduct } from '../helper/productHelpers';
 import { useProducts } from '../hooks/useProduct';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
 import { useRateLimit } from '../hooks/useThrottle';
+import './ScreenTwo.scss';
+import Toast from '../components/Toast';
+import { useTranslation } from 'react-i18next';
 
 interface FormData {
   firstName: string;
@@ -18,6 +21,7 @@ interface FormData {
 }
 
 const ScreenTwo: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { appId } = useParams({ from: '/edit/$appId' });
   const { selectedProduct, setSelectedProduct } = useSelectedProduct();
@@ -29,7 +33,7 @@ const ScreenTwo: React.FC = () => {
     register,
     handleSubmit,
     reset,
-    formState: { isDirty },
+    formState: { errors, isDirty },
   } = useForm<FormData>({
     defaultValues: { firstName: '', lastName: '', email: '', phone: '' },
   });
@@ -37,7 +41,9 @@ const ScreenTwo: React.FC = () => {
   // Use rate limiting: allow up to 3 clicks in 5 seconds.
   const { isRateLimited, registerClick } = useRateLimit(3, 5000);
 
-  // Pre-populate form if applicant data is available.
+  // State for toast message
+  const [toastMessage, setToastMessage] = useState('');
+
   useEffect(() => {
     if (application && application.applicants.length > 0 && !isDirty) {
       const { firstName, lastName, email, phone } = application.applicants[0];
@@ -71,17 +77,25 @@ const ScreenTwo: React.FC = () => {
           applicationId: application.id,
           applicants: [data as Applicant],
         });
+        // Set toast message on successful submission
+        setToastMessage(t('editPage.successAPIMessage'));
       }
     },
     [application, isRateLimited, registerClick, updateApplicants],
   );
 
-  if (isLoading) return <div>Loading application...</div>;
+  if (isLoading)
+    return (
+      <div className="screen-two__message">{t('editPage.loadingMessage')}</div>
+    );
+
   if (error || !application) {
     return (
-      <div>
-        <p>No application found. Please go back and select a product.</p>
-        <button onClick={() => navigate({ to: '/' })}>Go Back</button>
+      <div className="screen-two__message">
+        <p>{t('editPage.noApplicationMessage')}</p>
+        <button onClick={() => navigate({ to: '/' })}>
+          {t('editPage.backButton')}
+        </button>
       </div>
     );
   }
@@ -93,66 +107,100 @@ const ScreenTwo: React.FC = () => {
 
   if (!productToDisplay) {
     return (
-      <div>
-        <p>
-          No product found for this application. Please go back and select a
-          product.
-        </p>
-        <button onClick={() => navigate({ to: '/' })}>Go Back</button>
+      <div className="screen-two__message">
+        <p>{t('editPage.noProductFound')}</p>
+        <button onClick={() => navigate({ to: '/' })}>
+          {t('editPage.backButton')}
+        </button>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>Edit Application</h1>
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-        {/* Display associated product */}
-        <div>
+    <div className="screen-two">
+      <div className="screen-two__content">
+        {/* Left Column: Card + "Select another application" */}
+        <div className="screen-two__left">
           <Card
             product={toCardProduct(productToDisplay)}
             onSelect={() => navigate({ to: '/' })}
             buttonLabel="Return"
           />
+          <button
+            className="screen-two__select-another"
+            onClick={() => navigate({ to: '/applications' })}
+          >
+            {t('editPage.selectApplicationButton')}
+          </button>
         </div>
-        {/* Form for applicant information */}
-        <div>
+
+        {/* Right Column: Form Box */}
+        <div className="screen-two__right">
+          <h2>{t('editPage.mainApplicantTitle')}</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <label htmlFor="firstName">First Name</label>
+            <div className="form-group">
+              <label htmlFor="firstName">{t('form.firstName')}</label>
               <input
                 id="firstName"
-                {...register('firstName', { required: true })}
+                {...register('firstName', {
+                  required: 'First name is required',
+                })}
               />
+              {errors.firstName && (
+                <span className="error">{t('form.errors.firstNameError')}</span>
+              )}
             </div>
-            <div>
-              <label htmlFor="lastName">Last Name</label>
+            <div className="form-group">
+              <label htmlFor="lastName">{t('form.lastName')}</label>
               <input
                 id="lastName"
-                {...register('lastName', { required: true })}
+                {...register('lastName', {
+                  required: 'Last name is required',
+                })}
               />
+              {errors.lastName && (
+                <span className="error">{t('form.errors.lastNameError')}</span>
+              )}
             </div>
-            <div>
-              <label htmlFor="email">Email</label>
+            <div className="form-group">
+              <label htmlFor="email">{t('form.email')}</label>
               <input
                 id="email"
                 type="email"
-                {...register('email', { required: true })}
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: 'Invalid email address',
+                  },
+                })}
               />
+              {errors.email && (
+                <span className="error">{t('form.errors.emailError')}</span>
+              )}
             </div>
-            <div>
-              <label htmlFor="phone">Phone</label>
-              <input id="phone" {...register('phone', { required: true })} />
+            <div className="form-group">
+              <label htmlFor="phone">{t('form.phone')}</label>
+              <input
+                id="phone"
+                {...register('phone', {
+                  required: 'Phone number is required',
+                })}
+              />
+              {errors.phone && (
+                <span className="error">{t('form.errors.phoneError')}</span>
+              )}
             </div>
             <button type="submit" disabled={isRateLimited}>
-              {isRateLimited ? 'Rate limited, wait...' : 'Save'}
+              {isRateLimited ? t('form.rateLimited') : t('form.submitButton')}
             </button>
           </form>
         </div>
       </div>
-      <button onClick={() => navigate({ to: '/applications' })}>
-        Select another application
-      </button>
+      {/* Toast Component */}
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
+      )}
     </div>
   );
 };

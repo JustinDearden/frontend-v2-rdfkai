@@ -1,5 +1,6 @@
 import React, { JSX } from 'react';
 import { CardProduct } from '../types';
+import './Card.scss';
 
 export interface CardProps {
   product: CardProduct;
@@ -13,19 +14,19 @@ const Card = ({
   buttonLabel = 'Select',
 }: CardProps): JSX.Element => (
   <div className="card">
-    <p>
-      <strong>Type:</strong> {product.type}
-    </p>
-    <p>
-      <strong>Product Name:</strong> {product.name}
-    </p>
-    <p>
-      <strong>Best Rate:</strong> {product.bestRate.toFixed(2)}%
-    </p>
-    <p>
-      <strong>Best Lender:</strong> {product.lenderName}
-    </p>
-    {onSelect && <button onClick={onSelect}>{buttonLabel}</button>}
+    <div className="card__header">
+      <p className="card__type">{product.type}</p>
+      <p className="card__name">{product.name}</p>
+    </div>
+    <div className="card__body">
+      <p className="card__rate">{product.bestRate.toFixed(2)}%</p>
+      <p className="card__lender">{product.lenderName}</p>
+    </div>
+    {onSelect && (
+      <button className="card__button" onClick={onSelect}>
+        {buttonLabel}
+      </button>
+    )}
   </div>
 );
 

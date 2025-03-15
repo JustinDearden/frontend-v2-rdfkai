@@ -1,0 +1,95 @@
+@use 'sass:map' as map;
+@use '../styles/_grid.scss' as grid;
+@use '../styles/_variables.scss' as *;
+
+.row-card {
+  /* MOBILE FIRST: everything stacked and centered */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem; // gap between rows
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+
+  // Each row is stacked in a column for mobile
+  &__row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  &__type,
+  &__name {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  /* Clamping the product name to 2 lines, fixed height. */
+  &__name {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3rem;
+
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  &__rate {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+
+  &__lender {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  &__button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid $button-background;
+    border-radius: 4px;
+    background-color: $button-background;
+    color: $button-text;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+
+    &:hover {
+      background-color: $button-hover;
+      border-color: $button-hover;
+    }
+  }
+
+  /* ABOVE 480px: use the "current" side-by-side layout */
+  @include grid.respond-to('breakpoint-03') {
+    flex-direction: column; // the .row-card itself remains column overall
+
+    &__row {
+      flex-direction: row; // each row is side-by-side
+      align-items: flex-start; // top align if the name is multi-line
+      justify-content: flex-start;
+      gap: 1rem; // spacing between items in a row
+    }
+
+    &__footer {
+      justify-content: flex-end; // keep button right-aligned
+    }
+
+    // Remove full width on the button at 480px and up
+    &__button {
+      width: auto;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@use 'sass:map';
+
+$breakpoints: (
+  'breakpoint-01': 320px,
+  'breakpoint-02': 375px,
+  'breakpoint-03': 480px,
+  'breakpoint-04': 680px,
+  'breakpoint-05': 768px,
+  'breakpoint-06': 880px,
+  'breakpoint-07': 1080px,
+  'breakpoint-08': 1290px,
+  'breakpoint-09': 1440px,
+  'breakpoint-10': 1920px,
+);
+
+$layout-settings: (
+  'small': (
+    'margin': 16px,
+    'padding': 16px,
+    'gutter': 16px,
+    'columns': 4,
+    'grid': 'fluid',
+  ),
+  'phone': (
+    'margin': 16px,
+    'padding': 16px,
+    'gutter': 16px,
+    'columns': 6,
+    'grid': 'fluid',
+  ),
+  'medium': (
+    'margin': 24px,
+    'padding': 24px,
+    'gutter': 24px,
+    'columns': 6,
+    'grid': 'fluid',
+  ),
+  'tablet': (
+    'margin': 32px,
+    'padding': 32px,
+    'gutter': 24px,
+    'columns': 12,
+    'grid': 'fluid',
+  ),
+  'large': (
+    'margin': 32px,
+    'padding': 32px,
+    'gutter': 24px,
+    'columns': 12,
+    'grid': 'fluid',
+  ),
+  'extra-large': (
+    'margin': 32px,
+    'padding': 32px,
+    'gutter': 24px,
+    'columns': 12,
+    'grid': 'fixed',
+  ),
+);
+
+@mixin respond-to($breakpoint-key) {
+  $min-width: map.get($breakpoints, $breakpoint-key);
+  @if $min-width {
+    @media (min-width: $min-width) {
+      @content;
+    }
+  } @else {
+    @warn "No value found for #{$breakpoint-key} in \$breakpoints map.";
+  }
+}

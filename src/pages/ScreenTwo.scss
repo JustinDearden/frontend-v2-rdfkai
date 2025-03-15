@@ -1,0 +1,163 @@
+@use 'sass:map' as map;
+@use '../styles/_grid.scss' as grid;
+@use '../styles/_variables.scss' as *;
+
+.screen-two {
+  /* Center and space out the page */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+
+  max-width: 1200px;
+  margin: 2rem auto 1rem;
+  padding: map.get(map.get(grid.$layout-settings, 'small'), 'padding');
+  box-sizing: border-box;
+  gap: map.get(map.get(grid.$layout-settings, 'small'), 'gutter');
+
+  // Tablet breakpoint (680px)
+  @include grid.respond-to('breakpoint-04') {
+    margin: 3rem auto 1.5rem;
+    padding: map.get(map.get(grid.$layout-settings, 'medium'), 'padding');
+    gap: map.get(map.get(grid.$layout-settings, 'medium'), 'gutter');
+  }
+
+  // Desktop breakpoint (1080px)
+  @include grid.respond-to('breakpoint-07') {
+    margin: 4rem auto 2rem;
+    padding: map.get(map.get(grid.$layout-settings, 'large'), 'padding');
+    gap: map.get(map.get(grid.$layout-settings, 'large'), 'gutter');
+  }
+
+  /* Title at the top */
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  /* Message styling for loading and error messages */
+  &__message {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    color: $primary-text;
+  }
+
+  /* Content container for Card + Form */
+  &__content {
+    display: flex;
+    flex-direction: column; // Mobile-first: stack columns
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+
+    // At 680px (tablet) and up, switch to a two-column layout
+    @include grid.respond-to('breakpoint-04') {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  /* Left column for Card and "Select another application" button */
+  &__left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    flex: 0 0 300px; // Fixed column width; adjust as needed
+    width: 100%;
+  }
+
+  @include grid.respond-to('breakpoint-04') {
+    &__left {
+      width: auto;
+    }
+  }
+
+  &__select-another {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: $button-background;
+    color: $button-text;
+    border: 1px solid $button-background;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+
+    &:hover {
+      background-color: $button-hover;
+      border-color: $button-hover;
+    }
+  }
+
+  /* Right column for the form */
+  &__right {
+    width: 100%;
+    flex: 1 1 auto; // Take the remaining space
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    box-sizing: border-box;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        label {
+          font-weight: 600;
+        }
+
+        input {
+          padding: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          background-color: #fff;
+          color: #000;
+        }
+      }
+
+      button[type='submit'] {
+        align-self: flex-start;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        background-color: $button-background;
+        color: $button-text;
+        border: 1px solid $button-background;
+        border-radius: 4px;
+        cursor: pointer;
+        transition:
+          background-color 0.3s ease,
+          border-color 0.3s ease;
+
+        &:hover {
+          background-color: $button-hover;
+          border-color: $button-hover;
+        }
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
