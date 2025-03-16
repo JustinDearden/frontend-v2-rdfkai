@@ -7,11 +7,6 @@ $button-text: #ffffff;
 $button-hover: color.adjust($button-background, $lightness: -10%);
 $font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-// _variables.scss
-$breakpoint-mobile: 480px;
-$breakpoint-tablet: 768px;
-$breakpoint-desktop: 1024px;
-
 // Existing design tokens
 $primary-background: #fff;
 $primary-text: #333;
