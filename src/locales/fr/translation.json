@@ -21,6 +21,19 @@
     "noProductFound": "Aucun produit trouvé pour cette application. Veuillez revenir en arrière et choisir un produit.",
     "backButton": "Retour"
   },
+  "applicationsPage": {
+    "loadingMessage": "Chargement des applications...",
+    "apiMessage": "Erreur lors du chargement des applications",
+    "noApplicationsMessage": "Aucune application trouvée",
+    "returnButton": "Choisissez un produit",
+    "pageTitle": "Toutes les applications",
+    "idTitle": "IDENTIFIANT :",
+    "typeTitle": "Type:",
+    "createdTitle": "Créé à :",
+    "editButton": "Corriger",
+    "applicantsTitle": "Candidats:",
+    "noApplicantDataFound": "Aucune donnée disponible sur le candidat"
+  },
   "errorPages": {
     "editPageErrors": {
       "pageTitle": "ID d'application manquant",

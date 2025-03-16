@@ -2,21 +2,45 @@ import React from 'react';
 import { useApplications } from '../hooks/useApplications';
 import { useNavigate } from '@tanstack/react-router';
 import { Application } from '../types';
+import Button from '../components/Button';
 import './ApplicationsPage.scss';
+import { useTranslation } from 'react-i18next';
 
 const ApplicationsPage: React.FC = () => {
   const { data: applications, isLoading, error } = useApplications();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
-  if (isLoading) return <div>Loading applications...</div>;
-  if (error) return <div>Error loading applications.</div>;
-  if (!applications || applications.length === 0) {
-    return <div>No applications found.</div>;
-  }
+  if (isLoading)
+    return (
+      <div className="applications-page__loading">
+        {t('applicationsPage.loadingMessage')}
+      </div>
+    );
+  if (error)
+    return (
+      <div className="applications-page__error">
+        {t('applicationsPage.apiMessage')}
+      </div>
+    );
+  if (!applications || applications.length === 0)
+    return (
+      <div className="applications-page__empty">
+        <p>{t('applicationsPage.noApplicationsMessage')}</p>
+        <Button
+          className="applications-page__return"
+          onClick={() => navigate({ to: '/' })}
+        >
+          {t('applicationsPage.returnButton')}
+        </Button>
+      </div>
+    );
 
   return (
     <div className="applications-page">
-      <h1 className="applications-page__title">All Applications</h1>
+      <h1 className="applications-page__title">
+        {t('applicationsPage.pageTitle')}
+      </h1>
       <ul className="applications-page__list">
         {applications.map((app: Application) => (
           <li className="applications-page__item" key={app.id}>
@@ -24,31 +48,31 @@ const ApplicationsPage: React.FC = () => {
               {/* Left side: Application details */}
               <div className="applications-page__item-left">
                 <p>
-                  <strong>ID:</strong> {app.id}
+                  <strong>{t('applicationsPage.idTitle')}</strong> {app.id}
                 </p>
                 <p>
-                  <strong>Type:</strong> {app.type}
+                  <strong>{t('applicationsPage.typeTitle')}</strong> {app.type}
                 </p>
                 <p>
-                  <strong>Token:</strong> {app.token}
-                </p>
-                <p>
-                  <strong>Created At:</strong>{' '}
+                  <strong>{t('applicationsPage.createdTitle')}</strong>{' '}
                   {new Date(app.createdAt).toLocaleString()}
                 </p>
-                <button onClick={() => navigate({ to: `/edit/${app.id}` })}>
-                  Edit
-                </button>
+                <Button
+                  className="applications-page__edit-btn"
+                  onClick={() => navigate({ to: `/edit/${app.id}` })}
+                >
+                  {t('applicationsPage.editButton')}
+                </Button>
               </div>
               {/* Right side: Applicant data */}
               <div className="applications-page__item-right">
                 {app.applicants && app.applicants.length > 0 ? (
-                  <div>
+                  <div className="applications-page__applicants">
                     <p>
-                      <strong>Applicants:</strong>
+                      <strong>{t('applicationsPage.applicantsTitle')}</strong>
                     </p>
                     {app.applicants.map((applicant, index) => (
-                      <div key={index} style={{ marginBottom: '0.5rem' }}>
+                      <div key={index} className="applications-page__applicant">
                         <p>
                           {applicant.firstName} {applicant.lastName}
                         </p>
@@ -58,19 +82,19 @@ const ApplicationsPage: React.FC = () => {
                     ))}
                   </div>
                 ) : (
-                  <p>No applicant data available</p>
+                  <p>{t('applicationsPage.noApplicantDataFound')}</p>
                 )}
               </div>
             </div>
           </li>
         ))}
       </ul>
-      <button
+      <Button
         className="applications-page__return"
         onClick={() => navigate({ to: '/' })}
       >
-        Return to Home
-      </button>
+        {t('applicationsPage.returnButton')}
+      </Button>
     </div>
   );
 };
