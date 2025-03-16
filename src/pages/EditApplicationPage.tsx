@@ -74,6 +74,7 @@ const EditApplicationPage: React.FC = () => {
           applicationId: application.id,
           applicants: [data as Applicant],
         });
+        // Set toast message on successful submission
         setToastMessage(t('editPage.successAPIMessage'));
       }
     },

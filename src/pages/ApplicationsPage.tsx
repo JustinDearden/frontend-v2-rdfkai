@@ -55,12 +55,6 @@ const ApplicationsPage: React.FC = () => {
                     <strong>{t('applicationsPage.createdTitle')}</strong>{' '}
                     {new Date(app.createdAt).toLocaleString()}
                   </p>
-                  <Button
-                    className="applications-page__edit-btn"
-                    onClick={() => navigate({ to: `/edit/${app.id}` })}
-                  >
-                    {t('applicationsPage.editButton')}
-                  </Button>
                 </div>
                 {/* Right side: Applicant data */}
                 <div className="applications-page__item-right">
@@ -86,6 +80,15 @@ const ApplicationsPage: React.FC = () => {
                     <p>{t('applicationsPage.noApplicantDataFound')}</p>
                   )}
                 </div>
+              </div>
+              {/* Edit button on its own row */}
+              <div className="applications-page__item-actions">
+                <Button
+                  className="applications-page__edit-btn"
+                  onClick={() => navigate({ to: `/edit/${app.id}` })}
+                >
+                  {t('applicationsPage.editButton')}
+                </Button>
               </div>
             </li>
           ))}
