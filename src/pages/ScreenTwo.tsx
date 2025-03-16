@@ -12,6 +12,7 @@ import { useRateLimit } from '../hooks/useThrottle';
 import './ScreenTwo.scss';
 import Toast from '../components/Toast';
 import { useTranslation } from 'react-i18next';
+import Button from '../components/Button';
 
 interface FormData {
   firstName: string;
@@ -93,9 +94,9 @@ const ScreenTwo: React.FC = () => {
     return (
       <div className="screen-two__message">
         <p>{t('editPage.noApplicationMessage')}</p>
-        <button onClick={() => navigate({ to: '/' })}>
+        <Button variant="primary" onClick={() => navigate({ to: '/' })}>
           {t('editPage.backButton')}
-        </button>
+        </Button>
       </div>
     );
   }
@@ -109,9 +110,9 @@ const ScreenTwo: React.FC = () => {
     return (
       <div className="screen-two__message">
         <p>{t('editPage.noProductFound')}</p>
-        <button onClick={() => navigate({ to: '/' })}>
+        <Button variant="primary" onClick={() => navigate({ to: '/' })}>
           {t('editPage.backButton')}
-        </button>
+        </Button>
       </div>
     );
   }
@@ -126,12 +127,13 @@ const ScreenTwo: React.FC = () => {
             onSelect={() => navigate({ to: '/' })}
             buttonLabel="Return"
           />
-          <button
+          <Button
+            variant="primary"
             className="screen-two__select-another"
             onClick={() => navigate({ to: '/applications' })}
           >
             {t('editPage.selectApplicationButton')}
-          </button>
+          </Button>
         </div>
 
         {/* Right Column: Form Box */}
@@ -191,9 +193,9 @@ const ScreenTwo: React.FC = () => {
                 <span className="error">{t('form.errors.phoneError')}</span>
               )}
             </div>
-            <button type="submit" disabled={isRateLimited}>
+            <Button type="submit" disabled={isRateLimited}>
               {isRateLimited ? t('form.rateLimited') : t('form.submitButton')}
-            </button>
+            </Button>
           </form>
         </div>
       </div>

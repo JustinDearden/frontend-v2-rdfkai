@@ -3,6 +3,7 @@ import './Navbar.scss';
 import Logo from '../assets/images/svg/logo-nesto-en.svg';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from '@tanstack/react-router';
+import Button from './Button';
 
 const Navbar: React.FC = () => {
   const { i18n } = useTranslation();
@@ -29,9 +30,13 @@ const Navbar: React.FC = () => {
         />
       </div>
       <div className="navbar__right">
-        <button className="navbar__language-toggle" onClick={toggleLanguage}>
+        <Button
+          variant="secondary"
+          className="navbar__language-toggle"
+          onClick={toggleLanguage}
+        >
           {i18n.language === 'en' ? 'Français' : 'English'}
-        </button>
+        </Button>
       </div>
     </nav>
   );
