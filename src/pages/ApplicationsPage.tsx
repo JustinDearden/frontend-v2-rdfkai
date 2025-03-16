@@ -23,10 +23,13 @@ const ApplicationsPage: React.FC = () => {
         {t('applicationsPage.apiMessage')}
       </div>
     );
-  if (!applications || applications.length === 0)
-    return (
-      <div className="applications-page__empty">
-        <p>{t('applicationsPage.noApplicationsMessage')}</p>
+
+  return (
+    <div className="applications-page">
+      <div className="applications-page__header">
+        <h1 className="applications-page__title">
+          {t('applicationsPage.pageTitle')}
+        </h1>
         <Button
           className="applications-page__return"
           onClick={() => navigate({ to: '/' })}
@@ -34,67 +37,64 @@ const ApplicationsPage: React.FC = () => {
           {t('applicationsPage.returnButton')}
         </Button>
       </div>
-    );
-
-  return (
-    <div className="applications-page">
-      <h1 className="applications-page__title">
-        {t('applicationsPage.pageTitle')}
-      </h1>
-      <ul className="applications-page__list">
-        {applications.map((app: Application) => (
-          <li className="applications-page__item" key={app.id}>
-            <div className="applications-page__item-content">
-              {/* Left side: Application details */}
-              <div className="applications-page__item-left">
-                <p>
-                  <strong>{t('applicationsPage.idTitle')}</strong> {app.id}
-                </p>
-                <p>
-                  <strong>{t('applicationsPage.typeTitle')}</strong> {app.type}
-                </p>
-                <p>
-                  <strong>{t('applicationsPage.createdTitle')}</strong>{' '}
-                  {new Date(app.createdAt).toLocaleString()}
-                </p>
-                <Button
-                  className="applications-page__edit-btn"
-                  onClick={() => navigate({ to: `/edit/${app.id}` })}
-                >
-                  {t('applicationsPage.editButton')}
-                </Button>
+      {applications && applications.length > 0 ? (
+        <ul className="applications-page__list">
+          {applications.map((app: Application) => (
+            <li className="applications-page__item" key={app.id}>
+              <div className="applications-page__item-content">
+                {/* Left side: Application details */}
+                <div className="applications-page__item-left">
+                  <p>
+                    <strong>{t('applicationsPage.idTitle')}</strong> {app.id}
+                  </p>
+                  <p>
+                    <strong>{t('applicationsPage.typeTitle')}</strong>{' '}
+                    {app.type}
+                  </p>
+                  <p>
+                    <strong>{t('applicationsPage.createdTitle')}</strong>{' '}
+                    {new Date(app.createdAt).toLocaleString()}
+                  </p>
+                  <Button
+                    className="applications-page__edit-btn"
+                    onClick={() => navigate({ to: `/edit/${app.id}` })}
+                  >
+                    {t('applicationsPage.editButton')}
+                  </Button>
+                </div>
+                {/* Right side: Applicant data */}
+                <div className="applications-page__item-right">
+                  {app.applicants && app.applicants.length > 0 ? (
+                    <div className="applications-page__applicants">
+                      <p>
+                        <strong>{t('applicationsPage.applicantsTitle')}</strong>
+                      </p>
+                      {app.applicants.map((applicant, index) => (
+                        <div
+                          key={index}
+                          className="applications-page__applicant"
+                        >
+                          <p>
+                            {applicant.firstName} {applicant.lastName}
+                          </p>
+                          <p>{applicant.email}</p>
+                          <p>{applicant.phone}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>{t('applicationsPage.noApplicantDataFound')}</p>
+                  )}
+                </div>
               </div>
-              {/* Right side: Applicant data */}
-              <div className="applications-page__item-right">
-                {app.applicants && app.applicants.length > 0 ? (
-                  <div className="applications-page__applicants">
-                    <p>
-                      <strong>{t('applicationsPage.applicantsTitle')}</strong>
-                    </p>
-                    {app.applicants.map((applicant, index) => (
-                      <div key={index} className="applications-page__applicant">
-                        <p>
-                          {applicant.firstName} {applicant.lastName}
-                        </p>
-                        <p>{applicant.email}</p>
-                        <p>{applicant.phone}</p>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p>{t('applicationsPage.noApplicantDataFound')}</p>
-                )}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <Button
-        className="applications-page__return"
-        onClick={() => navigate({ to: '/' })}
-      >
-        {t('applicationsPage.returnButton')}
-      </Button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="applications-page__empty">
+          <p>{t('applicationsPage.noApplicationsMessage')}</p>
+        </div>
+      )}
     </div>
   );
 };
