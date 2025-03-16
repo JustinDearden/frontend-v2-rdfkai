@@ -27,5 +27,12 @@
     "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et choisir un produit.",
     "noProductFound": "Aucun produit trouvé pour cette application. Veuillez revenir en arrière et choisir un produit.",
     "backButton": "Retour"
+  },
+  "errorPages": {
+    "editPageErrors": {
+      "pageTitle": "ID d'application manquant",
+      "pageSubtitle": "Veuillez sélectionner une application valide",
+      "selectApplicationButton": "Sélectionnez une application"
+    }
   }
 }

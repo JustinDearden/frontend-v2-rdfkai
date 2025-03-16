@@ -1,5 +1,6 @@
 import React, { JSX } from 'react';
 import { CardProduct } from '../types';
+import Button from '../components/Button';
 import './RowCard.scss';
 
 export interface RowCardProps {
@@ -29,9 +30,13 @@ const RowCard = ({
     {/* Footer Row */}
     <div className="row-card__row row-card__footer">
       {onSelect && (
-        <button className="row-card__button" onClick={onSelect}>
+        <Button
+          variant="primary"
+          className="row-card__button"
+          onClick={onSelect}
+        >
           {buttonLabel}
-        </button>
+        </Button>
       )}
     </div>
   </div>
