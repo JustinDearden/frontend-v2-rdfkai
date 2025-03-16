@@ -8,9 +8,9 @@ import { useCreateApplication } from '../hooks/useCreateApplication';
 import { Product } from '../types';
 import { organizeProducts, toCardProduct } from '../helper/productHelpers';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
-import './ScreenOne.scss';
+import './ProductPage.scss';
 
-const ScreenOne: React.FC = () => {
+const ProductPage: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: products, isLoading, error } = useProducts();
@@ -33,18 +33,16 @@ const ScreenOne: React.FC = () => {
   );
 
   if (isLoading)
-    return <div className="screen-one__loading">{t('loading')}...</div>;
+    return <div className="product-page__loading">{t('loading')}...</div>;
   if (error) return <div>{t('errorLoadingData')}</div>;
   if (!products || products.length === 0)
     return <div>{t('noProductsAvailable')}</div>;
 
-  // Organize the products
   const { bestFixed, remainingFixed, bestVariable, remainingVariable } =
     organizeProducts(products);
 
   return (
-    <div className="screen-one">
-      {/* 1. Best Cards Section */}
+    <div className="product-page">
       <section className="best-cards-section">
         <div className="best-card">
           {bestFixed && (
@@ -66,10 +64,8 @@ const ScreenOne: React.FC = () => {
         </div>
       </section>
 
-      {/* Divider */}
-      <hr className="screen-one__divider" />
+      <hr className="product-page__divider" />
 
-      {/* 2. Row Cards Section */}
       <section className="row-cards-section">
         <div className="row-cards-column">
           {remainingFixed.map((product) => (
@@ -96,4 +92,4 @@ const ScreenOne: React.FC = () => {
   );
 };
 
-export default ScreenOne;
+export default ProductPage;

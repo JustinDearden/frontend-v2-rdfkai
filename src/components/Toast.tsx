@@ -21,7 +21,11 @@ const Toast: React.FC<ToastProps> = ({
     return () => clearTimeout(timer);
   }, [duration, onClose]);
 
-  return <div className={`toast toast--${variant}`}>{message}</div>;
+  return (
+    <div className={`toast toast--${variant}`} role="alert">
+      {message}
+    </div>
+  );
 };
 
 export default Toast;

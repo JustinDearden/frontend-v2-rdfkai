@@ -2,9 +2,9 @@ import React from 'react';
 import { useApplications } from '../hooks/useApplications';
 import { useNavigate } from '@tanstack/react-router';
 import { Application } from '../types';
-import './ScreenApplications.scss'; // Import your new SCSS
+import './ApplicationsPage.scss';
 
-const ScreenApplications: React.FC = () => {
+const ApplicationsPage: React.FC = () => {
   const { data: applications, isLoading, error } = useApplications();
   const navigate = useNavigate();
 
@@ -15,14 +15,14 @@ const ScreenApplications: React.FC = () => {
   }
 
   return (
-    <div className="screen-applications">
-      <h1 className="screen-applications__title">All Applications</h1>
-      <ul className="screen-applications__list">
+    <div className="applications-page">
+      <h1 className="applications-page__title">All Applications</h1>
+      <ul className="applications-page__list">
         {applications.map((app: Application) => (
-          <li className="screen-applications__item" key={app.id}>
-            <div className="screen-applications__item-content">
+          <li className="applications-page__item" key={app.id}>
+            <div className="applications-page__item-content">
               {/* Left side: Application details */}
-              <div className="screen-applications__item-left">
+              <div className="applications-page__item-left">
                 <p>
                   <strong>ID:</strong> {app.id}
                 </p>
@@ -41,7 +41,7 @@ const ScreenApplications: React.FC = () => {
                 </button>
               </div>
               {/* Right side: Applicant data */}
-              <div className="screen-applications__item-right">
+              <div className="applications-page__item-right">
                 {app.applicants && app.applicants.length > 0 ? (
                   <div>
                     <p>
@@ -66,7 +66,7 @@ const ScreenApplications: React.FC = () => {
         ))}
       </ul>
       <button
-        className="screen-applications__return"
+        className="applications-page__return"
         onClick={() => navigate({ to: '/' })}
       >
         Return to Home
@@ -75,4 +75,4 @@ const ScreenApplications: React.FC = () => {
   );
 };
 
-export default ScreenApplications;
+export default ApplicationsPage;
