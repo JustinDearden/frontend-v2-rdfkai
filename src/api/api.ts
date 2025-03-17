@@ -3,7 +3,7 @@ import axios from 'axios';
 const DEFAULT_HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
-  'x-nesto-candidat': 'Justin Deardon',
+  'x-nesto-candidat': import.meta.env.VITE_X_NESTO_CANDIDAT,
 };
 
 export const api = axios.create({
