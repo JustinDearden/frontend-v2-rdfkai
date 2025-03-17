@@ -1,4 +1,11 @@
 {
+  "navbar": {
+    "applicationsTab": "Applications",
+    "changesTab": "Changes"
+  },
+  "productPage": {
+    "selectButton": "Select This Product"
+  },
   "form": {
     "firstName": "First Name",
     "lastName": "Last Name",
@@ -35,6 +42,7 @@
     "applicantEmail": "Email:",
     "applicantPhone": "Phone:",
     "editButton": "Edit",
+    "applicationInfo": "Application Info",
     "applicantsTitle": "Applicants:",
     "noApplicantDataFound": "No applicant data available"
   },

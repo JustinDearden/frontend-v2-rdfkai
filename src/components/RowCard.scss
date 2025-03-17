@@ -8,9 +8,17 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   background-color: $color-primary-background;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
 
   &__row {
     width: 100%;
@@ -21,63 +29,195 @@
     gap: 0.5rem;
   }
 
-  &__type,
-  &__name {
-    font-size: 1.1rem;
+  &__header {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  &__type {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.6);
     margin: 0;
   }
 
   &__name {
-    line-clamp: 2;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    height: 3rem;
-    white-space: normal;
+    max-height: 2.8rem;
+    text-align: center;
     word-break: break-word;
+  }
+
+  &__body {
+    flex-grow: 1;
+    padding: 0.25rem 0;
   }
 
   &__rate {
     font-size: 1.8rem;
+    font-weight: 800;
     margin: 0;
+    color: black;
+    line-height: 1.1;
   }
 
   &__lender {
-    font-size: 1rem;
+    font-size: 0.875rem;
     margin: 0;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  &__footer {
+    margin-top: 0.25rem;
+    width: 100%;
   }
 
   &__button {
     width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     border: 1px solid $color-button-background;
     border-radius: 4px;
     background-color: $color-button-background;
     color: $color-button-text;
     cursor: pointer;
     transition:
-      background-color 0.3s ease,
-      border-color 0.3s ease;
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.1s ease;
 
     &:hover {
       background-color: $color-button-hover;
       border-color: $color-button-hover;
     }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($color-button-background, 0.3);
+    }
   }
 
   @include grid.respond-to('breakpoint-03') {
+    padding: 1.25rem;
+    gap: 1rem;
+
     &__row {
       flex-direction: row;
-      align-items: flex-start;
-      justify-content: flex-start;
+      align-items: center;
+      justify-content: space-between;
       gap: 1rem;
+    }
+
+    &__header {
+      padding-bottom: 0.75rem;
+
+      .row-card__type {
+        width: 30%;
+        text-align: left;
+      }
+
+      .row-card__name {
+        width: 70%;
+        text-align: left;
+        -webkit-line-clamp: 2;
+        max-height: 2.8rem;
+      }
+    }
+
+    &__body {
+      .row-card__rate {
+        width: 30%;
+        text-align: left;
+      }
+
+      .row-card__lender {
+        width: 70%;
+        text-align: left;
+      }
     }
 
     &__footer {
       justify-content: flex-end;
+      display: flex;
     }
 
     &__button {
       width: auto;
+      min-width: 120px;
+    }
+  }
+
+  @include grid.respond-to('breakpoint-05') {
+    padding: 1.5rem;
+    border-radius: 10px;
+
+    &__type {
+      font-size: 0.875rem;
+    }
+
+    &__name {
+      font-size: 1.2rem;
+    }
+
+    &__rate {
+      font-size: 2rem;
+    }
+
+    &__lender {
+      font-size: 0.95rem;
+    }
+
+    &__button {
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      min-width: 140px;
+    }
+  }
+
+  @include grid.respond-to('breakpoint-07') {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    &__header {
+      padding-bottom: 1rem;
+    }
+
+    &__name {
+      font-size: 1.25rem;
+    }
+
+    &__rate {
+      font-size: 2.2rem;
+    }
+
+    &__lender {
+      font-size: 1rem;
+    }
+
+    &__button {
+      border-radius: 6px;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($color-button-background, 0.3);
+      }
     }
   }
 }

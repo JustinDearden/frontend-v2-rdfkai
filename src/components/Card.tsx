@@ -1,5 +1,5 @@
-import React, { JSX } from 'react';
-import { CardProduct } from '../types';
+import React, { type JSX } from 'react';
+import type { CardProduct } from '../types';
 import Button from '../components/Button';
 import './Card.scss';
 
@@ -24,7 +24,12 @@ const Card = ({
       <p className="card__lender">{product.lenderName}</p>
     </div>
     {onSelect && (
-      <Button variant="primary" className="card__button" onClick={onSelect}>
+      <Button
+        variant="primary"
+        className="card__button"
+        onClick={onSelect}
+        aria-label={`${buttonLabel} ${product.name}`}
+      >
         {buttonLabel}
       </Button>
     )}
