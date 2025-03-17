@@ -1,11 +1,12 @@
-import React, { useCallback } from 'react';
+import type React from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from '@tanstack/react-router';
 import Card from '../components/Card';
 import RowCard from '../components/RowCard';
 import { useProducts } from '../hooks/useProduct';
 import { useCreateApplication } from '../hooks/useCreateApplication';
-import { Product } from '../types';
+import type { Product } from '../types';
 import { organizeProducts, toCardProduct } from '../helper/productHelpers';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
 import './ProductPage.scss';
@@ -33,10 +34,25 @@ const ProductPage: React.FC = () => {
   );
 
   if (isLoading)
-    return <div className="product-page__loading">{t('loading')}...</div>;
-  if (error) return <div>{t('errorLoadingData')}</div>;
+    return (
+      <div className="product-page__loading">
+        <div>{t('loading')}...</div>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="product-page__loading">
+        <div>{t('errorLoadingData')}</div>
+      </div>
+    );
+
   if (!products || products.length === 0)
-    return <div>{t('noProductsAvailable')}</div>;
+    return (
+      <div className="product-page__loading">
+        <div>{t('noProductsAvailable')}</div>
+      </div>
+    );
 
   const { bestFixed, remainingFixed, bestVariable, remainingVariable } =
     organizeProducts(products);
@@ -44,24 +60,24 @@ const ProductPage: React.FC = () => {
   return (
     <div className="product-page">
       <section className="best-cards-section">
-        <div className="best-card">
-          {bestFixed && (
+        {bestFixed && (
+          <div className="best-card">
             <Card
               product={toCardProduct(bestFixed)}
               onSelect={() => handleSelectProduct(bestFixed)}
               buttonLabel={t('Select This Product')}
             />
-          )}
-        </div>
-        <div className="best-card">
-          {bestVariable && (
+          </div>
+        )}
+        {bestVariable && (
+          <div className="best-card">
             <Card
               product={toCardProduct(bestVariable)}
               onSelect={() => handleSelectProduct(bestVariable)}
               buttonLabel={t('Select This Product')}
             />
-          )}
-        </div>
+          </div>
+        )}
       </section>
 
       <hr className="product-page__divider" />

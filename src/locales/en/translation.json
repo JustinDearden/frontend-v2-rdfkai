@@ -1,4 +1,8 @@
 {
+  "navbar": {
+    "applicationsTab": "Applications",
+    "changesTab": "Changes"
+  },
   "form": {
     "firstName": "First Name",
     "lastName": "Last Name",

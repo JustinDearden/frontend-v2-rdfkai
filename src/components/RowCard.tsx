@@ -1,5 +1,5 @@
-import React, { JSX } from 'react';
-import { CardProduct } from '../types';
+import React, { type JSX } from 'react';
+import type { CardProduct } from '../types';
 import Button from '../components/Button';
 import './RowCard.scss';
 
@@ -15,25 +15,23 @@ const RowCard = ({
   buttonLabel = 'Select',
 }: RowCardProps): JSX.Element => (
   <div className="row-card">
-    {/* Header Row */}
     <div className="row-card__row row-card__header">
       <p className="row-card__type">{product.type}</p>
       <p className="row-card__name">{product.name}</p>
     </div>
 
-    {/* Body Row */}
     <div className="row-card__row row-card__body">
       <p className="row-card__rate">{product.bestRate.toFixed(2)}%</p>
       <p className="row-card__lender">{product.lenderName}</p>
     </div>
 
-    {/* Footer Row */}
     <div className="row-card__row row-card__footer">
       {onSelect && (
         <Button
           variant="primary"
           className="row-card__button"
           onClick={onSelect}
+          aria-label={`${buttonLabel} ${product.name}`}
         >
           {buttonLabel}
         </Button>
