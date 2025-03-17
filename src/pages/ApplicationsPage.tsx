@@ -69,15 +69,21 @@ const ApplicationsPage: React.FC = () => {
                           className="applications-page__applicant"
                         >
                           <p>
-                            <strong>{t('form.nameLabel')}:</strong>{' '}
+                            <strong>
+                              {t('applicationsPage.applicantName')}
+                            </strong>{' '}
                             {applicant.firstName} {applicant.lastName}
                           </p>
                           <p>
-                            <strong>{t('form.emailLabel')}:</strong>{' '}
+                            <strong>
+                              {t('applicationsPage.applicantEmail')}
+                            </strong>{' '}
                             {applicant.email}
                           </p>
                           <p>
-                            <strong>{t('form.phoneLabel')}:</strong>{' '}
+                            <strong>
+                              {t('applicationsPage.applicantPhone')}
+                            </strong>{' '}
                             {applicant.phone}
                           </p>
                         </div>

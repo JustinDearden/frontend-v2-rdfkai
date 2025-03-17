@@ -30,6 +30,9 @@
     "idTitle": "IDENTIFIANT :",
     "typeTitle": "Type:",
     "createdTitle": "Créé à :",
+    "applicantName": "Nom:",
+    "applicantEmail": "Courriel:",
+    "applicantPhone": "Téléphone:",
     "editButton": "Corriger",
     "applicantsTitle": "Candidats:",
     "noApplicantDataFound": "Aucune donnée disponible sur le candidat"

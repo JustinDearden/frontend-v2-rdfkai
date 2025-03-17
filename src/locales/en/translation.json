@@ -31,6 +31,9 @@
     "idTitle": "ID:",
     "typeTitle": "Type:",
     "createdTitle": "Created At:",
+    "applicantName": "Name:",
+    "applicantEmail": "Email:",
+    "applicantPhone": "Phone:",
     "editButton": "Edit",
     "applicantsTitle": "Applicants:",
     "noApplicantDataFound": "No applicant data available"
