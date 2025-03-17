@@ -30,6 +30,7 @@
     "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et choisir un produit.",
     "noProductFound": "Aucun produit trouvé pour cette application. Veuillez revenir en arrière et choisir un produit.",
     "backButton": "Retour",
+    "returnButton": "Retour aux produits",
     "validation": {
       "phoneNumberRequired": "Numéro de téléphone invalide. Seuls les chiffres sont autorisés.",
       "phoneNumberMinLen": "Le numéro de téléphone devrait avoir exactement 10 chiffres.",

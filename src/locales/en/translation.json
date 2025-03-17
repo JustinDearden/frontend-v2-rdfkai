@@ -31,6 +31,7 @@
     "noApplicationMessage": "No application found. Please go back and select a product.",
     "noProductFound": "No product found for this application. Please go back and select a product.",
     "backButton": "Go Back",
+    "returnButton": "Return to Products",
     "validation": {
       "phoneNumberRequired": "Invalid phone number. Only digits are allowed.",
       "phoneNumberMinLen": "Phone number must be exactly 10 digits.",
