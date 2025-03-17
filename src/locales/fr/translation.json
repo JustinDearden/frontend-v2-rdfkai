@@ -3,6 +3,9 @@
     "applicationsTab": "Applications",
     "changesTab": "Changements"
   },
+  "productPage": {
+    "selectButton": "Choisissez ce produit"
+  },
   "form": {
     "firstName": "Prénom",
     "lastName": "Nom",
@@ -38,6 +41,7 @@
     "applicantEmail": "Courriel:",
     "applicantPhone": "Téléphone:",
     "editButton": "Corriger",
+    "applicationInfo": "Renseignements sur la demande",
     "applicantsTitle": "Candidats:",
     "noApplicantDataFound": "Aucune donnée disponible sur le candidat"
   },
