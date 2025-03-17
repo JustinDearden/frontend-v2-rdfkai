@@ -65,16 +65,21 @@ const ApplicationsPage: React.FC = () => {
                 {/* Left side: Application details */}
                 <div className="applications-page__item-left">
                   <p>
-                    <strong>{t('applicationsPage.idTitle')}</strong> {app.id}
+                    <strong>{t('applicationsPage.applicationInfo')}</strong>
                   </p>
-                  <p>
-                    <strong>{t('applicationsPage.typeTitle')}</strong>{' '}
-                    {app.type}
-                  </p>
-                  <p>
-                    <strong>{t('applicationsPage.createdTitle')}</strong>{' '}
-                    {formatDate(app.createdAt)}
-                  </p>
+                  <div className="applications-page__item-left-details">
+                    <p>
+                      <strong>{t('applicationsPage.idTitle')}</strong> {app.id}
+                    </p>
+                    <p>
+                      <strong>{t('applicationsPage.typeTitle')}</strong>{' '}
+                      {app.type}
+                    </p>
+                    <p>
+                      <strong>{t('applicationsPage.createdTitle')}</strong>{' '}
+                      {formatDate(app.createdAt)}
+                    </p>
+                  </div>
                 </div>
                 {/* Right side: Applicant data with labels */}
                 <div className="applications-page__item-right">

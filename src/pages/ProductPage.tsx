@@ -65,7 +65,7 @@ const ProductPage: React.FC = () => {
             <Card
               product={toCardProduct(bestFixed)}
               onSelect={() => handleSelectProduct(bestFixed)}
-              buttonLabel={t('Select This Product')}
+              buttonLabel={t('productPage.selectButton')}
             />
           </div>
         )}
@@ -74,7 +74,7 @@ const ProductPage: React.FC = () => {
             <Card
               product={toCardProduct(bestVariable)}
               onSelect={() => handleSelectProduct(bestVariable)}
-              buttonLabel={t('Select This Product')}
+              buttonLabel={t('productPage.selectButton')}
             />
           </div>
         )}
@@ -89,7 +89,7 @@ const ProductPage: React.FC = () => {
               key={product.id}
               product={toCardProduct(product)}
               onSelect={() => handleSelectProduct(product)}
-              buttonLabel={t('Select This Product')}
+              buttonLabel={t('productPage.selectButton')}
             />
           ))}
         </div>
@@ -99,7 +99,7 @@ const ProductPage: React.FC = () => {
               key={product.id}
               product={toCardProduct(product)}
               onSelect={() => handleSelectProduct(product)}
-              buttonLabel={t('Select This Product')}
+              buttonLabel={t('productPage.selectButton')}
             />
           ))}
         </div>
