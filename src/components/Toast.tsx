@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Toast.scss';
 
-interface ToastProps {
+export interface ToastProps {
   message: string;
   duration?: number;
   variant?: 'success' | 'failure';

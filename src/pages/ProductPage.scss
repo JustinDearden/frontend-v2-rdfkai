@@ -23,6 +23,41 @@
     gap: map.get(map.get(grid.$layout-settings, 'large'), 'gutter');
   }
 
+  &__section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+    margin: 0 0 1rem;
+    text-align: left;
+
+    @include grid.respond-to('breakpoint-03') {
+      font-size: 1.75rem;
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+
+    @include grid.respond-to('breakpoint-05') {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__column-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+    margin: 0 0 1rem;
+    text-align: left;
+
+    @include grid.respond-to('breakpoint-03') {
+      font-size: 1.4rem;
+    }
+
+    @include grid.respond-to('breakpoint-05') {
+      font-size: 1.5rem;
+    }
+  }
+
   .best-cards-section {
     width: 100%;
     display: flex;

@@ -59,6 +59,10 @@ const ProductPage: React.FC = () => {
 
   return (
     <div className="product-page">
+      <h2 className="product-page__section-title">
+        {t('productPage.bestProducts')}
+      </h2>
+
       <section className="best-cards-section">
         {bestFixed && (
           <div className="best-card">
@@ -84,6 +88,9 @@ const ProductPage: React.FC = () => {
 
       <section className="row-cards-section">
         <div className="row-cards-column">
+          <h3 className="product-page__column-title">
+            {t('productPage.bestFixed')}
+          </h3>
           {remainingFixed.map((product) => (
             <RowCard
               key={product.id}
@@ -94,6 +101,9 @@ const ProductPage: React.FC = () => {
           ))}
         </div>
         <div className="row-cards-column">
+          <h3 className="product-page__column-title">
+            {t('productPage.bestVariable')}
+          </h3>
           {remainingVariable.map((product) => (
             <RowCard
               key={product.id}

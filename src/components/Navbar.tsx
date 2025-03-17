@@ -97,63 +97,65 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar__left">
-        <img
-          src={Logo || '/placeholder.svg'}
-          alt="Logo"
-          className="navbar__logo"
-          onClick={handleLogoClick}
-          onKeyDown={handleLogoKeyDown}
-          style={{ cursor: 'pointer' }}
+      <div className="navbar__container">
+        <div className="navbar__left">
+          <img
+            src={Logo || '/placeholder.svg'}
+            alt="Logo"
+            className="navbar__logo"
+            onClick={handleLogoClick}
+            onKeyDown={handleLogoKeyDown}
+            style={{ cursor: 'pointer' }}
+            tabIndex={0}
+            role="button"
+          />
+        </div>
+        <div className="navbar__right">
+          <div className="navbar__links">
+            <a
+              className="navbar__link"
+              onClick={() => navigate({ to: '/applications' })}
+              onKeyDown={(e) => handleLinkKeyDown(e, '/applications')}
+              tabIndex={0}
+              role="button"
+            >
+              {t('navbar.applicationsTab')}
+            </a>
+            <a
+              className="navbar__link"
+              onClick={() => navigate({ to: '/changes' })}
+              onKeyDown={(e) => handleLinkKeyDown(e, '/changes')}
+              tabIndex={0}
+              role="button"
+            >
+              {t('navbar.changesTab')}
+            </a>
+          </div>
+          <Button
+            variant="secondary"
+            className="navbar__language-toggle"
+            onClick={toggleLanguage}
+          >
+            {i18n.language === 'en' ? 'Français' : 'English'}
+          </Button>
+        </div>
+        <div
+          className="navbar__hamburger"
+          onClick={() => setMobileMenuOpen(true)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setMobileMenuOpen(true);
+            }
+          }}
+          aria-label="Open menu"
           tabIndex={0}
           role="button"
-        />
-      </div>
-      <div className="navbar__right">
-        <div className="navbar__links">
-          <a
-            className="navbar__link"
-            onClick={() => navigate({ to: '/applications' })}
-            onKeyDown={(e) => handleLinkKeyDown(e, '/applications')}
-            tabIndex={0}
-            role="button"
-          >
-            {t('navbar.applicationsTab')}
-          </a>
-          <a
-            className="navbar__link"
-            onClick={() => navigate({ to: '/changes' })}
-            onKeyDown={(e) => handleLinkKeyDown(e, '/changes')}
-            tabIndex={0}
-            role="button"
-          >
-            {t('navbar.changesTab')}
-          </a>
-        </div>
-        <Button
-          variant="secondary"
-          className="navbar__language-toggle"
-          onClick={toggleLanguage}
         >
-          {i18n.language === 'en' ? 'Français' : 'English'}
-        </Button>
-      </div>
-      <div
-        className="navbar__hamburger"
-        onClick={() => setMobileMenuOpen(true)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setMobileMenuOpen(true);
-          }
-        }}
-        aria-label="Open menu"
-        tabIndex={0}
-        role="button"
-      >
-        <span className="navbar__hamburger-line"></span>
-        <span className="navbar__hamburger-line"></span>
-        <span className="navbar__hamburger-line"></span>
+          <span className="navbar__hamburger-line"></span>
+          <span className="navbar__hamburger-line"></span>
+          <span className="navbar__hamburger-line"></span>
+        </div>
       </div>
 
       {/* Mobile Menu */}
