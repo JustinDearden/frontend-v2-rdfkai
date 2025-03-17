@@ -1,5 +1,3 @@
-'use client';
-
 import type React from 'react';
 import { useEffect, useCallback, useState } from 'react';
 import { useNavigate, useParams } from '@tanstack/react-router';
@@ -44,7 +42,7 @@ const EditApplicationPage: React.FC = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty },
   } = useForm<FormData>({
     defaultValues: { firstName: '', lastName: '', email: '', phone: '' },
     mode: 'onChange',
@@ -155,7 +153,6 @@ const EditApplicationPage: React.FC = () => {
                 {...register('firstName', {
                   required: t('form.errors.firstNameError'),
                 })}
-                placeholder={t('form.firstNamePlaceholder')}
                 aria-invalid={errors.firstName ? 'true' : 'false'}
               />
               {errors.firstName && (
@@ -169,7 +166,6 @@ const EditApplicationPage: React.FC = () => {
                 {...register('lastName', {
                   required: t('form.errors.lastNameError'),
                 })}
-                placeholder={t('form.lastNamePlaceholder')}
                 aria-invalid={errors.lastName ? 'true' : 'false'}
               />
               {errors.lastName && (
@@ -182,13 +178,12 @@ const EditApplicationPage: React.FC = () => {
                 id="email"
                 type="email"
                 {...register('email', {
-                  required: t('form.errors.emailRequired'),
+                  required: t('form.errors.emailError'),
                   pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: t('form.errors.emailInvalid'),
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+                    message: t('form.errors.emailError'),
                   },
                 })}
-                placeholder={t('form.emailPlaceholder')}
                 aria-invalid={errors.email ? 'true' : 'false'}
               />
               {errors.email && (
@@ -200,19 +195,26 @@ const EditApplicationPage: React.FC = () => {
               <input
                 id="phone"
                 {...register('phone', {
-                  required: t('form.errors.phoneError'),
+                  required: t('editPage.validation.phoneError'),
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: t('editPage.validation.phoneNumberRequired'),
+                  },
+                  minLength: {
+                    value: 10,
+                    message: t('editPage.validation.phoneNumberMinLen'),
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: t('editPage.validation.phoneNumberMaxLen'),
+                  },
                 })}
-                placeholder={t('form.phonePlaceholder')}
-                aria-invalid={errors.phone ? 'true' : 'false'}
               />
               {errors.phone && (
                 <span className="error">{errors.phone.message}</span>
               )}
             </div>
-            <Button
-              type="submit"
-              disabled={isRateLimited || isSubmitting || !isValid}
-            >
+            <Button type="submit" disabled={isRateLimited}>
               {isRateLimited
                 ? t('form.rateLimited')
                 : isSubmitting
