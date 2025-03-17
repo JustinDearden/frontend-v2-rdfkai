@@ -5,13 +5,22 @@
 
 .navbar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: map.get(map.get(grid.$layout-settings, 'small'), 'padding');
+  justify-content: center;
+  width: 100%;
   background-color: $primary-background;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    padding: map.get(map.get(grid.$layout-settings, 'small'), 'padding');
+    margin: 0 auto;
+  }
 
   &__left {
     display: flex;

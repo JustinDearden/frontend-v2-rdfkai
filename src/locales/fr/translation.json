@@ -4,7 +4,10 @@
     "changesTab": "Changements"
   },
   "productPage": {
-    "selectButton": "Choisissez ce produit"
+    "selectButton": "Choisissez ce produit",
+    "bestProducts": "Meilleurs prix de produits",
+    "bestVariable": "Taux variables",
+    "bestFixed": "Taux fixes"
   },
   "form": {
     "firstName": "Prénom",
@@ -26,7 +29,13 @@
     "loadingMessage": "Chargement...",
     "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et choisir un produit.",
     "noProductFound": "Aucun produit trouvé pour cette application. Veuillez revenir en arrière et choisir un produit.",
-    "backButton": "Retour"
+    "backButton": "Retour",
+    "validation": {
+      "phoneNumberRequired": "Numéro de téléphone invalide. Seuls les chiffres sont autorisés.",
+      "phoneNumberMinLen": "Le numéro de téléphone devrait avoir exactement 10 chiffres.",
+      "phoneNumberMaxLen": "Le numéro de téléphone devrait avoir exactement 10 chiffres.",
+      "phoneError": "Le numéro de téléphone est requis"
+    }
   },
   "applicationsPage": {
     "loadingMessage": "Chargement des applications...",

@@ -179,11 +179,23 @@ const EditApplicationPage: React.FC = () => {
               <input
                 id="phone"
                 {...register('phone', {
-                  required: 'Phone number is required',
+                  required: t('editPage.validation.phoneError'),
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: t('editPage.validation.phoneNumberRequired'),
+                  },
+                  minLength: {
+                    value: 10,
+                    message: t('editPage.validation.phoneNumberMinLen'),
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: t('editPage.validation.phoneNumberMaxLen'),
+                  },
                 })}
               />
               {errors.phone && (
-                <span className="error">{t('form.errors.phoneError')}</span>
+                <span className="error">{errors.phone.message}</span>
               )}
             </div>
             <Button type="submit" disabled={isRateLimited}>
