@@ -1,6 +1,13 @@
 @use 'sass:color';
 @use '../styles/_variables.scss' as *;
 
+@mixin hover-adjust($bg, $border) {
+  &:hover:not(:disabled) {
+    background-color: color.adjust($bg, $lightness: -10%);
+    border-color: color.adjust($border, $lightness: -10%);
+  }
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -19,25 +26,22 @@
     cursor: not-allowed;
   }
 
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($btn-primary-bg, 0.4);
+  }
+
   &--primary {
     background-color: $btn-primary-bg;
     color: $btn-primary-text;
     border-color: $btn-primary-border;
-
-    &:hover:not(:disabled) {
-      background-color: color.adjust($btn-primary-bg, $lightness: -10%);
-      border-color: color.adjust($btn-primary-border, $lightness: -10%);
-    }
+    @include hover-adjust($btn-primary-bg, $btn-primary-border);
   }
 
   &--secondary {
     background-color: $btn-secondary-bg;
     color: $btn-secondary-text;
     border-color: $btn-secondary-border;
-
-    &:hover:not(:disabled) {
-      background-color: color.adjust($btn-secondary-bg, $lightness: -10%);
-      border-color: color.adjust($btn-secondary-border, $lightness: -10%);
-    }
+    @include hover-adjust($btn-secondary-bg, $btn-secondary-border);
   }
 }

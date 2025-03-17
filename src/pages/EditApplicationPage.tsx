@@ -9,7 +9,7 @@ import { toCardProduct } from '../helper/productHelpers';
 import { useProducts } from '../hooks/useProduct';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
 import { useRateLimit } from '../hooks/useThrottle';
-import './ScreenTwo.scss';
+import './EditApplicationPage.scss';
 import Toast from '../components/Toast';
 import { useTranslation } from 'react-i18next';
 import Button from '../components/Button';
@@ -21,7 +21,7 @@ interface FormData {
   phone: string;
 }
 
-const ScreenTwo: React.FC = () => {
+const EditApplicationPage: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { appId } = useParams({ from: '/edit/$appId' });
@@ -39,10 +39,7 @@ const ScreenTwo: React.FC = () => {
     defaultValues: { firstName: '', lastName: '', email: '', phone: '' },
   });
 
-  // Use rate limiting: allow up to 3 clicks in 5 seconds.
   const { isRateLimited, registerClick } = useRateLimit(3, 5000);
-
-  // State for toast message
   const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
@@ -57,7 +54,6 @@ const ScreenTwo: React.FC = () => {
     }
   }, [application, isDirty, reset]);
 
-  // Update selected product based on application.productId.
   useEffect(() => {
     if (application?.productId && products?.length) {
       const matchedProduct = products.find(
@@ -87,12 +83,12 @@ const ScreenTwo: React.FC = () => {
 
   if (isLoading)
     return (
-      <div className="screen-two__message">{t('editPage.loadingMessage')}</div>
+      <div className="edit-page__message">{t('editPage.loadingMessage')}</div>
     );
 
   if (error || !application) {
     return (
-      <div className="screen-two__message">
+      <div className="edit-page__message">
         <p>{t('editPage.noApplicationMessage')}</p>
         <Button variant="primary" onClick={() => navigate({ to: '/' })}>
           {t('editPage.backButton')}
@@ -108,7 +104,7 @@ const ScreenTwo: React.FC = () => {
 
   if (!productToDisplay) {
     return (
-      <div className="screen-two__message">
+      <div className="edit-page__message">
         <p>{t('editPage.noProductFound')}</p>
         <Button variant="primary" onClick={() => navigate({ to: '/' })}>
           {t('editPage.backButton')}
@@ -118,10 +114,9 @@ const ScreenTwo: React.FC = () => {
   }
 
   return (
-    <div className="screen-two">
-      <div className="screen-two__content">
-        {/* Left Column: Card + "Select another application" */}
-        <div className="screen-two__left">
+    <div className="edit-page">
+      <div className="edit-page__content">
+        <div className="edit-page__left">
           <Card
             product={toCardProduct(productToDisplay)}
             onSelect={() => navigate({ to: '/' })}
@@ -129,15 +124,14 @@ const ScreenTwo: React.FC = () => {
           />
           <Button
             variant="primary"
-            className="screen-two__select-another"
+            className="edit-page__select-another"
             onClick={() => navigate({ to: '/applications' })}
           >
             {t('editPage.selectApplicationButton')}
           </Button>
         </div>
 
-        {/* Right Column: Form Box */}
-        <div className="screen-two__right">
+        <div className="edit-page__right">
           <h2>{t('editPage.mainApplicantTitle')}</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
@@ -199,7 +193,6 @@ const ScreenTwo: React.FC = () => {
           </form>
         </div>
       </div>
-      {/* Toast Component */}
       {toastMessage && (
         <Toast message={toastMessage} onClose={() => setToastMessage('')} />
       )}
@@ -207,4 +200,4 @@ const ScreenTwo: React.FC = () => {
   );
 };
 
-export default ScreenTwo;
+export default EditApplicationPage;

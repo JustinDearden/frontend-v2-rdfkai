@@ -1,11 +1,4 @@
 {
-  "welcome": "Bienvenue dans notre application hypothécaire",
-  "selectProduct": "Sélectionnez un produit hypothécaire",
-  "updateContact": "Mettre à jour les informations de contact",
-  "firstName": "Prénom",
-  "lastName": "Nom",
-  "email": "E-mail",
-  "phone": "Téléphone",
   "form": {
     "firstName": "Prénom",
     "lastName": "Nom",
@@ -27,6 +20,22 @@
     "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et choisir un produit.",
     "noProductFound": "Aucun produit trouvé pour cette application. Veuillez revenir en arrière et choisir un produit.",
     "backButton": "Retour"
+  },
+  "applicationsPage": {
+    "loadingMessage": "Chargement des applications...",
+    "apiMessage": "Erreur lors du chargement des applications",
+    "noApplicationsMessage": "Aucune application trouvée",
+    "returnButton": "Choisissez un produit",
+    "pageTitle": "Toutes les applications",
+    "idTitle": "IDENTIFIANT :",
+    "typeTitle": "Type:",
+    "createdTitle": "Créé à :",
+    "applicantName": "Nom:",
+    "applicantEmail": "Courriel:",
+    "applicantPhone": "Téléphone:",
+    "editButton": "Corriger",
+    "applicantsTitle": "Candidats:",
+    "noApplicantDataFound": "Aucune donnée disponible sur le candidat"
   },
   "errorPages": {
     "editPageErrors": {

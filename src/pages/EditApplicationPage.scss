@@ -2,8 +2,7 @@
 @use '../styles/_grid.scss' as grid;
 @use '../styles/_variables.scss' as *;
 
-.screen-two {
-  /* Center and space out the page */
+.edit-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,28 +15,24 @@
   box-sizing: border-box;
   gap: map.get(map.get(grid.$layout-settings, 'small'), 'gutter');
 
-  // Tablet breakpoint (680px)
   @include grid.respond-to('breakpoint-04') {
     margin: 3rem auto 1.5rem;
     padding: map.get(map.get(grid.$layout-settings, 'medium'), 'padding');
     gap: map.get(map.get(grid.$layout-settings, 'medium'), 'gutter');
   }
 
-  // Desktop breakpoint (1080px)
   @include grid.respond-to('breakpoint-07') {
     margin: 4rem auto 2rem;
     padding: map.get(map.get(grid.$layout-settings, 'large'), 'padding');
     gap: map.get(map.get(grid.$layout-settings, 'large'), 'gutter');
   }
 
-  /* Title at the top */
   &__title {
     margin: 0;
     font-size: 2rem;
     text-align: center;
   }
 
-  /* Message styling for loading and error messages */
   &__message {
     text-align: center;
     font-size: 1.75rem;
@@ -46,29 +41,26 @@
     color: $primary-text;
   }
 
-  /* Content container for Card + Form */
   &__content {
     display: flex;
-    flex-direction: column; // Mobile-first: stack columns
+    flex-direction: column;
     gap: 2rem;
     width: 100%;
     max-width: 1200px;
     align-items: center;
 
-    // At 680px (tablet) and up, switch to a two-column layout
     @include grid.respond-to('breakpoint-04') {
       flex-direction: row;
       align-items: flex-start;
     }
   }
 
-  /* Left column for Card and "Select another application" button */
   &__left {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    flex: 0 0 300px; // Fixed column width; adjust as needed
+    flex: 0 0 300px;
     width: 100%;
   }
 
@@ -97,10 +89,9 @@
     }
   }
 
-  /* Right column for the form */
   &__right {
     width: 100%;
-    flex: 1 1 auto; // Take the remaining space
+    flex: 1 1 auto;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 2rem;

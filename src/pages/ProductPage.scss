@@ -2,7 +2,7 @@
 @use '../styles/_grid.scss' as grid;
 @use '../styles/_variables.scss' as *;
 
-.screen-one {
+.product-page {
   max-width: 1200px;
   margin: 2rem auto 1rem;
   padding: map.get(map.get(grid.$layout-settings, 'small'), 'padding');
@@ -11,29 +11,25 @@
   flex-direction: column;
   gap: map.get(map.get(grid.$layout-settings, 'small'), 'gutter');
 
-  // Tablet breakpoint (680px)
   @include grid.respond-to('breakpoint-04') {
     margin: 3rem auto 1.5rem;
     padding: map.get(map.get(grid.$layout-settings, 'medium'), 'padding');
     gap: map.get(map.get(grid.$layout-settings, 'medium'), 'gutter');
   }
 
-  // Desktop breakpoint (1080px)
   @include grid.respond-to('breakpoint-07') {
     margin: 4rem auto 2rem;
     padding: map.get(map.get(grid.$layout-settings, 'large'), 'padding');
     gap: map.get(map.get(grid.$layout-settings, 'large'), 'gutter');
   }
 
-  /* Best Cards Section */
   .best-cards-section {
     width: 100%;
     display: flex;
-    flex-direction: column; // Mobile-first: stack cards
+    flex-direction: column;
     align-items: center;
     gap: 2rem;
 
-    // At 480px and up, switch to a row layout
     @include grid.respond-to('breakpoint-03') {
       flex-direction: row;
       justify-content: center;
@@ -44,16 +40,15 @@
       flex-direction: column;
       align-items: center;
       gap: 1rem;
-      width: 100%; // On mobile: full width (within parent's padding)
-      max-width: 100%; // Default mobile: no constraint
+      width: 100%;
+      max-width: 100%;
 
       @include grid.respond-to('breakpoint-03') {
-        max-width: 300px; // Above 480px: constrain to 300px
+        max-width: 300px;
       }
     }
   }
 
-  /* Divider */
   &__divider {
     width: 100%;
     border: none;
@@ -61,38 +56,33 @@
     margin: 2rem 0;
   }
 
-  /* Row Cards Section – Unchanged */
-  /* Row Cards Section using CSS Grid */
   .row-cards-section {
     width: 100%;
     display: grid;
-    /* Two columns on tablet and up, one column on mobile */
     grid-template-columns: 1fr;
-    gap: 1rem; // spacing between columns (on tablet/desktop) and between rows (on mobile)
+    gap: 1rem;
 
-    // At tablet breakpoint (680px), use two columns
     @include grid.respond-to('breakpoint-04') {
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
     }
 
-    /* Each column is now a grid item */
     .row-cards-column {
       display: flex;
       flex-direction: column;
       gap: 1rem;
       width: 100%;
-      margin: 0 auto; // centers the columns if there's extra space
+      margin: 0 auto;
     }
   }
 }
 
-.screen-one__loading {
+.product-page__loading {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-size: 2rem; // Increase font size
-  font-weight: bold; // Make text bold
-  height: 100vh; // Center vertically in the viewport (or adjust as needed)
+  font-size: 2rem;
+  font-weight: bold;
+  height: 100vh;
 }

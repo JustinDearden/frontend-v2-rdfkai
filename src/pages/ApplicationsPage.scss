@@ -1,0 +1,177 @@
+@use 'sass:map' as map;
+@use '../styles/_grid.scss' as grid;
+@use '../styles/_variables.scss' as *;
+
+.applications-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* Header container: Stacked on mobile, row on larger screens */
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    @include grid.respond-to('breakpoint-04') {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+    text-align: left;
+  }
+
+  &__return {
+    align-self: flex-start;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid $button-background;
+    background-color: $button-background;
+    color: $button-text;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+
+    &:hover {
+      background-color: $button-hover;
+      border-color: $button-hover;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__item {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  /* Default (mobile): Stack left and right */
+  &__item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Tablet and above: Two-column layout with equal width */
+  @media (min-width: 680px) {
+    .applications-page__item-content {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+    .applications-page__item-left,
+    .applications-page__item-right {
+      flex: 1;
+    }
+  }
+
+  &__item-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__item-right {
+    margin-left: 0; /* Default when stacked */
+    flex: 1;
+    text-align: left; // Always left-aligned for labels and values
+
+    @media (min-width: 680px) {
+      margin-left: 2rem;
+    }
+  }
+
+  &__applicants {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    & > p {
+      margin: 0;
+    }
+  }
+
+  &__applicant {
+    margin-bottom: 0.5rem;
+    p {
+      margin: 0.25rem 0;
+    }
+  }
+
+  /* Container for the edit button below the main content */
+  &__item-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: right; /* Center on mobile */
+  }
+
+  /* Edit button styles: full width on mobile, wider fixed width on larger screens */
+  .applications-page__edit-btn {
+    width: 100%; // Full width on mobile
+    padding: 0.5rem 1rem;
+    border: 1px solid $button-background;
+    background-color: $button-background;
+    color: $button-text;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+
+    &:hover {
+      background-color: $button-hover;
+      border-color: $button-hover;
+    }
+
+    @media (min-width: 680px) {
+      width: 200px; // Wider fixed width on tablet/desktop
+    }
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    text-align: center;
+    height: 80vh;
+    margin: 0 auto;
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+/* Loading and error states */
+.applications-page__loading,
+.applications-page__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  text-align: center;
+  height: 80vh;
+  margin: 0 auto;
+}

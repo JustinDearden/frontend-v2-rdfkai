@@ -1,4 +1,3 @@
-import './App.scss';
 import { SelectedProductProvider } from './context/SelectedProductContext';
 import {
   createRouter,
@@ -8,10 +7,10 @@ import {
   Outlet,
 } from '@tanstack/react-router';
 import Navbar from './components/Navbar';
-import ScreenOne from './pages/ScreenOne';
-import ScreenTwo from './pages/ScreenTwo';
-import ScreenApplications from './pages/ScreenApplications';
 import EditError from './pages/error/EditError';
+import ProductPage from './pages/ProductPage';
+import EditApplicationPage from './pages/EditApplicationPage';
+import ApplicationsPage from './pages/ApplicationsPage';
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -25,13 +24,13 @@ const rootRoute = createRootRoute({
 const homeRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: () => <ScreenOne />,
+  component: () => <ProductPage />,
 });
 
 const editWithIdRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: 'edit/$appId',
-  component: () => <ScreenTwo />,
+  component: () => <EditApplicationPage />,
 });
 
 const editRoute = createRoute({
@@ -43,7 +42,7 @@ const editRoute = createRoute({
 const applicationsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: 'applications',
-  component: () => <ScreenApplications />,
+  component: () => <ApplicationsPage />,
 });
 
 const routeTree = rootRoute.addChildren([
