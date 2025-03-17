@@ -80,7 +80,7 @@
     }
     .applications-page__item-left,
     .applications-page__item-right {
-      flex: 1; // Each gets equal space
+      flex: 1;
     }
   }
 
@@ -93,11 +93,10 @@
   &__item-right {
     margin-left: 0; /* Default when stacked */
     flex: 1;
-    text-align: left;
+    text-align: left; // Always left-aligned for labels and values
 
     @media (min-width: 680px) {
       margin-left: 2rem;
-      text-align: right; /* Right align applicant data on larger screens */
     }
   }
 

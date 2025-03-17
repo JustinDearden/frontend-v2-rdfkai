@@ -56,7 +56,7 @@ const ApplicationsPage: React.FC = () => {
                     {new Date(app.createdAt).toLocaleString()}
                   </p>
                 </div>
-                {/* Right side: Applicant data */}
+                {/* Right side: Applicant data with labels */}
                 <div className="applications-page__item-right">
                   {app.applicants && app.applicants.length > 0 ? (
                     <div className="applications-page__applicants">
@@ -69,10 +69,17 @@ const ApplicationsPage: React.FC = () => {
                           className="applications-page__applicant"
                         >
                           <p>
+                            <strong>{t('form.nameLabel')}:</strong>{' '}
                             {applicant.firstName} {applicant.lastName}
                           </p>
-                          <p>{applicant.email}</p>
-                          <p>{applicant.phone}</p>
+                          <p>
+                            <strong>{t('form.emailLabel')}:</strong>{' '}
+                            {applicant.email}
+                          </p>
+                          <p>
+                            <strong>{t('form.phoneLabel')}:</strong>{' '}
+                            {applicant.phone}
+                          </p>
                         </div>
                       ))}
                     </div>
