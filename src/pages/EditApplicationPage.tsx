@@ -74,11 +74,10 @@ const EditApplicationPage: React.FC = () => {
           applicationId: application.id,
           applicants: [data as Applicant],
         });
-        // Set toast message on successful submission
         setToastMessage(t('editPage.successAPIMessage'));
       }
     },
-    [application, isRateLimited, registerClick, updateApplicants],
+    [application, isRateLimited, registerClick, updateApplicants, t],
   );
 
   if (isLoading)

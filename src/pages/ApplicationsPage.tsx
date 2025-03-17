@@ -1,7 +1,8 @@
-import React from 'react';
+import type React from 'react';
+import { useMemo } from 'react';
 import { useApplications } from '../hooks/useApplications';
 import { useNavigate } from '@tanstack/react-router';
-import { Application } from '../types';
+import type { Application } from '../types';
 import Button from '../components/Button';
 import './ApplicationsPage.scss';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +11,24 @@ const ApplicationsPage: React.FC = () => {
   const { data: applications, isLoading, error } = useApplications();
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  const sortedApplications = useMemo(() => {
+    if (!applications) return [];
+    return [...applications].sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+  }, [applications]);
 
   if (isLoading)
     return (
@@ -33,13 +52,14 @@ const ApplicationsPage: React.FC = () => {
         <Button
           className="applications-page__return"
           onClick={() => navigate({ to: '/' })}
+          aria-label={t('applicationsPage.returnButton')}
         >
           {t('applicationsPage.returnButton')}
         </Button>
       </div>
-      {applications && applications.length > 0 ? (
+      {sortedApplications && sortedApplications.length > 0 ? (
         <ul className="applications-page__list">
-          {applications.map((app: Application) => (
+          {sortedApplications.map((app: Application) => (
             <li className="applications-page__item" key={app.id}>
               <div className="applications-page__item-content">
                 {/* Left side: Application details */}
@@ -53,7 +73,7 @@ const ApplicationsPage: React.FC = () => {
                   </p>
                   <p>
                     <strong>{t('applicationsPage.createdTitle')}</strong>{' '}
-                    {new Date(app.createdAt).toLocaleString()}
+                    {formatDate(app.createdAt)}
                   </p>
                 </div>
                 {/* Right side: Applicant data with labels */}
@@ -99,6 +119,7 @@ const ApplicationsPage: React.FC = () => {
                 <Button
                   className="applications-page__edit-btn"
                   onClick={() => navigate({ to: `/edit/${app.id}` })}
+                  aria-label={`${t('applicationsPage.editButton')} ${app.id}`}
                 >
                   {t('applicationsPage.editButton')}
                 </Button>

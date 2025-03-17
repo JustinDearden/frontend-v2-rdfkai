@@ -5,46 +5,75 @@
 .applications-page {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1.5rem;
+  padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
 
-  /* Header container: Stacked on mobile, row on larger screens */
   &__header {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 1rem;
 
     @include grid.respond-to('breakpoint-04') {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      padding-bottom: 1.5rem;
     }
   }
 
   &__title {
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: black;
     text-align: left;
+
+    @include grid.respond-to('breakpoint-03') {
+      font-size: 1.75rem;
+    }
+
+    @include grid.respond-to('breakpoint-05') {
+      font-size: 2rem;
+    }
   }
 
   &__return {
     align-self: flex-start;
-    padding: 0.75rem 1.5rem;
+    padding: 0.625rem 1.25rem;
     border: 1px solid $button-background;
     background-color: $button-background;
     color: $button-text;
     border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
     cursor: pointer;
     transition:
-      background-color 0.3s ease,
-      border-color 0.3s ease;
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.1s ease;
 
     &:hover {
       background-color: $button-hover;
       border-color: $button-hover;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($button-background, 0.3);
+    }
+
+    @include grid.respond-to('breakpoint-05') {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
     }
   }
 
@@ -55,31 +84,60 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    @include grid.respond-to('breakpoint-05') {
+      gap: 1.5rem;
+    }
   }
 
   &__item {
-    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    @include grid.respond-to('breakpoint-03') {
+      padding: 1.25rem;
+    }
+
+    @include grid.respond-to('breakpoint-05') {
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+
+    @include grid.respond-to('breakpoint-07') {
+      &:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      }
+    }
   }
 
   /* Default (mobile): Stack left and right */
   &__item-content {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   /* Tablet and above: Two-column layout with equal width */
-  @media (min-width: 680px) {
-    .applications-page__item-content {
+  @include grid.respond-to('breakpoint-04') {
+    &__item-content {
       flex-direction: row;
       justify-content: space-between;
       align-items: flex-start;
       gap: 2rem;
     }
-    .applications-page__item-left,
-    .applications-page__item-right {
+
+    &__item-left,
+    &__item-right {
       flex: 1;
     }
   }
@@ -87,63 +145,114 @@
   &__item-left {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
+
+    p {
+      margin: 0;
+      line-height: 1.5;
+
+      strong {
+        color: rgba(0, 0, 0, 0.7);
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+    }
   }
 
   &__item-right {
-    margin-left: 0; /* Default when stacked */
+    margin-left: 0;
     flex: 1;
-    text-align: left; // Always left-aligned for labels and values
+    text-align: left;
 
-    @media (min-width: 680px) {
-      margin-left: 2rem;
+    @include grid.respond-to('breakpoint-04') {
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 1px solid rgba(0, 0, 0, 0.08);
     }
   }
 
   &__applicants {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
 
     & > p {
       margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: black;
     }
   }
 
   &__applicant {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 6px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
     p {
-      margin: 0.25rem 0;
+      margin: 0.375rem 0;
+      line-height: 1.5;
+
+      strong {
+        color: rgba(0, 0, 0, 0.7);
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
     }
   }
 
   /* Container for the edit button below the main content */
   &__item-actions {
-    margin-top: 1rem;
+    margin-top: 1.25rem;
     display: flex;
-    justify-content: right; /* Center on mobile */
+    justify-content: flex-end;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 1.25rem;
   }
 
   /* Edit button styles: full width on mobile, wider fixed width on larger screens */
-  .applications-page__edit-btn {
-    width: 100%; // Full width on mobile
-    padding: 0.5rem 1rem;
+  &__edit-btn {
+    width: 100%;
+    padding: 0.625rem 1rem;
     border: 1px solid $button-background;
     background-color: $button-background;
     color: $button-text;
     border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
     cursor: pointer;
     transition:
-      background-color 0.3s ease,
-      border-color 0.3s ease;
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.1s ease;
 
     &:hover {
       background-color: $button-hover;
       border-color: $button-hover;
     }
 
-    @media (min-width: 680px) {
-      width: 200px; // Wider fixed width on tablet/desktop
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($button-background, 0.3);
+    }
+
+    @include grid.respond-to('breakpoint-04') {
+      width: 160px;
+    }
+
+    @include grid.respond-to('breakpoint-05') {
+      width: 200px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
     }
   }
 
@@ -152,13 +261,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
     text-align: center;
-    height: 80vh;
-    margin: 0 auto;
+    padding: 3rem 1rem;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
 
     p {
-      margin-bottom: 1.5rem;
+      margin: 0;
+      font-size: 1.25rem;
+      color: rgba(0, 0, 0, 0.6);
+
+      @include grid.respond-to('breakpoint-05') {
+        font-size: 1.5rem;
+      }
     }
   }
 }
@@ -170,8 +286,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
   text-align: center;
-  height: 80vh;
+  height: 50vh;
   margin: 0 auto;
+  padding: 2rem;
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+
+  @include grid.respond-to('breakpoint-05') {
+    font-size: 1.5rem;
+    height: 60vh;
+  }
 }
