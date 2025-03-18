@@ -28,9 +28,9 @@
     "selectApplicationButton": "Select another application",
     "successAPIMessage": "Applicant info updated successfully!",
     "loadingMessage": "Loading...",
-    "noApplicationMessage": "No application found. Please go back and select a product.",
+    "noApplicationMessage": "No application found. Please go back and select one.",
     "noProductFound": "No product found for this application. Please go back and select a product.",
-    "backButton": "Go Back",
+    "backButton": "Select Application",
     "returnButton": "Return to Products",
     "validation": {
       "phoneNumberRequired": "Invalid phone number. Only digits are allowed.",

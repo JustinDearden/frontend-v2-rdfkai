@@ -53,9 +53,9 @@
   &__return {
     align-self: flex-start;
     padding: 0.625rem 1.25rem;
-    border: 1px solid $button-background;
-    background-color: $button-background;
-    color: $button-text;
+    border: 1px solid $btn-primary-bg;
+    background-color: $btn-primary-bg;
+    color: $btn-primary-text;
     border-radius: 4px;
     font-weight: 600;
     font-size: 0.9rem;
@@ -66,8 +66,8 @@
       transform 0.1s ease;
 
     &:hover {
-      background-color: $button-hover;
-      border-color: $button-hover;
+      background-color: $btn-primary-hover;
+      border-color: $btn-primary-hover;
     }
 
     &:active {
@@ -76,7 +76,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px rgba($button-background, 0.3);
+      box-shadow: 0 0 0 2px rgba($btn-primary-bg, 0.3);
     }
 
     @include grid.respond-to('breakpoint-05') {
@@ -263,9 +263,9 @@
   &__edit-btn {
     width: 100%;
     padding: 0.625rem 1rem;
-    border: 1px solid $button-background;
-    background-color: $button-background;
-    color: $button-text;
+    border: 1px solid $btn-primary-bg;
+    background-color: $btn-primary-bg;
+    color: $btn-primary-text;
     border-radius: 4px;
     font-weight: 600;
     font-size: 0.9rem;
@@ -276,8 +276,8 @@
       transform 0.1s ease;
 
     &:hover {
-      background-color: $button-hover;
-      border-color: $button-hover;
+      background-color: $btn-primary-hover;
+      border-color: $btn-primary-hover;
     }
 
     &:active {
@@ -286,7 +286,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px rgba($button-background, 0.3);
+      box-shadow: 0 0 0 2px rgba($btn-primary-bg, 0.3);
     }
 
     @include grid.respond-to('breakpoint-04') {

@@ -100,7 +100,10 @@ const EditApplicationPage: React.FC = () => {
           <p className="edit-page__message-text">
             {t('editPage.noApplicationMessage')}
           </p>
-          <Button variant="primary" onClick={() => navigate({ to: '/' })}>
+          <Button
+            variant="primary"
+            onClick={() => navigate({ to: '/applications' })}
+          >
             {t('editPage.backButton')}
           </Button>
         </div>

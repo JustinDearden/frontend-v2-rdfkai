@@ -27,9 +27,9 @@
     "selectApplicationButton": "Sélectionnez une autre application",
     "successAPIMessage": "Les renseignements du candidat ont été mis à jour avec succès!",
     "loadingMessage": "Chargement...",
-    "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et choisir un produit.",
+    "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et en choisir un.",
     "noProductFound": "Aucun produit trouvé pour cette application. Veuillez revenir en arrière et choisir un produit.",
-    "backButton": "Retour",
+    "backButton": "Sélectionner l'application",
     "returnButton": "Retour aux produits",
     "validation": {
       "phoneNumberRequired": "Numéro de téléphone invalide. Seuls les chiffres sont autorisés.",

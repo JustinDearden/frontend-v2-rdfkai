@@ -34,7 +34,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba($color-button-background, 0.3);
+      box-shadow: 0 0 0 3px rgba($color-navbar-item-background, 0.3);
     }
 
     &:focus:not(:focus-visible) {
@@ -42,7 +42,7 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 3px rgba($color-button-background, 0.3);
+      box-shadow: 0 0 0 3px rgba($color-navbar-item-background, 0.3);
     }
 
     @include grid.respond-to('breakpoint-04') {
@@ -86,13 +86,13 @@
       height: 2px;
       bottom: 0;
       left: 0;
-      background-color: $color-button-background;
+      background-color: $color-navbar-item-background;
       transition: width 0.3s ease;
     }
 
     &:hover,
     &:focus-visible {
-      color: $color-button-background;
+      color: $color-navbar-item-background;
       outline: none;
 
       &:after {
@@ -109,7 +109,7 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 3px rgba($color-button-background, 0.2);
+      box-shadow: 0 0 0 3px rgba($color-navbar-item-background, 0.2);
     }
   }
 
@@ -133,7 +133,7 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 3px rgba($color-button-background, 0.3);
+      box-shadow: 0 0 0 3px rgba($color-navbar-item-background, 0.3);
       background-color: rgba(0, 0, 0, 0.05);
     }
 
@@ -215,7 +215,7 @@
       }
 
       &:focus-visible {
-        box-shadow: 0 0 0 3px rgba($color-button-background, 0.3);
+        box-shadow: 0 0 0 3px rgba($color-navbar-item-background, 0.3);
         background-color: rgba(0, 0, 0, 0.05);
         color: rgba(0, 0, 0, 0.9);
       }
@@ -250,7 +250,7 @@
       background-color 0.2s ease;
 
     &:hover {
-      color: $color-button-background;
+      color: $color-navbar-item-background;
     }
 
     &:focus {
@@ -258,9 +258,9 @@
     }
 
     &:focus-visible {
-      color: $color-button-background;
+      color: $color-navbar-item-background;
       background-color: rgba(0, 0, 0, 0.02);
-      box-shadow: 0 0 0 3px rgba($color-button-background, 0.2);
+      box-shadow: 0 0 0 3px rgba($color-navbar-item-background, 0.2);
       border-radius: 4px;
     }
 
@@ -278,7 +278,7 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 3px rgba($color-button-background, 0.3);
+      box-shadow: 0 0 0 3px rgba($color-navbar-item-background, 0.3);
     }
 
     @include grid.respond-to('breakpoint-04') {

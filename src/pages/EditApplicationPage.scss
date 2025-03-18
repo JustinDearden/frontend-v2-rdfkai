@@ -100,9 +100,9 @@
     padding: 0.75rem;
     font-size: 0.9rem;
     font-weight: 600;
-    background-color: $button-background;
-    color: $button-text;
-    border: 1px solid $button-background;
+    background-color: $btn-primary-bg;
+    color: $btn-primary-text;
+    border: 1px solid $btn-primary-bg;
     border-radius: 6px;
     cursor: pointer;
     transition:
@@ -111,8 +111,8 @@
       transform 0.1s ease;
 
     &:hover {
-      background-color: $button-hover;
-      border-color: $button-hover;
+      background-color: $btn-primary-hover;
+      border-color: $btn-primary-hover;
     }
 
     &:active {
@@ -188,8 +188,8 @@
 
     &:focus {
       outline: none;
-      border-color: $button-background;
-      box-shadow: 0 0 0 3px rgba($button-background, 0.15);
+      border-color: $btn-primary-bg;
+      box-shadow: 0 0 0 3px rgba($btn-primary-bg, 0.15);
     }
 
     &:hover:not(:focus) {
@@ -198,7 +198,7 @@
   }
 
   &__form-error {
-    color: #e53935;
+    color: $form-error-color;
     font-size: 0.85rem;
     margin-top: 0.25rem;
   }
@@ -209,9 +209,9 @@
     padding: 0.75rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 600;
-    background-color: $button-background;
-    color: $button-text;
-    border: 1px solid $button-background;
+    background-color: $btn-primary-bg;
+    color: $btn-primary-text;
+    border: 1px solid $btn-primary-bg;
     border-radius: 6px;
     cursor: pointer;
     transition:
@@ -220,8 +220,8 @@
       transform 0.1s ease;
 
     &:hover {
-      background-color: $button-hover;
-      border-color: $button-hover;
+      background-color: $btn-primary-hover;
+      border-color: $btn-primary-hover;
     }
 
     &:active {

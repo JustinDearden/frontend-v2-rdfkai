@@ -12,10 +12,6 @@
   box-sizing: border-box;
   text-align: center;
 
-  @include grid.respond-to('breakpoint-04') {
-    padding: map.get(map.get(grid.$layout-settings, 'medium'), 'padding');
-  }
-
   @include grid.respond-to('breakpoint-07') {
     padding: map.get(map.get(grid.$layout-settings, 'large'), 'padding');
   }
@@ -82,8 +78,8 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: rgba($color-button-background, 0.1);
-    color: $color-button-background;
+    background-color: rgba($btn-primary-bg, 0.1);
+    color: $btn-primary-bg;
     margin-bottom: 0.5rem;
     position: relative;
     z-index: 1;

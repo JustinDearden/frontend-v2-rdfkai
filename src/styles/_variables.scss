@@ -1,28 +1,12 @@
 @use 'sass:color';
 
-$primary-background: #242424;
-$primary-text: rgba(255, 255, 255, 0.87);
-$button-background: #3c6997;
-$button-text: #ffffff;
-$button-hover: color.adjust($button-background, $lightness: -30%);
+// Global
 $font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-
-// Existing design tokens
 $primary-background: #fff;
-$primary-text: #333;
-$button-text: #ffffff;
-
-// Toast
-$toast-success-bg: #d4edda;
-$toast-success-text: #155724;
-$toast-success-outline: #b1dfbb;
-
-$toast-failure-bg: #f8d7da;
-$toast-failure-text: #721c24;
-$toast-failure-outline: #e0a4a9;
 
 // Button
 $btn-primary-bg: #1365e9;
+$btn-primary-hover: color.adjust($btn-primary-bg, $lightness: -30%);
 $btn-primary-text: #fff;
 $btn-primary-border: #007bff;
 
@@ -31,11 +15,8 @@ $btn-secondary-text: #fff;
 $btn-secondary-border: #6c757d;
 
 // Colors
-$color-primary-background: #fff;
-$color-primary-text: #333;
-$color-button-background: #007bff;
-$color-button-text: #ffffff;
-$color-button-hover: color.adjust($color-button-background, $lightness: -10%);
+$color-primary-card-background: #fff;
+$color-navbar-item-background: #007bff;
 
 // Toasts
 $toast-success-bg: #d4edda;
@@ -46,14 +27,5 @@ $toast-failure-bg: #f8d7da;
 $toast-failure-text: #721c24;
 $toast-failure-outline: #e0a4a9;
 
-// Buttons (mapping design tokens)
-// $btn-primary-bg: $color-button-background;
-// $btn-primary-text: $color-button-text;
-// $btn-primary-border: $color-button-background;
-
-$btn-secondary-bg: #6c757d;
-$btn-secondary-text: #fff;
-$btn-secondary-border: #6c757d;
-
-// Typography
-$font-family-base: system-ui, Avenir, Helvetica, Arial, sans-serif;
+// Form
+$form-error-color: #e53935;

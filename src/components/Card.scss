@@ -8,7 +8,7 @@
   padding: 1.5rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  background-color: $color-primary-background;
+  background-color: $color-primary-card-background;
   width: 100%;
   max-width: 100%;
   min-height: 350px;
@@ -90,8 +90,8 @@
       transform 0.1s ease;
 
     &:hover {
-      background-color: $color-button-hover;
-      border-color: $color-button-hover;
+      background-color: $btn-primary-hover;
+      border-color: $btn-primary-hover;
     }
 
     &:active {

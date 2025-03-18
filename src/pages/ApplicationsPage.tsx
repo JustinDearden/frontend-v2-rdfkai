@@ -6,21 +6,12 @@ import type { Application } from '../types';
 import Button from '../components/Button';
 import './ApplicationsPage.scss';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '../helper/dateFormatter';
 
 const ApplicationsPage: React.FC = () => {
   const { data: applications, isLoading, error } = useApplications();
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString(undefined, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   const sortedApplications = useMemo(() => {
     if (!applications) return [];
