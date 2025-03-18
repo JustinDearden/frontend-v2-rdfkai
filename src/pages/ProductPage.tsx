@@ -10,6 +10,7 @@ import type { Product } from '../types';
 import { organizeProducts, toCardProduct } from '../helper/productHelpers';
 import { useSelectedProduct } from '../hooks/useSelectedProduct';
 import './ProductPage.scss';
+import { ProductPageSkeleton } from '../components/skeletons';
 
 const ProductPage: React.FC = () => {
   const { t } = useTranslation();
@@ -33,12 +34,7 @@ const ProductPage: React.FC = () => {
     [setSelectedProduct, createApplicationMutation, navigate],
   );
 
-  if (isLoading)
-    return (
-      <div className="product-page__loading">
-        <div className="product-page__loading-text">{t('loading')}...</div>
-      </div>
-    );
+  if (isLoading) return <ProductPageSkeleton />;
 
   if (error)
     return (

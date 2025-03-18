@@ -1,54 +1,51 @@
-# React + TypeScript + Vite
+# Front-End Take Home Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Submitted by: Justin Dearden
 
-Currently, two official plugins are available:
+### Running the App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Run `npm install`
+2. Change `.env.example` to `.env.local`
+3. Update `VITE_X_NESTO_CANDIDAT` to be your candidate name
+4. Run `npm run dev`
+5. Open [http://localhost:5173](http://localhost:5173) with your browser
 
-## Expanding the ESLint configuration
+### Routes
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `/` - Home page
+  - Displays product information
+  - Select a product to create an empty application
+- `/edit/:id` - Edit page
+  - Edit the application applicant information
+  - Save the application applicant information
+- `/edit` - Error page
+  - Prompts the user to select a product or application
+- `/edit/:invalidID` - Error page
+  - Prompts the user to select a valid application
+- `/applications` - Applications page
+  - Displays all valid applications
+  - Select an application to edit the applicant information on `/edit/:id`
+- `/invalidRoute` - Error page
+  - Prompts the user to select a product or application
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Script Commands
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- `npm run dev` - Start the development server
+- `npm run build` - Build the production app
+- `npm run test` - Run the test suite
+- `npm run lint` - Run the linter
+- `npm run storybook` - Start the storybook server
+- `npm run build-storybook` - Build the storybook app
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Technologies Used
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- **React**: Core library for building the app’s UI.
+- **Vite**: Bundler and development server for fast builds and hot-module replacement.
+- **Storybook**: Used to develop and test UI components in isolation.
+- **Vitest**: Runs unit tests for ensuring code quality and functionality.
+- **React Query**: Manages server state, caching, and asynchronous API data fetching.
+- **React Router**: Handles client-side routing for smooth navigation between pages.
+- **React Hook Form**: Simplifies form management with built-in validation and error handling.
+- **i18next**: Provides localization support throughout the app.
+- **Styled Components / SCSS**: Styles the app using the BEM design conventions for predictable and scalable CSS class naming.
+- **Jest / React Testing Library**: Unit tests components and hooks to ensure functionality.
