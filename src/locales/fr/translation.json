@@ -1,7 +1,6 @@
 {
   "navbar": {
-    "applicationsTab": "Applications",
-    "changesTab": "Changements"
+    "applicationsTab": "Applications"
   },
   "productPage": {
     "selectButton": "Choisissez ce produit",
@@ -20,7 +19,8 @@
       "emailError": "L'adresse courriel est requise",
       "phoneError": "Le numéro de téléphone est requis"
     },
-    "submitButton": "soumettre"
+    "submitButton": "soumettre",
+    "rateLimited": "Tarif limité, attendez..."
   },
   "editPage": {
     "mainApplicantTitle": "Informations sur le demandeur principal",
