@@ -1,7 +1,6 @@
 {
   "navbar": {
-    "applicationsTab": "Applications",
-    "changesTab": "Changements"
+    "applicationsTab": "Applications"
   },
   "productPage": {
     "selectButton": "Choisissez ce produit",

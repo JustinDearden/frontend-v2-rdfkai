@@ -121,15 +121,6 @@ const Navbar: React.FC = () => {
             >
               {t('navbar.applicationsTab')}
             </a>
-            <a
-              className="navbar__link"
-              onClick={() => navigate({ to: '/changes' })}
-              onKeyDown={(e) => handleLinkKeyDown(e, '/changes')}
-              tabIndex={0}
-              role="button"
-            >
-              {t('navbar.changesTab')}
-            </a>
           </div>
           <Button
             variant="secondary"
@@ -189,24 +180,6 @@ const Navbar: React.FC = () => {
             role="button"
           >
             {t('navbar.applicationsTab')}
-          </a>
-          <a
-            className="navbar__mobile-link"
-            onClick={() => {
-              navigate({ to: '/changes' });
-              setMobileMenuOpen(false);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                navigate({ to: '/changes' });
-                setMobileMenuOpen(false);
-              }
-            }}
-            tabIndex={mobileMenuOpen ? 0 : -1}
-            role="button"
-          >
-            {t('navbar.changesTab')}
           </a>
           <Button
             variant="secondary"
