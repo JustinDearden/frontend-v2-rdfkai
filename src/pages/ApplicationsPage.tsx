@@ -29,18 +29,23 @@ const ApplicationsPage: React.FC = () => {
 
   if (isLoading)
     return (
-      <div className="applications-page__loading">
-        <p className="applications-page__loading-text">
-          {t('applicationsPage.loadingMessage')}
-        </p>
+      <div className="applications-page">
+        <div className="applications-page__loading">
+          <p className="applications-page__loading-text">
+            {t('applicationsPage.loadingMessage')}
+          </p>
+        </div>
       </div>
     );
+
   if (error)
     return (
-      <div className="applications-page__error">
-        <p className="applications-page__error-text">
-          {t('applicationsPage.apiMessage')}
-        </p>
+      <div className="applications-page">
+        <div className="applications-page__error">
+          <p className="applications-page__error-text">
+            {t('applicationsPage.apiMessage')}
+          </p>
+        </div>
       </div>
     );
 
