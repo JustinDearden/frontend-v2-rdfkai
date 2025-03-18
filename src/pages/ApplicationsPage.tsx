@@ -24,10 +24,16 @@ const ApplicationsPage: React.FC = () => {
 
   const sortedApplications = useMemo(() => {
     if (!applications) return [];
-    return [...applications].sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    );
+    return [...applications]
+      .filter((app) =>
+        app.applicants.some(
+          (applicant) => applicant.email && applicant.email.trim() !== '',
+        ),
+      )
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
   }, [applications]);
 
   if (isLoading)

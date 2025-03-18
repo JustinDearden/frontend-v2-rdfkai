@@ -2,17 +2,15 @@
 
 $primary-background: #242424;
 $primary-text: rgba(255, 255, 255, 0.87);
-$button-background: #007bff;
+$button-background: #3c6997;
 $button-text: #ffffff;
-$button-hover: color.adjust($button-background, $lightness: -10%);
+$button-hover: color.adjust($button-background, $lightness: -30%);
 $font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 
 // Existing design tokens
 $primary-background: #fff;
 $primary-text: #333;
-$button-background: #007bff;
 $button-text: #ffffff;
-$button-hover: color.adjust($button-background, $lightness: -10%);
 
 // Toast
 $toast-success-bg: #d4edda;
@@ -24,7 +22,7 @@ $toast-failure-text: #721c24;
 $toast-failure-outline: #e0a4a9;
 
 // Button
-$btn-primary-bg: #007bff;
+$btn-primary-bg: #1365e9;
 $btn-primary-text: #fff;
 $btn-primary-border: #007bff;
 
@@ -49,9 +47,9 @@ $toast-failure-text: #721c24;
 $toast-failure-outline: #e0a4a9;
 
 // Buttons (mapping design tokens)
-$btn-primary-bg: $color-button-background;
-$btn-primary-text: $color-button-text;
-$btn-primary-border: $color-button-background;
+// $btn-primary-bg: $color-button-background;
+// $btn-primary-text: $color-button-text;
+// $btn-primary-border: $color-button-background;
 
 $btn-secondary-bg: #6c757d;
 $btn-secondary-text: #fff;
