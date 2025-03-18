@@ -9,10 +9,11 @@ const EditError: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="edit-error">
+    <div className="edit-error">
       <div className="edit-error__container">
         <div className="edit-error__icon">
           <svg
+            className="edit-error__icon-svg"
             xmlns="http://www.w3.org/2000/svg"
             width="64"
             height="64"
@@ -48,11 +49,11 @@ const EditError: React.FC = () => {
             className="edit-error__button"
             onClick={() => navigate({ to: '/' })}
           >
-            {t('errorPages.editPageErrors.returnHomeButton', 'Return to Home')}
+            {t('errorPages.editPageErrors.returnButton')}
           </Button>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

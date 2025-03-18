@@ -54,7 +54,7 @@
     max-width: 600px;
     margin: 2rem auto;
 
-    p {
+    &-text {
       font-size: 1.25rem;
       font-weight: 600;
       color: rgba(0, 0, 0, 0.7);
@@ -100,9 +100,9 @@
     padding: 0.75rem;
     font-size: 0.9rem;
     font-weight: 600;
-    background-color: $button-background;
-    color: $button-text;
-    border: 1px solid $button-background;
+    background-color: $btn-primary-bg;
+    color: $btn-primary-text;
+    border: 1px solid $btn-primary-bg;
     border-radius: 6px;
     cursor: pointer;
     transition:
@@ -111,8 +111,8 @@
       transform 0.1s ease;
 
     &:hover {
-      background-color: $button-hover;
-      border-color: $button-hover;
+      background-color: $btn-primary-hover;
+      border-color: $btn-primary-hover;
     }
 
     &:active {
@@ -137,104 +137,104 @@
     @include grid.respond-to('breakpoint-03') {
       padding: 2rem;
     }
+  }
 
-    h2 {
-      margin-top: 0;
-      margin-bottom: 1.5rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: rgba(0, 0, 0, 0.8);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      padding-bottom: 0.75rem;
+  &__section-title {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 0.75rem;
 
-      @include grid.respond-to('breakpoint-03') {
-        font-size: 1.5rem;
-      }
+    @include grid.respond-to('breakpoint-03') {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.7);
+
+    @include grid.respond-to('breakpoint-03') {
+      font-size: 1rem;
+    }
+  }
+
+  &__form-input {
+    padding: 0.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background-color: #fff;
+    color: #000;
+    font-size: 1rem;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $btn-primary-bg;
+      box-shadow: 0 0 0 3px rgba($btn-primary-bg, 0.15);
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+    &:hover:not(:focus) {
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+  }
 
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+  &__form-error {
+    color: $form-error-color;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
 
-        label {
-          font-weight: 600;
-          font-size: 0.9rem;
-          color: rgba(0, 0, 0, 0.7);
+  &__form-submit {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: $btn-primary-bg;
+    color: $btn-primary-text;
+    border: 1px solid $btn-primary-bg;
+    border-radius: 6px;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.1s ease;
 
-          @include grid.respond-to('breakpoint-03') {
-            font-size: 1rem;
-          }
-        }
+    &:hover {
+      background-color: $btn-primary-hover;
+      border-color: $btn-primary-hover;
+    }
 
-        input {
-          padding: 0.75rem;
-          border: 1px solid rgba(0, 0, 0, 0.15);
-          border-radius: 6px;
-          background-color: #fff;
-          color: #000;
-          font-size: 1rem;
-          transition:
-            border-color 0.2s ease,
-            box-shadow 0.2s ease;
+    &:active {
+      transform: scale(0.98);
+    }
 
-          &:focus {
-            outline: none;
-            border-color: $button-background;
-            box-shadow: 0 0 0 3px rgba($button-background, 0.15);
-          }
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
 
-          &:hover:not(:focus) {
-            border-color: rgba(0, 0, 0, 0.3);
-          }
-        }
-
-        .error {
-          color: #e53935;
-          font-size: 0.85rem;
-          margin-top: 0.25rem;
-        }
-      }
-
-      button[type='submit'] {
-        align-self: flex-end;
-        margin-top: 0.5rem;
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
-        font-weight: 600;
-        background-color: $button-background;
-        color: $button-text;
-        border: 1px solid $button-background;
-        border-radius: 6px;
-        cursor: pointer;
-        transition:
-          background-color 0.2s ease,
-          border-color 0.2s ease,
-          transform 0.1s ease;
-
-        &:hover {
-          background-color: $button-hover;
-          border-color: $button-hover;
-        }
-
-        &:active {
-          transform: scale(0.98);
-        }
-
-        &:disabled {
-          opacity: 0.7;
-          cursor: not-allowed;
-        }
-
-        @include grid.respond-to('breakpoint-03') {
-          font-size: 1rem;
-        }
-      }
+    @include grid.respond-to('breakpoint-03') {
+      font-size: 1rem;
     }
   }
 }

@@ -27,9 +27,9 @@
     "selectApplicationButton": "Sélectionnez une autre application",
     "successAPIMessage": "Les renseignements du candidat ont été mis à jour avec succès!",
     "loadingMessage": "Chargement...",
-    "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et choisir un produit.",
+    "noApplicationMessage": "Aucune application trouvée. Veuillez revenir en arrière et en choisir un.",
     "noProductFound": "Aucun produit trouvé pour cette application. Veuillez revenir en arrière et choisir un produit.",
-    "backButton": "Retour",
+    "backButton": "Sélectionner l'application",
     "returnButton": "Retour aux produits",
     "validation": {
       "phoneNumberRequired": "Numéro de téléphone invalide. Seuls les chiffres sont autorisés.",
@@ -59,7 +59,14 @@
     "editPageErrors": {
       "pageTitle": "ID d'application manquant",
       "pageSubtitle": "Veuillez sélectionner une application valide",
-      "selectApplicationButton": "Sélectionnez une application"
+      "selectApplicationButton": "Sélectionnez une application",
+      "returnButton": "Retour aux produits"
+    },
+    "notFoundErrors": {
+      "pageTitle": "Page introuvable",
+      "pageSubtitle": "La page que vous recherchez n'existe pas ou a été déplacée",
+      "returnButton": "Retour aux produits",
+      "viewApplicationsButton": "Voir les candidatures"
     }
   }
 }

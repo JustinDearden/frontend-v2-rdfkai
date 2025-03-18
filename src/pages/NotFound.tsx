@@ -14,6 +14,7 @@ const NotFound: React.FC = () => {
         <div className="not-found__status">404</div>
         <div className="not-found__icon">
           <svg
+            className="not-found__icon-svg"
             xmlns="http://www.w3.org/2000/svg"
             width="64"
             height="64"
@@ -32,13 +33,10 @@ const NotFound: React.FC = () => {
           </svg>
         </div>
         <h1 className="not-found__title">
-          {t('errorPages.notFound.pageTitle', 'Page Not Found')}
+          {t('errorPages.notFoundErrors.pageTitle')}
         </h1>
         <p className="not-found__message">
-          {t(
-            'errorPages.notFound.pageSubtitle',
-            "The page you are looking for doesn't exist or has been moved.",
-          )}
+          {t('errorPages.notFoundErrors.pageSubtitle')}
         </p>
         <div className="not-found__actions">
           <Button
@@ -46,17 +44,14 @@ const NotFound: React.FC = () => {
             className="not-found__button"
             onClick={() => navigate({ to: '/' })}
           >
-            {t('errorPages.notFound.returnHomeButton', 'Return to Home')}
+            {t('errorPages.notFoundErrors.returnButton')}
           </Button>
           <Button
             variant="secondary"
             className="not-found__button"
             onClick={() => navigate({ to: '/applications' })}
           >
-            {t(
-              'errorPages.notFound.viewApplicationsButton',
-              'View Applications',
-            )}
+            {t('errorPages.notFoundErrors.viewApplicationsButton')}
           </Button>
         </div>
       </div>

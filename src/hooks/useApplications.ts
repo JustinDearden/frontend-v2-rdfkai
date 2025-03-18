@@ -13,6 +13,5 @@ export const useApplications = () => {
     queryFn: fetchApplications,
     refetchOnWindowFocus: false,
     retry: 1,
-    // staleTime: 1000 * 60 * 60,
   });
 };
