@@ -281,7 +281,6 @@
       box-shadow: 0 0 0 3px rgba($color-button-background, 0.3);
     }
 
-    // Reset margin for tablet and above when in the navbar
     @include grid.respond-to('breakpoint-04') {
       margin-top: 0;
     }

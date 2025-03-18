@@ -36,21 +36,25 @@ const ProductPage: React.FC = () => {
   if (isLoading)
     return (
       <div className="product-page__loading">
-        <div>{t('loading')}...</div>
+        <div className="product-page__loading-text">{t('loading')}...</div>
       </div>
     );
 
   if (error)
     return (
       <div className="product-page__loading">
-        <div>{t('errorLoadingData')}</div>
+        <div className="product-page__loading-text">
+          {t('errorLoadingData')}
+        </div>
       </div>
     );
 
   if (!products || products.length === 0)
     return (
       <div className="product-page__loading">
-        <div>{t('noProductsAvailable')}</div>
+        <div className="product-page__loading-text">
+          {t('noProductsAvailable')}
+        </div>
       </div>
     );
 
@@ -63,9 +67,9 @@ const ProductPage: React.FC = () => {
         {t('productPage.bestProducts')}
       </h2>
 
-      <section className="best-cards-section">
+      <section className="product-page__best-cards-section">
         {bestFixed && (
-          <div className="best-card">
+          <div className="product-page__best-card">
             <Card
               product={toCardProduct(bestFixed)}
               onSelect={() => handleSelectProduct(bestFixed)}
@@ -74,7 +78,7 @@ const ProductPage: React.FC = () => {
           </div>
         )}
         {bestVariable && (
-          <div className="best-card">
+          <div className="product-page__best-card">
             <Card
               product={toCardProduct(bestVariable)}
               onSelect={() => handleSelectProduct(bestVariable)}
@@ -86,8 +90,8 @@ const ProductPage: React.FC = () => {
 
       <hr className="product-page__divider" />
 
-      <section className="row-cards-section">
-        <div className="row-cards-column">
+      <section className="product-page__row-cards-section">
+        <div className="product-page__row-cards-column">
           <h3 className="product-page__column-title">
             {t('productPage.bestFixed')}
           </h3>
@@ -100,7 +104,7 @@ const ProductPage: React.FC = () => {
             />
           ))}
         </div>
-        <div className="row-cards-column">
+        <div className="product-page__row-cards-column">
           <h3 className="product-page__column-title">
             {t('productPage.bestVariable')}
           </h3>

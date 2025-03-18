@@ -33,13 +33,17 @@ const ApplicationsPage: React.FC = () => {
   if (isLoading)
     return (
       <div className="applications-page__loading">
-        {t('applicationsPage.loadingMessage')}
+        <p className="applications-page__loading-text">
+          {t('applicationsPage.loadingMessage')}
+        </p>
       </div>
     );
   if (error)
     return (
       <div className="applications-page__error">
-        {t('applicationsPage.apiMessage')}
+        <p className="applications-page__error-text">
+          {t('applicationsPage.apiMessage')}
+        </p>
       </div>
     );
 
@@ -62,64 +66,75 @@ const ApplicationsPage: React.FC = () => {
           {sortedApplications.map((app: Application) => (
             <li className="applications-page__item" key={app.id}>
               <div className="applications-page__item-content">
-                {/* Left side: Application details */}
+                {/* Application details */}
                 <div className="applications-page__item-left">
-                  <p>
-                    <strong>{t('applicationsPage.applicationInfo')}</strong>
+                  <p className="applications-page__item-info">
+                    <span className="applications-page__item-info-label">
+                      {t('applicationsPage.applicationInfo')}
+                    </span>
                   </p>
                   <div className="applications-page__item-left-details">
-                    <p>
-                      <strong>{t('applicationsPage.idTitle')}</strong> {app.id}
+                    <p className="applications-page__detail">
+                      <span className="applications-page__detail-label">
+                        {t('applicationsPage.idTitle')}
+                      </span>
+                      {app.id}
                     </p>
-                    <p>
-                      <strong>{t('applicationsPage.typeTitle')}</strong>{' '}
+                    <p className="applications-page__detail">
+                      <span className="applications-page__detail-label">
+                        {t('applicationsPage.typeTitle')}
+                      </span>
                       {app.type}
                     </p>
-                    <p>
-                      <strong>{t('applicationsPage.createdTitle')}</strong>{' '}
+                    <p className="applications-page__detail">
+                      <span className="applications-page__detail-label">
+                        {t('applicationsPage.createdTitle')}
+                      </span>
                       {formatDate(app.createdAt)}
                     </p>
                   </div>
                 </div>
-                {/* Right side: Applicant data with labels */}
+                {/* Applicant data */}
                 <div className="applications-page__item-right">
                   {app.applicants && app.applicants.length > 0 ? (
                     <div className="applications-page__applicants">
-                      <p>
-                        <strong>{t('applicationsPage.applicantsTitle')}</strong>
+                      <p className="applications-page__applicants-title">
+                        {t('applicationsPage.applicantsTitle')}
                       </p>
                       {app.applicants.map((applicant, index) => (
                         <div
                           key={index}
                           className="applications-page__applicant"
                         >
-                          <p>
-                            <strong>
+                          <p className="applications-page__applicant-detail">
+                            <span className="applications-page__applicant-label">
                               {t('applicationsPage.applicantName')}
-                            </strong>{' '}
-                            {applicant.firstName} {applicant.lastName}
+                            </span>
+                            {` ${applicant.firstName} ${applicant.lastName}`}
                           </p>
-                          <p>
-                            <strong>
+                          <p className="applications-page__applicant-detail">
+                            <span className="applications-page__applicant-label">
                               {t('applicationsPage.applicantEmail')}
-                            </strong>{' '}
-                            {applicant.email}
+                            </span>
+                            {` ${applicant.email}`}
                           </p>
-                          <p>
-                            <strong>
+                          <p className="applications-page__applicant-detail">
+                            <span className="applications-page__applicant-label">
                               {t('applicationsPage.applicantPhone')}
-                            </strong>{' '}
-                            {applicant.phone}
+                            </span>
+                            {` ${applicant.phone}`}
                           </p>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p>{t('applicationsPage.noApplicantDataFound')}</p>
+                    <p className="applications-page__no-applicant">
+                      {t('applicationsPage.noApplicantDataFound')}
+                    </p>
                   )}
                 </div>
               </div>
-              {/* Edit button on its own row */}
+              {/* Edit button */}
               <div className="applications-page__item-actions">
                 <Button
                   className="applications-page__edit-btn"
@@ -134,7 +149,9 @@ const ApplicationsPage: React.FC = () => {
         </ul>
       ) : (
         <div className="applications-page__empty">
-          <p>{t('applicationsPage.noApplicationsMessage')}</p>
+          <p className="applications-page__empty-text">
+            {t('applicationsPage.noApplicationsMessage')}
+          </p>
         </div>
       )}
     </div>

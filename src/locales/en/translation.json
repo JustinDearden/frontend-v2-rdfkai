@@ -60,7 +60,14 @@
     "editPageErrors": {
       "pageTitle": "Missing Application ID",
       "pageSubtitle": "Please select a valid application",
-      "selectApplicationButton": "Select an application"
+      "selectApplicationButton": "Select an application",
+      "returnButton": "Return to Products"
+    },
+    "notFoundErrors": {
+      "pageTitle": "Page Not Found",
+      "pageSubtitle": "The page you are looking for doesn't exist or has been moved",
+      "returnButton": "Return to Products",
+      "viewApplicationsButton": "View Applications"
     }
   }
 }

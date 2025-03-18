@@ -89,7 +89,6 @@ const EditApplicationPage: React.FC = () => {
     [application, isRateLimited, registerClick, updateApplicants, t],
   );
 
-  // Show skeleton loader while data is loading
   if (isLoading) {
     return <EditPageSkeleton />;
   }
@@ -98,7 +97,9 @@ const EditApplicationPage: React.FC = () => {
     return (
       <div className="edit-page">
         <div className="edit-page__message">
-          <p>{t('editPage.noApplicationMessage')}</p>
+          <p className="edit-page__message-text">
+            {t('editPage.noApplicationMessage')}
+          </p>
           <Button variant="primary" onClick={() => navigate({ to: '/' })}>
             {t('editPage.backButton')}
           </Button>
@@ -116,7 +117,9 @@ const EditApplicationPage: React.FC = () => {
     return (
       <div className="edit-page">
         <div className="edit-page__message">
-          <p>{t('editPage.noProductFound')}</p>
+          <p className="edit-page__message-text">
+            {t('editPage.noProductFound')}
+          </p>
           <Button variant="primary" onClick={() => navigate({ to: '/' })}>
             {t('editPage.backButton')}
           </Button>
@@ -144,11 +147,16 @@ const EditApplicationPage: React.FC = () => {
         </div>
 
         <div className="edit-page__right">
-          <h2>{t('editPage.mainApplicantTitle')}</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-              <label htmlFor="firstName">{t('form.firstName')}</label>
+          <h2 className="edit-page__section-title">
+            {t('editPage.mainApplicantTitle')}
+          </h2>
+          <form className="edit-page__form" onSubmit={handleSubmit(onSubmit)}>
+            <div className="edit-page__form-group">
+              <label className="edit-page__form-label" htmlFor="firstName">
+                {t('form.firstName')}
+              </label>
               <input
+                className="edit-page__form-input"
                 id="firstName"
                 {...register('firstName', {
                   required: t('form.errors.firstNameError'),
@@ -156,12 +164,17 @@ const EditApplicationPage: React.FC = () => {
                 aria-invalid={errors.firstName ? 'true' : 'false'}
               />
               {errors.firstName && (
-                <span className="error">{errors.firstName.message}</span>
+                <span className="edit-page__form-error">
+                  {errors.firstName.message}
+                </span>
               )}
             </div>
-            <div className="form-group">
-              <label htmlFor="lastName">{t('form.lastName')}</label>
+            <div className="edit-page__form-group">
+              <label className="edit-page__form-label" htmlFor="lastName">
+                {t('form.lastName')}
+              </label>
               <input
+                className="edit-page__form-input"
                 id="lastName"
                 {...register('lastName', {
                   required: t('form.errors.lastNameError'),
@@ -169,12 +182,17 @@ const EditApplicationPage: React.FC = () => {
                 aria-invalid={errors.lastName ? 'true' : 'false'}
               />
               {errors.lastName && (
-                <span className="error">{errors.lastName.message}</span>
+                <span className="edit-page__form-error">
+                  {errors.lastName.message}
+                </span>
               )}
             </div>
-            <div className="form-group">
-              <label htmlFor="email">{t('form.email')}</label>
+            <div className="edit-page__form-group">
+              <label className="edit-page__form-label" htmlFor="email">
+                {t('form.email')}
+              </label>
               <input
+                className="edit-page__form-input"
                 id="email"
                 type="email"
                 {...register('email', {
@@ -187,12 +205,17 @@ const EditApplicationPage: React.FC = () => {
                 aria-invalid={errors.email ? 'true' : 'false'}
               />
               {errors.email && (
-                <span className="error">{errors.email.message}</span>
+                <span className="edit-page__form-error">
+                  {errors.email.message}
+                </span>
               )}
             </div>
-            <div className="form-group">
-              <label htmlFor="phone">{t('form.phone')}</label>
+            <div className="edit-page__form-group">
+              <label className="edit-page__form-label" htmlFor="phone">
+                {t('form.phone')}
+              </label>
               <input
+                className="edit-page__form-input"
                 id="phone"
                 {...register('phone', {
                   required: t('editPage.validation.phoneError'),
@@ -209,12 +232,19 @@ const EditApplicationPage: React.FC = () => {
                     message: t('editPage.validation.phoneNumberMaxLen'),
                   },
                 })}
+                aria-invalid={errors.phone ? 'true' : 'false'}
               />
               {errors.phone && (
-                <span className="error">{errors.phone.message}</span>
+                <span className="edit-page__form-error">
+                  {errors.phone.message}
+                </span>
               )}
             </div>
-            <Button type="submit" disabled={isRateLimited}>
+            <Button
+              type="submit"
+              className="edit-page__form-submit"
+              disabled={isRateLimited}
+            >
               {isRateLimited
                 ? t('form.rateLimited')
                 : isSubmitting

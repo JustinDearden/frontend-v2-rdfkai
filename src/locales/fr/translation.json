@@ -59,7 +59,14 @@
     "editPageErrors": {
       "pageTitle": "ID d'application manquant",
       "pageSubtitle": "Veuillez sélectionner une application valide",
-      "selectApplicationButton": "Sélectionnez une application"
+      "selectApplicationButton": "Sélectionnez une application",
+      "returnButton": "Retour aux produits"
+    },
+    "notFoundErrors": {
+      "pageTitle": "Page introuvable",
+      "pageSubtitle": "La page que vous recherchez n'existe pas ou a été déplacée",
+      "returnButton": "Retour aux produits",
+      "viewApplicationsButton": "Voir les candidatures"
     }
   }
 }

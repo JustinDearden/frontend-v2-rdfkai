@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
     navigate({ to: '/' });
   };
 
-  // Handle keyboard navigation for logo
+  // Keyboard navigation for logo
   const handleLogoKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
     }
   };
 
-  // Handle keyboard navigation for links
+  // Keyboard navigation for links
   const handleLinkKeyDown = (e: React.KeyboardEvent, path: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
     };
   }, [mobileMenuOpen]);
 
-  // Automatically dismiss the mobile menu if viewport goes above 480px
+  // Dismiss mobile menu if viewport goes above 480px
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 480 && mobileMenuOpen) {
@@ -100,7 +100,7 @@ const Navbar: React.FC = () => {
       <div className="navbar__container">
         <div className="navbar__left">
           <img
-            src={Logo || '/placeholder.svg'}
+            src={Logo}
             alt="Logo"
             className="navbar__logo"
             onClick={handleLogoClick}
