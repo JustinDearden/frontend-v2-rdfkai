@@ -51,6 +51,7 @@
 
     @include grid.respond-to('breakpoint-03') {
       font-size: 1.4rem;
+      text-align: center;
     }
 
     @include grid.respond-to('breakpoint-05') {
@@ -143,6 +144,14 @@
 
     @include grid.respond-to('breakpoint-07') {
       gap: 2rem;
+    }
+  }
+
+  &__row-cards-column:nth-child(2) {
+    margin-top: 1rem;
+
+    @include grid.respond-to('breakpoint-04') {
+      margin-top: 0;
     }
   }
 

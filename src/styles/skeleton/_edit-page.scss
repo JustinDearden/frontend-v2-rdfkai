@@ -1,0 +1,82 @@
+@use '../_grid.scss' as grid;
+@use '../_variables.scss' as *;
+
+.skeleton-edit-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 1rem auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  gap: 1.5rem;
+
+  @include grid.respond-to('breakpoint-04') {
+    margin: 2rem auto;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+
+  @include grid.respond-to('breakpoint-07') {
+    margin: 3rem auto;
+    padding: 2rem;
+    gap: 2.5rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+    padding: 0 1rem;
+
+    @include grid.respond-to('breakpoint-04') {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 0;
+    }
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: calc(100% - 3rem);
+    max-width: 100%;
+    box-sizing: border-box;
+
+    @include grid.respond-to('breakpoint-03') {
+      max-width: 275px;
+      width: 100%;
+      padding-left: 24px;
+    }
+
+    @include grid.respond-to('breakpoint-04') {
+      flex: 0 0 300px;
+    }
+  }
+
+  &__select-another {
+    height: 2.5rem;
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  &__right {
+    width: 100%;
+    flex: 1 1 auto;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    @include grid.respond-to('breakpoint-03') {
+      padding: 2rem;
+    }
+  }
+}

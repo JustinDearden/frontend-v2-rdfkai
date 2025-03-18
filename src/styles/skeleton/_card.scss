@@ -1,0 +1,64 @@
+@use '../_grid.scss' as grid;
+@use '../_variables.scss' as *;
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  width: 100%;
+  min-height: 320px;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  @include grid.respond-to('breakpoint-03') {
+    margin-bottom: 0;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  &__type {
+    height: 1rem;
+    width: 40%;
+  }
+
+  &__name {
+    height: 1.5rem;
+    width: 80%;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    flex-grow: 1;
+    padding: 0.5rem 0;
+  }
+
+  &__rate {
+    height: 2.5rem;
+    width: 50%;
+  }
+
+  &__lender {
+    height: 1rem;
+    width: 70%;
+  }
+
+  &__button {
+    height: 2.5rem;
+    width: 100%;
+    border-radius: 6px;
+    margin-top: auto;
+  }
+}
