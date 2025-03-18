@@ -14,7 +14,7 @@ import './EditApplicationPage.scss';
 import Toast from '../components/Toast';
 import { useTranslation } from 'react-i18next';
 import Button from '../components/Button';
-import EditPageSkeleton from '../components/SkeletonLoader';
+import { EditPageSkeleton } from '../components/skeletons';
 
 interface FormData {
   firstName: string;

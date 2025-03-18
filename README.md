@@ -25,6 +25,8 @@
 - `/applications` - Applications page
   - Displays all valid applications
   - Select an application to edit the applicant information on `/edit/:id`
+- `/invalidRoute` - Error page
+  - Prompts the user to select a product or application
 
 ### Script Commands
 
@@ -34,3 +36,16 @@
 - `npm run lint` - Run the linter
 - `npm run storybook` - Start the storybook server
 - `npm run build-storybook` - Build the storybook app
+
+### Technologies Used
+
+- **React**: Core library for building the app’s UI.
+- **Vite**: Bundler and development server for fast builds and hot-module replacement.
+- **Storybook**: Used to develop and test UI components in isolation.
+- **Vitest**: Runs unit tests for ensuring code quality and functionality.
+- **React Query**: Manages server state, caching, and asynchronous API data fetching.
+- **React Router**: Handles client-side routing for smooth navigation between pages.
+- **React Hook Form**: Simplifies form management with built-in validation and error handling.
+- **i18next**: Provides localization support throughout the app.
+- **Styled Components / SCSS**: Styles the app using the BEM design conventions for predictable and scalable CSS class naming.
+- **Jest / React Testing Library**: Unit tests components and hooks to ensure functionality.
