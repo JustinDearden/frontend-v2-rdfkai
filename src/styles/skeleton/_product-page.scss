@@ -1,65 +1,118 @@
+@use 'sass:map' as map;
 @use '../_grid.scss' as grid;
 @use '../_variables.scss' as *;
 
 .skeleton-product-page {
   max-width: 1200px;
   margin: 1.5rem auto;
-  padding: 1rem;
+  padding: map.get(map.get(grid.$layout-settings, 'small'), 'padding');
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: map.get(map.get(grid.$layout-settings, 'small'), 'gutter');
 
   @include grid.respond-to('breakpoint-04') {
     margin: 2.5rem auto;
-    padding: 1.5rem;
+    padding: map.get(map.get(grid.$layout-settings, 'medium'), 'padding');
+    gap: map.get(map.get(grid.$layout-settings, 'medium'), 'gutter');
   }
 
   @include grid.respond-to('breakpoint-07') {
     margin: 3.5rem auto;
-    padding: 2rem;
+    padding: map.get(map.get(grid.$layout-settings, 'large'), 'padding');
+    gap: map.get(map.get(grid.$layout-settings, 'large'), 'gutter');
   }
 
   &__section-title {
     height: 2rem;
-    width: 200px;
-    margin-bottom: 1.5rem;
+    width: 60%;
+    max-width: 300px;
+    margin-bottom: 1rem;
 
     @include grid.respond-to('breakpoint-03') {
-      height: 2.2rem;
-      width: 250px;
-      margin: 0 auto 1.5rem;
+      height: 2.25rem;
+      margin-bottom: 1.25rem;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @include grid.respond-to('breakpoint-05') {
       height: 2.5rem;
-      width: 300px;
+      margin-bottom: 1.5rem;
     }
   }
 
   &__column-title {
     height: 1.5rem;
-    width: 150px;
-    margin-bottom: 1.5rem;
-    margin-left: 0;
+    width: 50%;
+    max-width: 200px;
+    margin-bottom: 1rem;
 
     @include grid.respond-to('breakpoint-03') {
-      height: 1.7rem;
-      width: 180px;
+      height: 1.75rem;
       margin-left: auto;
       margin-right: auto;
     }
 
     @include grid.respond-to('breakpoint-05') {
-      height: 1.9rem;
-      width: 200px;
-      margin-left: auto;
-      margin-right: auto;
+      height: 2rem;
+    }
+  }
+
+  &__best-cards-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 0;
+
+    @include grid.respond-to('breakpoint-03') {
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 5rem;
+    }
+
+    @include grid.respond-to('breakpoint-06') {
+      gap: 5.5rem;
+    }
+  }
+
+  &__best-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+
+    & > div {
+      width: 100%;
+      max-width: 100%;
+      min-height: 300px;
+    }
+
+    @include grid.respond-to('breakpoint-03') {
+      width: calc(50% - 1rem);
+      max-width: 270px;
+      margin-bottom: 0;
+    }
+
+    @include grid.respond-to('breakpoint-05') {
+      width: calc(50% - 1.25rem);
+    }
+
+    @include grid.respond-to('breakpoint-06') {
+      width: calc(50% - 1.5rem);
     }
   }
 
   &__divider {
     width: 100%;
     height: 1px;
-    margin: 1.5rem 0;
     background-color: rgba(0, 0, 0, 0.08);
+    margin: 1.5rem 0;
 
     @include grid.respond-to('breakpoint-04') {
       margin: 2rem 0;
@@ -70,24 +123,8 @@
     }
   }
 
-  &__best-cards-section {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    @include grid.respond-to('breakpoint-03') {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-      justify-content: center;
-    }
-
-    @include grid.respond-to('breakpoint-06') {
-      gap: 3.5rem;
-    }
-  }
-
   &__row-cards-section {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -101,37 +138,23 @@
   &__row-cards-column {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
+    width: 100%;
+
     @include grid.respond-to('breakpoint-04') {
-      gap: 1.75rem;
+      gap: 1.5rem;
     }
 
     @include grid.respond-to('breakpoint-07') {
-      gap: 2.25rem;
+      gap: 2rem;
     }
   }
 
-  &__best-card {
-    width: 100%;
-    @include grid.respond-to('breakpoint-03') {
-      width: calc(50% - 0.75rem);
-      max-width: 320px;
+  &__row-cards-column:nth-child(2) {
+    margin-top: 1rem;
+
+    @include grid.respond-to('breakpoint-04') {
+      margin-top: 0;
     }
-
-    @include grid.respond-to('breakpoint-05') {
-      width: calc(50% - 1.25rem);
-    }
-
-    @include grid.respond-to('breakpoint-06') {
-      width: calc(50% - 1.5rem);
-    }
-  }
-}
-
-.skeleton-product-page__best-card {
-  width: auto;
-
-  @include grid.respond-to('breakpoint-03') {
-    width: 100%;
   }
 }
