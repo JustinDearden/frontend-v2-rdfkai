@@ -88,8 +88,8 @@
     margin-bottom: 1rem;
 
     & > div {
-      width: 100%;
-      max-width: 100%;
+      // width: 100%;
+      // max-width: 100%;
       min-height: 300px;
     }
 
@@ -156,5 +156,12 @@
     @include grid.respond-to('breakpoint-04') {
       margin-top: 0;
     }
+  }
+}
+
+.skeleton-card {
+  width: 80%;
+  @include grid.respond-to('breakpoint-04') {
+    width: 100%;
   }
 }
