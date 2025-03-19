@@ -52,9 +52,9 @@ const ApplicationsPage: React.FC = () => {
   return (
     <div className="applications-page">
       <div className="applications-page__header">
-        <h1 className="applications-page__title">
+        <p className="applications-page__title">
           {t('applicationsPage.pageTitle')}
-        </h1>
+        </p>
         <Button
           className="applications-page__return"
           onClick={() => navigate({ to: '/' })}

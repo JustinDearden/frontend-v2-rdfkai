@@ -12,6 +12,7 @@ import ProductPage from './pages/ProductPage';
 import EditApplicationPage from './pages/EditApplicationPage';
 import ApplicationsPage from './pages/ApplicationsPage';
 import NotFound from './pages/NotFound';
+import { useTranslation } from 'react-i18next';
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -63,9 +64,11 @@ const routeTree = rootRoute.addChildren([
 const router = createRouter({ routeTree });
 
 const App = () => {
+  const { t } = useTranslation();
+
   return (
     <SelectedProductProvider>
-      <h1 className="sr-only">Nesto Rates Application</h1>
+      <h1 className="sr-only">{t('screenReader')}</h1>
       <RouterProvider router={router} />
     </SelectedProductProvider>
   );

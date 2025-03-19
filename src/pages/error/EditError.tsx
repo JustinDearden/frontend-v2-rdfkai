@@ -30,9 +30,9 @@ const EditError: React.FC = () => {
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
         </div>
-        <h1 className="edit-error__title">
+        <p className="edit-error__title">
           {t('errorPages.editPageErrors.pageTitle')}
-        </h1>
+        </p>
         <p className="edit-error__message">
           {t('errorPages.editPageErrors.pageSubtitle')}
         </p>
