@@ -1,0 +1,97 @@
+@use '../_grid.scss' as grid;
+@use '../_variables.scss' as *;
+
+.skeleton-row-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    @include grid.respond-to('breakpoint-03') {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__type {
+    height: 0.8rem;
+    width: 30%;
+
+    @include grid.respond-to('breakpoint-03') {
+      width: 20%;
+    }
+  }
+
+  &__name {
+    height: 1.1rem;
+    width: 70%;
+
+    @include grid.respond-to('breakpoint-03') {
+      width: 60%;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0;
+
+    @include grid.respond-to('breakpoint-03') {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__rate {
+    height: 1.8rem;
+    width: 40%;
+
+    @include grid.respond-to('breakpoint-03') {
+      width: 20%;
+    }
+  }
+
+  &__lender {
+    height: 0.9rem;
+    width: 60%;
+
+    @include grid.respond-to('breakpoint-03') {
+      width: 60%;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-top: 0.5rem;
+  }
+
+  &__button {
+    height: 2.2rem;
+    width: 100%;
+    border-radius: 4px;
+
+    @include grid.respond-to('breakpoint-03') {
+      width: 120px;
+    }
+  }
+}

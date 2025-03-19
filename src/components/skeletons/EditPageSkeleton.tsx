@@ -1,6 +1,6 @@
 import type React from 'react';
-import './SkeletonLoader.scss';
 import { CardSkeleton, FormSkeleton, Skeleton } from './BaseSkeletons';
+import '../../styles/skeleton/_edit-page.scss';
 
 const EditPageSkeleton: React.FC = () => (
   <div className="skeleton-edit-page">

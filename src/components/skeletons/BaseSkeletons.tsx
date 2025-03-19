@@ -1,5 +1,8 @@
 import type React from 'react';
-import './SkeletonLoader.scss';
+import '../../styles/skeleton/_base.scss';
+import '../../styles/skeleton/_card.scss';
+import '../../styles/skeleton/_row-card.scss';
+import '../../styles/skeleton/_form.scss';
 
 interface SkeletonProps {
   className?: string;

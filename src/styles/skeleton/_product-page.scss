@@ -1,8 +1,8 @@
 @use 'sass:map' as map;
-@use '../styles/_grid.scss' as grid;
-@use '../styles/_variables.scss' as *;
+@use '../_grid.scss' as grid;
+@use '../_variables.scss' as *;
 
-.product-page {
+.skeleton-product-page {
   max-width: 1200px;
   margin: 1.5rem auto;
   padding: map.get(map.get(grid.$layout-settings, 'small'), 'padding');
@@ -24,38 +24,38 @@
   }
 
   &__section-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 0.8);
-    margin: 0 0 1rem;
-    text-align: left;
+    height: 2rem;
+    width: 60%;
+    max-width: 300px;
+    margin-bottom: 1rem;
 
     @include grid.respond-to('breakpoint-03') {
-      font-size: 1.75rem;
+      height: 2.25rem;
       margin-bottom: 1.25rem;
-      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @include grid.respond-to('breakpoint-05') {
-      font-size: 2rem;
+      height: 2.5rem;
       margin-bottom: 1.5rem;
     }
   }
 
   &__column-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 0.8);
-    margin: 0 0 1rem;
-    text-align: left;
+    height: 1.5rem;
+    width: 50%;
+    max-width: 200px;
+    margin-bottom: 1rem;
 
     @include grid.respond-to('breakpoint-03') {
-      font-size: 1.4rem;
-      text-align: center;
+      height: 1.75rem;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @include grid.respond-to('breakpoint-05') {
-      font-size: 1.5rem;
+      height: 2rem;
     }
   }
 
@@ -71,11 +71,11 @@
       flex-direction: row;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 5rem;
     }
 
     @include grid.respond-to('breakpoint-06') {
-      gap: 2.5rem;
+      gap: 5.5rem;
     }
   }
 
@@ -85,15 +85,18 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
+    margin-bottom: 1rem;
 
     & > div {
       width: 100%;
       max-width: 100%;
+      min-height: 300px;
     }
 
     @include grid.respond-to('breakpoint-03') {
-      width: calc(50% - 0.75rem);
-      max-width: 320px;
+      width: calc(50% - 1rem);
+      max-width: 270px;
+      margin-bottom: 0;
     }
 
     @include grid.respond-to('breakpoint-05') {
@@ -107,8 +110,8 @@
 
   &__divider {
     width: 100%;
-    border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.08);
     margin: 1.5rem 0;
 
     @include grid.respond-to('breakpoint-04') {
@@ -152,33 +155,6 @@
 
     @include grid.respond-to('breakpoint-04') {
       margin-top: 0;
-    }
-  }
-
-  &__loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 50vh;
-    padding: 2rem;
-    background-color: rgba(0, 0, 0, 0.02);
-    border-radius: 8px;
-    border: 1px dashed rgba(0, 0, 0, 0.1);
-    margin: 2rem;
-
-    @include grid.respond-to('breakpoint-04') {
-      height: 60vh;
-    }
-  }
-
-  &__loading-text {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.7);
-
-    @include grid.respond-to('breakpoint-04') {
-      font-size: 1.5rem;
     }
   }
 }

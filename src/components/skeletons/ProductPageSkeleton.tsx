@@ -1,6 +1,6 @@
 import type React from 'react';
 import { CardSkeleton, RowCardSkeleton, Skeleton } from './BaseSkeletons';
-import './SkeletonLoader.scss';
+import '../../styles/skeleton/_product-page.scss';
 
 const ProductPageSkeleton: React.FC = () => (
   <div className="skeleton-product-page">
