@@ -96,3 +96,6 @@
 
 - **Postman Collection for API:**  
   A Postman collection is included to interface with the API. It features an environment file that allows you to easily switch out variables (e.g., application ID) for testing different scenarios.
+
+- **Design System & Layout Tokens:**  
+  Developed a lightweight design system that defines reusable tokens for variables, breakpoints, and layout settings (such as margins, paddings, gutters, and column counts) across different screen sizes. This system ensures consistent styling and responsive behavior, making it easy to maintain and extend the CSS framework throughout the application.

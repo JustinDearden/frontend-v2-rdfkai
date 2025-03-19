@@ -68,7 +68,6 @@ const ApplicationsPage: React.FC = () => {
           {sortedApplications.map((app: Application) => (
             <li className="applications-page__item" key={app.id}>
               <div className="applications-page__item-content">
-                {/* Application details */}
                 <div className="applications-page__item-left">
                   <p className="applications-page__item-info">
                     <span className="applications-page__item-info-label">
@@ -96,7 +95,7 @@ const ApplicationsPage: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                {/* Applicant data */}
+
                 <div className="applications-page__item-right">
                   {app.applicants && app.applicants.length > 0 ? (
                     <div className="applications-page__applicants">
@@ -136,7 +135,7 @@ const ApplicationsPage: React.FC = () => {
                   )}
                 </div>
               </div>
-              {/* Edit button */}
+
               <div className="applications-page__item-actions">
                 <Button
                   className="applications-page__edit-btn"
