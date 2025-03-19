@@ -77,6 +77,11 @@
 
     @include grid.respond-to('breakpoint-03') {
       padding: 2rem;
+      height: 565px;
     }
   }
+}
+
+.skeleton-card {
+  min-height: 300px;
 }
