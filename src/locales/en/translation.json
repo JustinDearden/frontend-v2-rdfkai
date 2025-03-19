@@ -14,6 +14,7 @@
     "lastName": "Last Name",
     "email": "Email",
     "phone": "Phone",
+    "submitting": "Submitting",
     "errors": {
       "firstNameError": "First name is required",
       "lastNameError": "Last name is required",

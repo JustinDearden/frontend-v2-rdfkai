@@ -14,6 +14,7 @@
     "lastName": "Nom",
     "email": "Courriel",
     "phone": "Téléphone",
+    "submitting": "Soumission",
     "errors": {
       "firstNameError": "Le prénom est obligatoire",
       "lastNameError": "Le nom de famille est obligatoire",
