@@ -32,9 +32,9 @@ const NotFound: React.FC = () => {
             <line x1="8" y1="11" x2="14" y2="11"></line>
           </svg>
         </div>
-        <h1 className="not-found__title">
+        <p className="not-found__title">
           {t('errorPages.notFoundErrors.pageTitle')}
-        </h1>
+        </p>
         <p className="not-found__message">
           {t('errorPages.notFoundErrors.pageSubtitle')}
         </p>
