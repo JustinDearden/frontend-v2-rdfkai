@@ -144,7 +144,6 @@
       gap: 2rem;
       position: relative;
 
-      // Centered divider
       &::after {
         content: '';
         position: absolute;
@@ -259,7 +258,6 @@
     padding-top: 1.25rem;
   }
 
-  /* Edit button styles */
   &__edit-btn {
     width: 100%;
     padding: 0.625rem 1rem;
@@ -323,7 +321,6 @@
   }
 }
 
-/* Loading and error states */
 .applications-page__loading,
 .applications-page__error {
   display: flex;
