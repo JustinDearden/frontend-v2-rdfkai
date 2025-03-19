@@ -93,3 +93,6 @@
 
 - **Unit Tests for Helper Methods:**  
   There are unit tests for the helper methods in `dateFormatter.ts` and `productHelper.ts` to ensure they function correctly.
+
+- **Postman Collection for API:**  
+  A Postman collection is included to interface with the API. It features an environment file that allows you to easily switch out variables (e.g., application ID) for testing different scenarios.
