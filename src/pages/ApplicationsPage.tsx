@@ -13,10 +13,18 @@ const ApplicationsPage: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  /*
+   * useMemo will essentailly cache the results of a large computation (memoizing them)
+   * Will only recalculate when the input changes - in this case the applications data (returned from the hook) changes
+   * It will only sort
+   */
   const sortedApplications = useMemo(() => {
     if (!applications) return [];
+    // ...applications - creates a copy of the array to avoid modifying the original
     return [...applications]
       .filter((app) =>
+        // using .some() allows us to quickly check if at least one application meets our needs - returns a boolean immediately
+        // If we just filter the array and check the resulting array has a length greater than zero
         app.applicants.some(
           (applicant) => applicant.email && applicant.email.trim() !== '',
         ),

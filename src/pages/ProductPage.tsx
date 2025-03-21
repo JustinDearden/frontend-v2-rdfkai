@@ -19,6 +19,11 @@ const ProductPage: React.FC = () => {
   const createApplicationMutation = useCreateApplication();
   const { setSelectedProduct } = useSelectedProduct();
 
+  /*
+   * useCallback helps optomize the performance of your component by memoizing the handleSelectProduct function
+   * Unless one of the dependencies (setSelectedProduct, createApplicationMutation or navigate) changes, the same function instance is returned on each render
+   * This is useful when passing this function as a prop to child components or using it in a dependency array of another hook (useEffect hook)
+   */
   const handleSelectProduct = useCallback(
     async (product: Product) => {
       try {

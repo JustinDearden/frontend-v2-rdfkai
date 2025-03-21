@@ -34,6 +34,9 @@ const EditApplicationPage: React.FC = () => {
     error: appError,
   } = useApplicationById(appId);
   const { data: products, isLoading: isProductsLoading } = useProducts();
+  // destructure useUpdateApplicants - useMutate returns an object that can be destructured
+  // mutate is renamed to updateApplicatnts by destructuring
+  // object also has isLoading, isError, data, error, mutate (the methodto call to perform the PUT/POST), status
   const { mutate: updateApplicants, status } = useUpdateApplicants();
   const isSubmitting = status === 'pending';
   const isLoading = isAppLoading || isProductsLoading;
