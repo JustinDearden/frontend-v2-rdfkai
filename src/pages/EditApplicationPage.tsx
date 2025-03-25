@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useState, useMemo } from 'react';
 import { useNavigate, useParams } from '@tanstack/react-router';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import Card from '../components/Card';
@@ -15,6 +15,8 @@ import Toast from '../components/Toast';
 import { useTranslation } from 'react-i18next';
 import Button from '../components/Button';
 import { EditPageSkeleton } from '../components/skeletons';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { getFormSchema } from '../schemas/formSchema';
 
 interface FormData {
   firstName: string;
@@ -38,12 +40,15 @@ const EditApplicationPage: React.FC = () => {
   const isSubmitting = status === 'pending';
   const isLoading = isAppLoading || isProductsLoading;
 
+  const formSchema = useMemo(() => getFormSchema(t), [t]);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isDirty },
   } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
     defaultValues: { firstName: '', lastName: '', email: '', phone: '' },
     mode: 'onChange',
   });
@@ -161,9 +166,7 @@ const EditApplicationPage: React.FC = () => {
               <input
                 className="edit-page__form-input"
                 id="firstName"
-                {...register('firstName', {
-                  required: t('form.errors.firstNameError'),
-                })}
+                {...register('firstName')}
                 aria-invalid={errors.firstName ? 'true' : 'false'}
               />
               {errors.firstName && (
@@ -179,9 +182,7 @@ const EditApplicationPage: React.FC = () => {
               <input
                 className="edit-page__form-input"
                 id="lastName"
-                {...register('lastName', {
-                  required: t('form.errors.lastNameError'),
-                })}
+                {...register('lastName')}
                 aria-invalid={errors.lastName ? 'true' : 'false'}
               />
               {errors.lastName && (
@@ -198,13 +199,7 @@ const EditApplicationPage: React.FC = () => {
                 className="edit-page__form-input"
                 id="email"
                 type="email"
-                {...register('email', {
-                  required: t('form.errors.emailError'),
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
-                    message: t('form.errors.emailError'),
-                  },
-                })}
+                {...register('email')}
                 aria-invalid={errors.email ? 'true' : 'false'}
               />
               {errors.email && (
@@ -220,21 +215,7 @@ const EditApplicationPage: React.FC = () => {
               <input
                 className="edit-page__form-input"
                 id="phone"
-                {...register('phone', {
-                  required: t('editPage.validation.phoneError'),
-                  pattern: {
-                    value: /^[0-9]+$/,
-                    message: t('editPage.validation.phoneNumberRequired'),
-                  },
-                  minLength: {
-                    value: 10,
-                    message: t('editPage.validation.phoneNumberMinLen'),
-                  },
-                  maxLength: {
-                    value: 10,
-                    message: t('editPage.validation.phoneNumberMaxLen'),
-                  },
-                })}
+                {...register('phone')}
                 aria-invalid={errors.phone ? 'true' : 'false'}
               />
               {errors.phone && (

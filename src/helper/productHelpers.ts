@@ -7,39 +7,40 @@ export interface OrganizedProducts {
   remainingVariable: Product[];
 }
 
-export const organizeProducts = (products: Product[]): OrganizedProducts => {
-  const fixedProducts = products.filter((p) => p.type === 'FIXED');
-  const variableProducts = products.filter((p) => p.type === 'VARIABLE');
+export const organizeProducts = (products: Product[]): OrganizedProducts =>
+  products.reduce<OrganizedProducts>(
+    (acc, product) => {
+      switch (product.type) {
+        case 'FIXED':
+          if (!acc.bestFixed || product.bestRate < acc.bestFixed.bestRate) {
+            if (acc.bestFixed) acc.remainingFixed.push(acc.bestFixed);
+            acc.bestFixed = product;
+          } else {
+            acc.remainingFixed.push(product);
+          }
+          break;
+        case 'VARIABLE':
+          if (
+            !acc.bestVariable ||
+            product.bestRate < acc.bestVariable.bestRate
+          ) {
+            if (acc.bestVariable) acc.remainingVariable.push(acc.bestVariable);
+            acc.bestVariable = product;
+          } else {
+            acc.remainingVariable.push(product);
+          }
+          break;
+      }
 
-  const bestFixed =
-    fixedProducts.length > 0
-      ? fixedProducts.reduce((prev, curr) =>
-          prev.bestRate < curr.bestRate ? prev : curr,
-        )
-      : null;
-
-  const bestVariable =
-    variableProducts.length > 0
-      ? variableProducts.reduce((prev, curr) =>
-          prev.bestRate < curr.bestRate ? prev : curr,
-        )
-      : null;
-
-  const remainingFixed = bestFixed
-    ? fixedProducts.filter((p) => p.id !== bestFixed.id)
-    : [];
-
-  const remainingVariable = bestVariable
-    ? variableProducts.filter((p) => p.id !== bestVariable.id)
-    : [];
-
-  return {
-    bestFixed,
-    remainingFixed,
-    bestVariable,
-    remainingVariable,
-  };
-};
+      return acc;
+    },
+    {
+      bestFixed: null,
+      remainingFixed: [],
+      bestVariable: null,
+      remainingVariable: [],
+    },
+  );
 
 export const toCardProduct = (product: {
   id: number;

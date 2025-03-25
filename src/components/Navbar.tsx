@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import './Navbar.scss';
-import Logo from '../assets/images/svg/logo-nesto-en.svg';
+import Logo from '../assets/images/png/logo.png';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from '@tanstack/react-router';
 import Button from '../components/Button';
